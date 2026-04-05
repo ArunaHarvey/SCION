@@ -1,0 +1,191 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Hplc.Controller.Api",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/batch": {
+      "get": {
+        "tags": [
+          "Batch"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Batch"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Batch"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Batch"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Batch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/batch/{batchName}": {
+      "get": {
+        "tags": [
+          "Batch"
+        ],
+        "parameters": [
+          {
+            "name": "batchName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/batch/{batchName}/samples": {
+      "get": {
+        "tags": [
+          "Batch"
+        ],
+        "parameters": [
+          {
+            "name": "batchName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/batch/run/queue": {
+      "get": {
+        "tags": [
+          "BatchRun"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/batch/run/queue/{batchName}": {
+      "post": {
+        "tags": [
+          "BatchRun"
+        ],
+        "parameters": [
+          {
+            "name": "batchName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/methods": {
+      "get": {
+        "tags": [
+          "Method"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Batch": {
+        "type": "object",
+        "properties": {
+          "batchName": {
+            "type": "string",
+            "nullable": true
+          },
+          "samples": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Sample"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Sample": {
+        "type": "object",
+        "properties": {
+          "serialNo": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sampleName": {
+            "type": "string",
+            "nullable": true
+          },
+          "injectionLocation": {
+            "type": "string",
+            "nullable": true
+          },
+          "injectionVolume": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "methodId": {
+            "type": "string",
+            "nullable": true
+          },
+          "assignedLC": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

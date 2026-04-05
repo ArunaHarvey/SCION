@@ -1,0 +1,26 @@
+{
+  "BatchId": "34226b18-9bef-44dc-aad9-0f5aa97d444c",
+  "BatchName": "d",
+  "CreatedOn": "2026-03-30T17:11:38.7620365+05:30",
+  "Status": "Created",
+  "Samples": [
+    {
+      "SerialNo": 1,
+      "SampleName": "d",
+      "InjectionLocation": "d",
+      "InjectionVolume": 10,
+      "MethodId": "M001",
+      "AssignedLC": 1,
+      "Status": "Pending"
+    },
+    {
+      "SerialNo": 2,
+      "SampleName": "dd",
+      "InjectionLocation": "w",
+      "InjectionVolume": 10,
+      "MethodId": "M002",
+      "AssignedLC": 2,
+      "Status": "Pending"
+    }
+  ]
+}

@@ -1,0 +1,168 @@
+{
+  "batchName": "Batch_Assay_Run",
+  "samples": [
+    {
+      "serialNo": 1,
+      "sampleName": "Assay_S01",
+      "injectionLocation": "Vial_01",
+      "injectionVolume": 10,
+      "methodId": "M001",
+      "assignedLC": 1
+    },
+    {
+      "serialNo": 2,
+      "sampleName": "Assay_S02",
+      "injectionLocation": "Vial_02",
+      "injectionVolume": 10,
+      "methodId": "M001",
+      "assignedLC": 1
+    },
+    {
+      "serialNo": 3,
+      "sampleName": "Assay_S03",
+      "injectionLocation": "Vial_03",
+      "injectionVolume": 10,
+      "methodId": "M001",
+      "assignedLC": 1
+    },
+    {
+      "serialNo": 4,
+      "sampleName": "Assay_S04",
+      "injectionLocation": "Vial_04",
+      "injectionVolume": 10,
+      "methodId": "M001",
+      "assignedLC": 1
+    },
+    {
+      "serialNo": 5,
+      "sampleName": "Assay_S05",
+      "injectionLocation": "Vial_05",
+      "injectionVolume": 10,
+      "methodId": "M001",
+      "assignedLC": 1
+    },
+
+    {
+      "serialNo": 6,
+      "sampleName": "Assay_S06",
+      "injectionLocation": "Vial_06",
+      "injectionVolume": 10,
+      "methodId": "M001",
+      "assignedLC": 2
+    },
+    {
+      "serialNo": 7,
+      "sampleName": "Assay_S07",
+      "injectionLocation": "Vial_07",
+      "injectionVolume": 10,
+      "methodId": "M001",
+      "assignedLC": 2
+    },
+    {
+      "serialNo": 8,
+      "sampleName": "Assay_S08",
+      "injectionLocation": "Vial_08",
+      "injectionVolume": 10,
+      "methodId": "M001",
+      "assignedLC": 2
+    },
+    {
+      "serialNo": 9,
+      "sampleName": "Assay_S09",
+      "injectionLocation": "Vial_09",
+      "injectionVolume": 10,
+      "methodId": "M001",
+      "assignedLC": 2
+    },
+    {
+      "serialNo": 10,
+      "sampleName": "Assay_S10",
+      "injectionLocation": "Vial_10",
+      "injectionVolume": 10,
+      "methodId": "M001",
+      "assignedLC": 2
+    },
+
+    {
+      "serialNo": 11,
+      "sampleName": "Assay_S11",
+      "injectionLocation": "Vial_11",
+      "injectionVolume": 10,
+      "methodId": "M001",
+      "assignedLC": 3
+    },
+    {
+      "serialNo": 12,
+      "sampleName": "Assay_S12",
+      "injectionLocation": "Vial_12",
+      "injectionVolume": 10,
+      "methodId": "M001",
+      "assignedLC": 3
+    },
+    {
+      "serialNo": 13,
+      "sampleName": "Assay_S13",
+      "injectionLocation": "Vial_13",
+      "injectionVolume": 10,
+      "methodId": "M001",
+      "assignedLC": 3
+    },
+    {
+      "serialNo": 14,
+      "sampleName": "Assay_S14",
+      "injectionLocation": "Vial_14",
+      "injectionVolume": 10,
+      "methodId": "M001",
+      "assignedLC": 3
+    },
+    {
+      "serialNo": 15,
+      "sampleName": "Assay_S15",
+      "injectionLocation": "Vial_15",
+      "injectionVolume": 10,
+      "methodId": "M001",
+      "assignedLC": 3
+    },
+
+    {
+      "serialNo": 16,
+      "sampleName": "Assay_S16",
+      "injectionLocation": "Vial_16",
+      "injectionVolume": 10,
+      "methodId": "M001",
+      "assignedLC": 4
+    },
+    {
+      "serialNo": 17,
+      "sampleName": "Assay_S17",
+      "injectionLocation": "Vial_17",
+      "injectionVolume": 10,
+      "methodId": "M001",
+      "assignedLC": 4
+    },
+    {
+      "serialNo": 18,
+      "sampleName": "Assay_S18",
+      "injectionLocation": "Vial_18",
+      "injectionVolume": 10,
+      "methodId": "M001",
+      "assignedLC": 4
+    },
+    {
+      "serialNo": 19,
+      "sampleName": "Assay_S19",
+      "injectionLocation": "Vial_19",
+      "injectionVolume": 10,
+      "methodId": "M001",
+      "assignedLC": 4
+    },
+    {
+      "serialNo": 20,
+      "sampleName": "Assay_S20",
+      "injectionLocation": "Vial_20",
+      "injectionVolume": 10,
+      "methodId": "M001",
+      "assignedLC": 4
+    }
+  ]
+}

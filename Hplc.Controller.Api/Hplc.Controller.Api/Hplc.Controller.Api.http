@@ -1,0 +1,6 @@
+@Hplc.Controller.Api_HostAddress = http://localhost:5012
+
+GET {{Hplc.Controller.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

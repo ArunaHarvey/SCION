@@ -1,0 +1,16 @@
+[
+  {
+    "BatchName": "3gfgwefw",
+    "Status": "Queued",
+    "QueuePosition": 1,
+    "BatchStarted": null,
+    "BatchCompleted": null
+  },
+  {
+    "BatchName": "Batch_Assay_Run",
+    "Status": "Queued",
+    "QueuePosition": 2,
+    "BatchStarted": null,
+    "BatchCompleted": null
+  }
+]

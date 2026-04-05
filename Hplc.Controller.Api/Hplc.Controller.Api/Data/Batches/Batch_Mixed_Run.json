@@ -1,0 +1,64 @@
+{
+  "batchName": "Batch_Mixed_Run",
+  "samples": [
+    {
+      "serialNo": 1,
+      "sampleName": "Mix_S01",
+      "injectionLocation": "Vial_01",
+      "injectionVolume": 10,
+      "methodId": "M001",
+      "assignedLC": 1
+    },
+    {
+      "serialNo": 2,
+      "sampleName": "Mix_S02",
+      "injectionLocation": "Vial_02",
+      "injectionVolume": 10,
+      "methodId": "M002",
+      "assignedLC": 1
+    },
+    {
+      "serialNo": 3,
+      "sampleName": "Mix_S03",
+      "injectionLocation": "Vial_03",
+      "injectionVolume": 10,
+      "methodId": "M003",
+      "assignedLC": 1
+    },
+
+    {
+      "serialNo": 4,
+      "sampleName": "Mix_S04",
+      "injectionLocation": "Vial_04",
+      "injectionVolume": 10,
+      "methodId": "M001",
+      "assignedLC": 2
+    },
+    {
+      "serialNo": 5,
+      "sampleName": "Mix_S05",
+      "injectionLocation": "Vial_05",
+      "injectionVolume": 10,
+      "methodId": "M002",
+      "assignedLC": 2
+    },
+    {
+      "serialNo": 6,
+      "sampleName": "Mix_S06",
+      "injectionLocation": "Vial_06",
+      "injectionVolume": 10,
+      "methodId": "M003",
+      "assignedLC": 2
+    },
+
+    
+    {
+      "serialNo": 25,
+      "sampleName": "Mix_S25",
+      "injectionLocation": "Vial_25",
+      "injectionVolume": 10,
+      "methodId": "M001",
+      "assignedLC": 4
+    }
+  ]
+}

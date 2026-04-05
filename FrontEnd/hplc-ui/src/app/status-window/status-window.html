@@ -1,0 +1,26 @@
+<h3>Batch Status</h3>
+
+<div *ngIf="runs$ | async as runs">
+
+  <p *ngIf="runs.length === 0">
+    No batches running
+  </p>
+
+  <table *ngIf="runs.length > 0">
+    <thead>
+      <tr>
+        <th>Batch Name</th>
+        <th>Status</th>
+        <th>Queue Position</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let r of runs">
+        <td>{{ r.batchName }}</td>
+        <td>{{ r.status }}</td>
+        <td>{{ r.queuePosition }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

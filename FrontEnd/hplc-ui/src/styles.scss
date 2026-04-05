@@ -1,0 +1,18 @@
+/* ============================================
+   Angular Material Prebuilt Theme (STABLE)
+   ============================================ */
+
+/* ✅ This is the ONLY supported approach
+   with @angular/build:application today */
+
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+/* ============================================
+   Your global styles continue below
+   ============================================ */
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

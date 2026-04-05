@@ -1,0 +1,31 @@
+<header class="app-header">
+  <div class="app-title">HPLC Controller</div>
+
+  <nav class="app-nav">
+    <a
+      routerLink="/create-batch"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      Create Batch
+    </a>
+
+    <a
+      routerLink="/batch-run"
+      routerLinkActive="active"
+    >
+      Batch Run
+    </a>
+
+    <a
+      routerLink="/status"
+      routerLinkActive="active"
+    >
+      Status
+    </a>
+  </nav>
+</header>
+
+<main class="app-content">
+  <router-outlet></router-outlet>
+</main>

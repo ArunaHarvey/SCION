@@ -1,0 +1,21 @@
+{
+  "batchName": "Demo_Batch_001",
+  "samples": [
+    {
+      "serialNo": 1,
+      "sampleName": "Sample_A",
+      "injectionLocation": "Vial_01",
+      "injectionVolume": 10,
+      "methodId": "M001",
+      "assignedLC": 1
+    },
+    {
+      "serialNo": 2,
+      "sampleName": "Sample_B",
+      "injectionLocation": "Vial_02",
+      "injectionVolume": 5,
+      "methodId": "M002",
+      "assignedLC": 2
+    }
+  ]
+}

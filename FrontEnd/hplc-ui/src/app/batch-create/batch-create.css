@@ -1,0 +1,49 @@
+.batch-container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.header-grid {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.samples-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.samples-table th,
+.samples-table td {
+  padding: 8px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.samples-table input,
+.samples-table select {
+  width: 100%;
+  padding: 6px;
+  box-sizing: border-box;
+}
+
+/* ✅ CRITICAL: Native select visibility fix */
+.samples-table select,
+.samples-table select option {
+  color: #000 !important;
+  background-color: #fff !important;
+  font-size: 14px !important;
+  line-height: normal !important;
+  opacity: 1 !important;
+  appearance: auto !important;
+  -webkit-appearance: menulist !important;
+  -moz-appearance: menulist !important;
+}
+
+.actions {
+  margin-top: 24px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}

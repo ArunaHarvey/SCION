@@ -1,0 +1,59 @@
+<h2>Batch Run</h2>
+
+<!-- ✅ Available Batch Count -->
+<p>
+  Available batches count:
+  {{ (availableBatches$ | async)?.length || 0 }}
+</p>
+
+<!-- ✅ Available Batches Table -->
+<h3>Available Batches</h3>
+
+<table *ngIf="(availableBatches$ | async) as batches">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Batch Name</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let batch of batches; index as i">
+      <td>{{ i + 1 }}</td>
+      <td>{{ batch }}</td>
+      <td>
+        <button (click)="addToQueue(batch)">
+          Add to Queue
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p *ngIf="(availableBatches$ | async)?.length === 0">
+  No available batches
+</p>
+
+<!-- ✅ Batch Queue -->
+<h3>Batch Queue</h3>
+
+<div *ngIf="(batchQueue$ | async) as queue">
+  <p *ngIf="queue.length === 0">No batches in queue</p>
+
+  <table *ngIf="queue.length > 0">
+    <thead>
+      <tr>
+        <th>Batch Name</th>
+        <th>Status</th>
+        <th>Queue Position</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let q of queue">
+        <td>{{ q.batchName }}</td>
+        <td>{{ q.status }}</td>
+        <td>{{ q.queuePosition }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

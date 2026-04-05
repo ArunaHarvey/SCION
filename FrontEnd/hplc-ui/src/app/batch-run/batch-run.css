@@ -1,0 +1,52 @@
+.page {
+  padding: 16px;
+}
+
+.section {
+  margin-top: 24px;
+}
+
+/* ✅ Prevent tables from collapsing */
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* ✅ Force table visibility */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  display: table;
+}
+
+thead,
+tbody,
+tr {
+  display: table-row-group;
+}
+
+tr {
+  display: table-row;
+}
+
+/* ✅ Cell visibility */
+th,
+td {
+  border: 1px solid #ccc;
+  padding: 6px 10px;
+  text-align: left;
+  visibility: visible;
+}
+
+/* ✅ Empty-state styling */
+.empty {
+  text-align: center;
+  color: #777;
+  padding: 12px;
+}
+
+/* ✅ Selected row highlight */
+.selected {
+  background-color: #eef;
+  cursor: pointer;
+}

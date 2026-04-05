@@ -1,0 +1,27 @@
+<header class="header">
+  <div class="title">HPLC Controller</div>
+
+  <nav class="nav" aria-label="Primary navigation">
+    <a
+      routerLink="/create-batch"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      Batch Create
+    </a>
+
+    <a
+      routerLink="/batch-run"
+      routerLinkActive="active"
+    >
+      Batch Run
+    </a>
+
+    <a
+      routerLink="/status"
+      routerLinkActive="active"
+    >
+      Status
+    </a>
+  </nav>
+</header>

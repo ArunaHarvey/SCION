@@ -1,0 +1,17 @@
+{
+  "maxSamples": 99,
+  "methods": [
+    {
+      "id": "M001",
+      "name": "Assay Method"
+    },
+    {
+      "id": "M002",
+      "name": "Impurity Method"
+    },
+    {
+      "id": "M003",
+      "name": "Stability Method"
+    }
+  ]
+}

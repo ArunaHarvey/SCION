@@ -1,0 +1,66 @@
+<form [formGroup]="form" class="batch-container">
+
+  <h2>Batch Create</h2>
+
+  <div class="header-grid">
+    <mat-form-field appearance="outline">
+      <mat-label>Open Existing Batch</mat-label>
+      <mat-select (selectionChange)="onBatchSelected($event.value)">
+        <mat-option value="">-- New Batch --</mat-option>
+        <mat-option *ngFor="let b of existingBatches" [value]="b">
+          {{ b }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Batch Name</mat-label>
+      <input matInput formControlName="batchName" />
+    </mat-form-field>
+  </div>
+
+  <h3>Samples</h3>
+
+  <table class="samples-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Sample Name</th>
+        <th>Volume</th>
+        <th>Method</th>
+      </tr>
+    </thead>
+
+    <tbody formArrayName="samples">
+      <tr *ngFor="let s of samples.controls; let i = index" [formGroupName]="i">
+
+        <td>{{ i + 1 }}</td>
+
+        <td>
+          <input type="text" formControlName="sampleName" />
+        </td>
+
+        <td>
+          <input type="number" formControlName="injectionVolume" />
+        </td>
+
+        <td>
+          <select formControlName="methodId">
+            <option value="">-- Select --</option>
+            <option *ngFor="let m of methods" [value]="m.methodId">
+              {{ m.methodName }}
+            </option>
+          </select>
+        </td>
+
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="actions">
+    <button mat-stroked-button type="button" (click)="addSample()">Add Sample</button>
+    <button mat-stroked-button type="button" (click)="resetForm()">New Batch</button>
+    <button mat-raised-button color="primary" type="button" (click)="save()">Save Batch</button>
+  </div>
+
+</form>

@@ -1,0 +1,35 @@
+.app-header {
+  display: flex;
+  align-items: center;
+  height: 56px;
+  padding: 0 20px;
+  background-color: #1f2937; /* dark neutral */
+  color: white;
+}
+
+.app-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-right: 40px;
+}
+
+.app-nav {
+  display: flex;
+  gap: 24px;
+}
+
+.app-nav a {
+  color: #d1d5db;
+  text-decoration: none;
+  font-weight: 500;
+  padding-bottom: 4px;
+}
+
+.app-nav a.active {
+  color: #ffffff;
+  border-bottom: 2px solid #22c55e; /* green active indicator */
+}
+
+.app-content {
+  padding: 16px;
+}

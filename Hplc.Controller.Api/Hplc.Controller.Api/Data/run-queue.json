@@ -1,0 +1,17 @@
+[
+  {
+    "batchName": "Batch_Assay_Run",
+    "lcId": null,
+    "status": "Running",
+    "ownsMS": true,
+    "queuePosition": null,
+    "queuedAt": "2026-04-05T11:10:00Z"
+  },
+  {
+    "batchName": "Batch_Impurity_Run",
+    "lcId": null,
+    "status": "Queued",
+    "ownsMS": false,
+    "queuePosition": 1,    "queuedAt": "2026-04-05T11:11:00Z"
+  }
+]

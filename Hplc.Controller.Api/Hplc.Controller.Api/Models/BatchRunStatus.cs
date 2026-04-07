@@ -3,7 +3,9 @@
 public enum BatchRunStatus
 {
     Queued,
+    Injecting,
     Running,
-    Completed,
-    Failed
+    WaitingForMS,
+    Acquiring,   // MS owning
+    Completed
 }

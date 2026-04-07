@@ -122,6 +122,96 @@
             "description": "OK"
           }
         }
+      },
+      "delete": {
+        "tags": [
+          "BatchRun"
+        ],
+        "parameters": [
+          {
+            "name": "batchName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/batch/run/start/{batchName}": {
+      "post": {
+        "tags": [
+          "BatchRun"
+        ],
+        "parameters": [
+          {
+            "name": "batchName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/batch/run/clear": {
+      "post": {
+        "tags": [
+          "BatchRun"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/batch/run/execution": {
+      "get": {
+        "tags": [
+          "BatchRun"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/status/lcs": {
+      "get": {
+        "tags": [
+          "InstrumentStatus"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/status/ms": {
+      "get": {
+        "tags": [
+          "InstrumentStatus"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
       }
     },
     "/api/methods": {

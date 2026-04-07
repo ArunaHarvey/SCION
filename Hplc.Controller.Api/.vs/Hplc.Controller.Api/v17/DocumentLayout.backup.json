@@ -3,24 +3,56 @@
   "WorkspaceRootPath": "C:\\Source\\SCION\\Hplc.Controller.Api\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|c:\\source\\scion\\hplc.controller.api\\hplc.controller.api\\services\\batchfileservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|solutionrelative:hplc.controller.api\\services\\batchfileservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|c:\\source\\scion\\hplc.controller.api\\hplc.controller.api\\models\\sampleexecutioninfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|solutionrelative:hplc.controller.api\\models\\sampleexecutioninfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|c:\\source\\scion\\hplc.controller.api\\hplc.controller.api\\data\\batches\\batch_assay_run.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|solutionrelative:hplc.controller.api\\data\\batches\\batch_assay_run.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|c:\\source\\scion\\hplc.controller.api\\hplc.controller.api\\controllers\\batchruncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|solutionrelative:hplc.controller.api\\controllers\\batchruncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|c:\\source\\scion\\hplc.controller.api\\hplc.controller.api\\services\\batchexecutionstore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|solutionrelative:hplc.controller.api\\services\\batchexecutionstore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|c:\\source\\scion\\hplc.controller.api\\hplc.controller.api\\services\\batchfileservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|solutionrelative:hplc.controller.api\\services\\batchfileservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|c:\\source\\scion\\hplc.controller.api\\hplc.controller.api\\controllers\\batchcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|solutionrelative:hplc.controller.api\\controllers\\batchcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|c:\\source\\scion\\hplc.controller.api\\hplc.controller.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|solutionrelative:hplc.controller.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|c:\\source\\scion\\hplc.controller.api\\hplc.controller.api\\models\\batchrunsummary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|solutionrelative:hplc.controller.api\\models\\batchrunsummary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|c:\\source\\scion\\hplc.controller.api\\hplc.controller.api\\models\\batchruninfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|solutionrelative:hplc.controller.api\\models\\batchruninfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|c:\\source\\scion\\hplc.controller.api\\hplc.controller.api\\data\\batchexecutionstore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|solutionrelative:hplc.controller.api\\data\\batchexecutionstore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|c:\\source\\scion\\hplc.controller.api\\hplc.controller.api\\controllers\\instrumentstatuscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|solutionrelative:hplc.controller.api\\controllers\\instrumentstatuscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|c:\\source\\scion\\hplc.controller.api\\hplc.controller.api\\data\\instrumentstatusstore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|solutionrelative:hplc.controller.api\\data\\instrumentstatusstore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|c:\\source\\scion\\hplc.controller.api\\hplc.controller.api\\models\\instrument\\msstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|solutionrelative:hplc.controller.api\\models\\instrument\\msstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|c:\\source\\scion\\hplc.controller.api\\hplc.controller.api\\models\\instrument\\lcstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|solutionrelative:hplc.controller.api\\models\\instrument\\lcstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|c:\\source\\scion\\hplc.controller.api\\hplc.controller.api\\models\\instrument\\lcstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|solutionrelative:hplc.controller.api\\models\\instrument\\lcstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|c:\\source\\scion\\hplc.controller.api\\hplc.controller.api\\data\\run-queue.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|solutionrelative:hplc.controller.api\\data\\run-queue.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|c:\\source\\scion\\hplc.controller.api\\hplc.controller.api\\models\\batchrunstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -31,12 +63,28 @@
       "RelativeMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|solutionrelative:hplc.controller.api\\models\\sample.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|c:\\source\\scion\\hplc.controller.api\\hplc.controller.api\\controllers\\batchruncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|solutionrelative:hplc.controller.api\\controllers\\batchruncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|c:\\source\\scion\\hplc.controller.api\\hplc.controller.api\\data\\batches\\batch_impurity_run.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|solutionrelative:hplc.controller.api\\data\\batches\\batch_impurity_run.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|c:\\source\\scion\\hplc.controller.api\\hplc.controller.api\\data\\batches\\batch_assay_run.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|solutionrelative:hplc.controller.api\\data\\batches\\batch_assay_run.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|c:\\source\\scion\\hplc.controller.api\\hplc.controller.api\\models\\batch.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|solutionrelative:hplc.controller.api\\models\\batch.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|c:\\source\\scion\\hplc.controller.api\\hplc.controller.api\\data\\batches\\batch_mixed_run.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|solutionrelative:hplc.controller.api\\data\\batches\\batch_mixed_run.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|c:\\source\\scion\\hplc.controller.api\\hplc.controller.api\\config\\methods.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|solutionrelative:hplc.controller.api\\config\\methods.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|c:\\source\\scion\\hplc.controller.api\\hplc.controller.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|solutionrelative:hplc.controller.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|c:\\source\\scion\\hplc.controller.api\\hplc.controller.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
@@ -45,18 +93,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|c:\\source\\scion\\hplc.controller.api\\hplc.controller.api\\controllers\\methodcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|solutionrelative:hplc.controller.api\\controllers\\methodcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|c:\\source\\scion\\hplc.controller.api\\hplc.controller.api\\data\\batches\\batch_mixed_run.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|solutionrelative:hplc.controller.api\\data\\batches\\batch_mixed_run.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|c:\\source\\scion\\hplc.controller.api\\hplc.controller.api\\data\\batches\\batch_impurity_run.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|solutionrelative:hplc.controller.api\\data\\batches\\batch_impurity_run.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|c:\\source\\scion\\hplc.controller.api\\hplc.controller.api\\config\\methods.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|solutionrelative:hplc.controller.api\\config\\methods.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A23932AA-D3F7-4981-99D0-B45CAFC3A541}|Hplc.Controller.Api\\Hplc.Controller.Api.csproj|c:\\source\\scion\\hplc.controller.api\\hplc.controller.api\\hplc.controller.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
@@ -73,141 +109,115 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "BatchController.cs",
-              "DocumentMoniker": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Controllers\\BatchController.cs",
-              "RelativeDocumentMoniker": "Hplc.Controller.Api\\Controllers\\BatchController.cs",
-              "ToolTip": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Controllers\\BatchController.cs",
-              "RelativeToolTip": "Hplc.Controller.Api\\Controllers\\BatchController.cs",
-              "ViewState": "AgIAACsAAAAAAAAAAAAowC4AAAAAAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "SampleExecutionInfo.cs",
+              "DocumentMoniker": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Models\\SampleExecutionInfo.cs",
+              "RelativeDocumentMoniker": "Hplc.Controller.Api\\Models\\SampleExecutionInfo.cs",
+              "ToolTip": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Models\\SampleExecutionInfo.cs",
+              "RelativeToolTip": "Hplc.Controller.Api\\Models\\SampleExecutionInfo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-30T05:50:51.265Z",
+              "WhenOpened": "2026-04-07T11:47:03.087Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "BatchFileService.cs",
               "DocumentMoniker": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Services\\BatchFileService.cs",
               "RelativeDocumentMoniker": "Hplc.Controller.Api\\Services\\BatchFileService.cs",
               "ToolTip": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Services\\BatchFileService.cs",
               "RelativeToolTip": "Hplc.Controller.Api\\Services\\BatchFileService.cs",
-              "ViewState": "AgIAAG0AAAAAAAAAAAAQwHkAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAIcAAAAAAAAAAAAQwJcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-30T05:50:02.422Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Sample.cs",
-              "DocumentMoniker": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Models\\Sample.cs",
-              "RelativeDocumentMoniker": "Hplc.Controller.Api\\Models\\Sample.cs",
-              "ToolTip": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Models\\Sample.cs",
-              "RelativeToolTip": "Hplc.Controller.Api\\Models\\Sample.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
+              "DocumentIndex": 5,
+              "Title": "BatchRunSummary.cs",
+              "DocumentMoniker": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Models\\BatchRunSummary.cs",
+              "RelativeDocumentMoniker": "Hplc.Controller.Api\\Models\\BatchRunSummary.cs",
+              "ToolTip": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Models\\BatchRunSummary.cs",
+              "RelativeToolTip": "Hplc.Controller.Api\\Models\\BatchRunSummary.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAA1wAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-30T05:44:29.944Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\appsettings.json",
-              "RelativeDocumentMoniker": "Hplc.Controller.Api\\appsettings.json",
-              "ToolTip": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\appsettings.json",
-              "RelativeToolTip": "Hplc.Controller.Api\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-03-30T10:50:46.543Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "Batch_Mixed_Run.json",
-              "DocumentMoniker": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Data\\Batches\\Batch_Mixed_Run.json",
-              "RelativeDocumentMoniker": "Hplc.Controller.Api\\Data\\Batches\\Batch_Mixed_Run.json",
-              "ToolTip": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Data\\Batches\\Batch_Mixed_Run.json",
-              "RelativeToolTip": "Hplc.Controller.Api\\Data\\Batches\\Batch_Mixed_Run.json",
-              "ViewState": "AgIAADAAAAAAAAAAAAAAADUAAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-03-30T11:45:56.388Z",
+              "WhenOpened": "2026-04-05T16:06:36.352Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Batch_Assay_Run.json",
-              "DocumentMoniker": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Data\\Batches\\Batch_Assay_Run.json",
-              "RelativeDocumentMoniker": "Hplc.Controller.Api\\Data\\Batches\\Batch_Assay_Run.json",
-              "ToolTip": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Data\\Batches\\Batch_Assay_Run.json",
-              "RelativeToolTip": "Hplc.Controller.Api\\Data\\Batches\\Batch_Assay_Run.json",
-              "ViewState": "AgIAAJUAAAAAAAAAAADwv6QAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-03-30T11:45:24.57Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "BatchRunStatus.cs",
-              "DocumentMoniker": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Models\\BatchRunStatus.cs",
-              "RelativeDocumentMoniker": "Hplc.Controller.Api\\Models\\BatchRunStatus.cs",
-              "ToolTip": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Models\\BatchRunStatus.cs",
-              "RelativeToolTip": "Hplc.Controller.Api\\Models\\BatchRunStatus.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-01T09:53:37.86Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "BatchRunInfo.cs",
-              "DocumentMoniker": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Models\\BatchRunInfo.cs",
-              "RelativeDocumentMoniker": "Hplc.Controller.Api\\Models\\BatchRunInfo.cs",
-              "ToolTip": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Models\\BatchRunInfo.cs",
-              "RelativeToolTip": "Hplc.Controller.Api\\Models\\BatchRunInfo.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-01T09:54:07.831Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
               "Title": "BatchRunController.cs",
               "DocumentMoniker": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Controllers\\BatchRunController.cs",
               "RelativeDocumentMoniker": "Hplc.Controller.Api\\Controllers\\BatchRunController.cs",
               "ToolTip": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Controllers\\BatchRunController.cs",
               "RelativeToolTip": "Hplc.Controller.Api\\Controllers\\BatchRunController.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAYwBwAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAACQAAAAAAAAAAAAqwDMAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-01T13:46:40.936Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Program.cs",
-              "RelativeDocumentMoniker": "Hplc.Controller.Api\\Program.cs",
-              "ToolTip": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Program.cs",
-              "RelativeToolTip": "Hplc.Controller.Api\\Program.cs",
-              "ViewState": "AgIAABkAAAAAAAAAAAAswCsAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "BatchExecutionStore.cs",
+              "DocumentMoniker": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Services\\BatchExecutionStore.cs",
+              "RelativeDocumentMoniker": "Hplc.Controller.Api\\Services\\BatchExecutionStore.cs",
+              "ToolTip": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Services\\BatchExecutionStore.cs",
+              "RelativeToolTip": "Hplc.Controller.Api\\Services\\BatchExecutionStore.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-30T05:38:06.522Z",
+              "WhenOpened": "2026-04-07T11:47:26.694Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 6,
+              "Title": "BatchExecutionStore.cs",
+              "DocumentMoniker": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Data\\BatchExecutionStore.cs",
+              "RelativeDocumentMoniker": "Hplc.Controller.Api\\Data\\BatchExecutionStore.cs",
+              "ToolTip": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Data\\BatchExecutionStore.cs",
+              "RelativeToolTip": "Hplc.Controller.Api\\Data\\BatchExecutionStore.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-07T11:15:12.762Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "BatchController.cs",
+              "DocumentMoniker": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Controllers\\BatchController.cs",
+              "RelativeDocumentMoniker": "Hplc.Controller.Api\\Controllers\\BatchController.cs",
+              "ToolTip": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Controllers\\BatchController.cs",
+              "RelativeToolTip": "Hplc.Controller.Api\\Controllers\\BatchController.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAIA3wC0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-30T05:50:51.265Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "Batch_Assay_Run.json",
+              "DocumentMoniker": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Data\\Batches\\Batch_Assay_Run.json",
+              "RelativeDocumentMoniker": "Hplc.Controller.Api\\Data\\Batches\\Batch_Assay_Run.json",
+              "ToolTip": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Data\\Batches\\Batch_Assay_Run.json",
+              "RelativeToolTip": "Hplc.Controller.Api\\Data\\Batches\\Batch_Assay_Run.json",
+              "ViewState": "AgIAAI0AAAAAAAAAAAAQwKQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-03-30T11:45:24.57Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
               "Title": "Batch.cs",
               "DocumentMoniker": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Models\\Batch.cs",
               "RelativeDocumentMoniker": "Hplc.Controller.Api\\Models\\Batch.cs",
@@ -220,20 +230,111 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "MethodController.cs",
-              "DocumentMoniker": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Controllers\\MethodController.cs",
-              "RelativeDocumentMoniker": "Hplc.Controller.Api\\Controllers\\MethodController.cs",
-              "ToolTip": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Controllers\\MethodController.cs",
-              "RelativeToolTip": "Hplc.Controller.Api\\Controllers\\MethodController.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAA7wCUAAAABAAAAAAAAAA==",
+              "DocumentIndex": 11,
+              "Title": "LcStatus.cs",
+              "DocumentMoniker": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Models\\Instrument\\LcStatus.cs",
+              "RelativeDocumentMoniker": "Hplc.Controller.Api\\Models\\Instrument\\LcStatus.cs",
+              "ToolTip": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Models\\Instrument\\LcStatus.cs",
+              "RelativeToolTip": "Hplc.Controller.Api\\Models\\Instrument\\LcStatus.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-30T07:40:17.586Z",
+              "WhenOpened": "2026-04-07T09:52:30.216Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "LcState.cs",
+              "DocumentMoniker": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Models\\Instrument\\LcState.cs",
+              "RelativeDocumentMoniker": "Hplc.Controller.Api\\Models\\Instrument\\LcState.cs",
+              "ToolTip": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Models\\Instrument\\LcState.cs",
+              "RelativeToolTip": "Hplc.Controller.Api\\Models\\Instrument\\LcState.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-07T09:53:15.298Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "MsStatus.cs",
+              "DocumentMoniker": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Models\\Instrument\\MsStatus.cs",
+              "RelativeDocumentMoniker": "Hplc.Controller.Api\\Models\\Instrument\\MsStatus.cs",
+              "ToolTip": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Models\\Instrument\\MsStatus.cs",
+              "RelativeToolTip": "Hplc.Controller.Api\\Models\\Instrument\\MsStatus.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-07T09:53:39.024Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "InstrumentStatusStore.cs",
+              "DocumentMoniker": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Data\\InstrumentStatusStore.cs",
+              "RelativeDocumentMoniker": "Hplc.Controller.Api\\Data\\InstrumentStatusStore.cs",
+              "ToolTip": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Data\\InstrumentStatusStore.cs",
+              "RelativeToolTip": "Hplc.Controller.Api\\Data\\InstrumentStatusStore.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAxwBQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-07T09:54:42.707Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "InstrumentStatusController.cs",
+              "DocumentMoniker": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Controllers\\InstrumentStatusController.cs",
+              "RelativeDocumentMoniker": "Hplc.Controller.Api\\Controllers\\InstrumentStatusController.cs",
+              "ToolTip": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Controllers\\InstrumentStatusController.cs",
+              "RelativeToolTip": "Hplc.Controller.Api\\Controllers\\InstrumentStatusController.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAQwBQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-07T09:55:14.578Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 12,
+              "Title": "run-queue.json",
+              "DocumentMoniker": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Data\\run-queue.json",
+              "RelativeDocumentMoniker": "Hplc.Controller.Api\\Data\\run-queue.json",
+              "ToolTip": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Data\\run-queue.json",
+              "RelativeToolTip": "Hplc.Controller.Api\\Data\\run-queue.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-04-05T13:50:34.634Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "BatchRunStatus.cs",
+              "DocumentMoniker": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Models\\BatchRunStatus.cs",
+              "RelativeDocumentMoniker": "Hplc.Controller.Api\\Models\\BatchRunStatus.cs",
+              "ToolTip": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Models\\BatchRunStatus.cs",
+              "RelativeToolTip": "Hplc.Controller.Api\\Models\\BatchRunStatus.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-01T09:53:37.86Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Sample.cs",
+              "DocumentMoniker": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Models\\Sample.cs",
+              "RelativeDocumentMoniker": "Hplc.Controller.Api\\Models\\Sample.cs",
+              "ToolTip": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Models\\Sample.cs",
+              "RelativeToolTip": "Hplc.Controller.Api\\Models\\Sample.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-30T05:44:29.944Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
               "Title": "Batch_Impurity_Run.json",
               "DocumentMoniker": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Data\\Batches\\Batch_Impurity_Run.json",
               "RelativeDocumentMoniker": "Hplc.Controller.Api\\Data\\Batches\\Batch_Impurity_Run.json",
@@ -246,20 +347,67 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 19,
               "Title": "methods.json",
               "DocumentMoniker": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Config\\methods.json",
               "RelativeDocumentMoniker": "Hplc.Controller.Api\\Config\\methods.json",
               "ToolTip": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Config\\methods.json",
               "RelativeToolTip": "Hplc.Controller.Api\\Config\\methods.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAswA0AAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-03-30T07:39:34.242Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-30T07:39:34.242Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 18,
+              "Title": "Batch_Mixed_Run.json",
+              "DocumentMoniker": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Data\\Batches\\Batch_Mixed_Run.json",
+              "RelativeDocumentMoniker": "Hplc.Controller.Api\\Data\\Batches\\Batch_Mixed_Run.json",
+              "ToolTip": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Data\\Batches\\Batch_Mixed_Run.json",
+              "RelativeToolTip": "Hplc.Controller.Api\\Data\\Batches\\Batch_Mixed_Run.json",
+              "ViewState": "AgIAADAAAAAAAAAAAAAAAD8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-03-30T11:45:56.388Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\appsettings.json",
+              "RelativeDocumentMoniker": "Hplc.Controller.Api\\appsettings.json",
+              "ToolTip": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\appsettings.json",
+              "RelativeToolTip": "Hplc.Controller.Api\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-03-30T10:50:46.543Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Program.cs",
+              "RelativeDocumentMoniker": "Hplc.Controller.Api\\Program.cs",
+              "ToolTip": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Program.cs",
+              "RelativeToolTip": "Hplc.Controller.Api\\Program.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAAswCsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-30T05:38:06.522Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "MethodController.cs",
+              "DocumentMoniker": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Controllers\\MethodController.cs",
+              "RelativeDocumentMoniker": "Hplc.Controller.Api\\Controllers\\MethodController.cs",
+              "ToolTip": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Controllers\\MethodController.cs",
+              "RelativeToolTip": "Hplc.Controller.Api\\Controllers\\MethodController.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAA7wCUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-30T07:40:17.586Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
               "Title": "Microsoft.NET.Sdk.DefaultItems.Shared.targets",
               "DocumentMoniker": "C:\\Program Files\\dotnet\\sdk\\9.0.305\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.Sdk.DefaultItems.Shared.targets",
               "RelativeDocumentMoniker": "..\\..\\..\\Program Files\\dotnet\\sdk\\9.0.305\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.Sdk.DefaultItems.Shared.targets",
@@ -267,21 +415,19 @@
               "RelativeToolTip": "..\\..\\..\\Program Files\\dotnet\\sdk\\9.0.305\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.Sdk.DefaultItems.Shared.targets",
               "ViewState": "AgIAAM4AAAAAAAAAAAAtwNQAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
-              "WhenOpened": "2026-03-30T11:07:15.768Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-30T11:07:15.768Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "Hplc.Controller.Api",
+              "DocumentIndex": 23,
+              "Title": "Hplc.Controller.Api.csproj",
               "DocumentMoniker": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Hplc.Controller.Api.csproj",
               "RelativeDocumentMoniker": "Hplc.Controller.Api\\Hplc.Controller.Api.csproj",
               "ToolTip": "C:\\Source\\SCION\\Hplc.Controller.Api\\Hplc.Controller.Api\\Hplc.Controller.Api.csproj",
               "RelativeToolTip": "Hplc.Controller.Api\\Hplc.Controller.Api.csproj",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAABAAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-03-30T05:42:42.364Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-30T05:42:42.364Z"
             }
           ]
         }

@@ -1,9 +1,16 @@
 ﻿using Hplc.Controller.Api.Services;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ✅ Add controllers
-builder.Services.AddControllers();
+// ✅ Add controllers + JSON enum as string (IMPORTANT FIX)
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(
+            new JsonStringEnumConverter()
+        );
+    });
 
 // ✅ Add Swagger services
 builder.Services.AddEndpointsApiExplorer();
@@ -31,13 +38,15 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "HPLC Controller API v1");
-        c.RoutePrefix = "swagger"; // default
+        c.RoutePrefix = "swagger";
     });
 }
 
+// ✅ Middleware pipeline
 app.UseCors("AllowAngular");
 
 app.UseAuthorization();
+
 app.MapControllers();
 
 app.Run();

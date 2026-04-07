@@ -1,0 +1,27 @@
+.instrument-status {
+  padding: 1rem;
+}
+
+.lc-container {
+  display: flex;
+  gap: 1rem;
+}
+
+.lc-card {
+  border: 1px solid #ccc;
+  width: 150px;
+  padding: 0.75rem;
+  border-radius: 4px;
+}
+
+.lc-name {
+  font-weight: bold;
+}
+
+.lc-sample.idle {
+  color: gray;
+}
+
+.ms-container {
+  margin-top: 1.5rem;
+}

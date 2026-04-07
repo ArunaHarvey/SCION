@@ -39,3 +39,7 @@ C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\bin\Debug\net8.0\Data\Ba
 C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\bin\Debug\net8.0\Data\Batches\Batch_Mixed_Run.json
 C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\bin\Debug\net8.0\Data\Batches\d.json
 C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\bin\Debug\net8.0\Data\Batches\eee.json
+C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\bin\Debug\net8.0\Data\Batches\3gfgwefw.json
+C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\bin\Debug\net8.0\Data\Batches\run-queue.json
+C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\obj\Debug\net8.0\Hplc.Controller.Api.sourcelink.json
+C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\bin\Debug\net8.0\Data\run-queue.json

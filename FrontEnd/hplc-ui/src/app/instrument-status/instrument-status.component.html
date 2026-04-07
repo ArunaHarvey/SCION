@@ -1,0 +1,46 @@
+<div class="instrument-status">
+
+  <h3>Instrument Status</h3>
+
+  <!-- =======================
+       LC STATUS
+       ======================= -->
+  <div class="lc-container">
+    <div class="lc-card" *ngFor="let lc of lcs">
+      <div class="lc-name">{{ lc.lcId }}</div>
+
+      <div class="lc-state"
+           [style.color]="lcColor(lc.state)">
+        {{ lc.state }}
+      </div>
+
+      <div class="lc-sample" *ngIf="lc.currentSample">
+        Sample: <b>{{ lc.currentSample }}</b>
+      </div>
+
+      <div class="lc-sample idle" *ngIf="!lc.currentSample">
+        Idle
+      </div>
+    </div>
+  </div>
+
+  <!-- =======================
+       MS STATUS
+       ======================= -->
+  <div class="ms-container">
+    <h4>Mass Spectrometer</h4>
+
+    <div *ngIf="ms">
+      <span
+        [style.color]="ms.isAcquiring ? 'green' : 'gray'">
+        {{ ms.isAcquiring ? 'Acquiring' : 'Idle' }}
+      </span>
+
+      <div *ngIf="ms.isAcquiring">
+        From LC: <b>{{ ms.activeLcId }}</b><br>
+        Batch: <b>{{ ms.batchName }}</b>
+      </div>
+    </div>
+  </div>
+
+</div>

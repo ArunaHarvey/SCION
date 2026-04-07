@@ -1,7 +1,21 @@
+export type BatchRunStatus =
+  | 'Queued'
+  | 'Injecting'
+  | 'Running'
+  | 'WaitingForMS'
+  | 'Acquiring'
+  | 'Completed';
+
 export interface BatchRunInfo {
   batchName: string;
-  batchStarted?: string;
-  batchCompleted?: string;
-  status: string;
-  queuePosition: number;
+  lcId: string;
+
+  status: BatchRunStatus;
+
+  ownsMS: boolean;
+  queuePosition: number | null;
+
+  injectionStartTime?: string;
+  completionTime?: string;
+  actualDuration?: string;
 }

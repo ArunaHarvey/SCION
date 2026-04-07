@@ -1,26 +1,36 @@
-<h3>Batch Status</h3>
+<h3>Batch Run Status</h3>
 
-<div *ngIf="runs$ | async as runs">
+<table *ngIf="runs$ | async as runs">
+  <thead>
+    <tr>
+      <th>LC</th>
+      <th>Batch</th>
+      <th>Status</th>
+      <th>MS</th>
+      <th>Queue</th>
+      <th>Duration</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let r of runs" [class.ms]="r.ownsMS">
+      <td>{{ r.lcId }}</td>
+      <td>{{ r.batchName }}</td>
+      <td>{{ r.status }}</td>
+      <td>{{ r.ownsMS ? 'Acquiring' : '—' }}</td>
+      <td>{{ r.queuePosition ?? '—' }}</td>
+      <td>{{ r.actualDuration ?? '—' }}</td>
+    </tr>
+  </tbody>
+</table>
 
-  <p *ngIf="runs.length === 0">
-    No batches running
+<hr />
+
+<div *ngIf="summary$ | async as s">
+  <h4>Multiplex vs Sequential</h4>
+  <p><b>Multiplexed:</b> {{ s.multiplexedDuration }}</p>
+  <p><b>Sequential:</b> {{ s.sequentialDuration }}</p>
+  <p class="saved">
+    <b>Time Saved:</b> {{ s.timeSaved }}
+    ({{ s.percentImprovement | number:'1.0-2' }}%)
   </p>
-
-  <table *ngIf="runs.length > 0">
-    <thead>
-      <tr>
-        <th>Batch Name</th>
-        <th>Status</th>
-        <th>Queue Position</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let r of runs">
-        <td>{{ r.batchName }}</td>
-        <td>{{ r.status }}</td>
-        <td>{{ r.queuePosition }}</td>
-      </tr>
-    </tbody>
-  </table>
-
 </div>

@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
-import { BatchService, BatchRunInfo } from '../services/batch';
+
+import { BatchRunService } from '../services/batch-run.service';
+import { BatchRunInfo } from '../models/batch-run-info.model';
+import { SampleExecutionInfo } from '../models/sample-execution.model';
 
 @Component({
   selector: 'app-batch-run',
@@ -13,22 +16,34 @@ import { BatchService, BatchRunInfo } from '../services/batch';
 export class BatchRunComponent implements OnInit {
 
   availableBatches$!: Observable<string[]>;
-  batchQueue$!: Observable<BatchRunInfo[]>;
+  queue$!: Observable<BatchRunInfo[]>;
+  execution$?: Observable<SampleExecutionInfo[]>;
 
-  constructor(private batchService: BatchService) {}
+  constructor(private service: BatchRunService) {}
 
   ngOnInit(): void {
-    this.reload();
+    this.availableBatches$ = this.service.getAllBatches();
+    this.queue$ = this.service.queue$;
+    this.service.loadQueue();
   }
 
-  reload(): void {
-    this.availableBatches$ = this.batchService.getAllBatches();
-    this.batchQueue$ = this.batchService.getBatchRunQueue();
+  addToQueue(batchName: string): void {
+    this.service.enqueue(batchName).subscribe();
   }
 
-  addToQueue(name: string): void {
-    this.batchService.addBatchToRunQueue(name)
-      .subscribe(() => this.batchQueue$ =
-        this.batchService.getBatchRunQueue());
+  run(batchName: string): void {
+    this.service.start(batchName).subscribe(() => {
+      this.execution$ = this.service.getExecution();
+    });
+  }
+
+  delete(batchName: string): void {
+    this.service.remove(batchName).subscribe();
+  }
+
+  clear(): void {
+    this.service.clear().subscribe(() => {
+      this.execution$ = undefined;
+    });
   }
 }

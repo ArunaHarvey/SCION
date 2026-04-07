@@ -1,52 +1,52 @@
-.page {
+.panel {
+  background: #fff;
   padding: 16px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
 }
 
-.section {
-  margin-top: 24px;
-}
-
-/* ✅ Prevent tables from collapsing */
-.table-container {
-  width: 100%;
-  overflow-x: auto;
-}
-
-/* ✅ Force table visibility */
 table {
   width: 100%;
   border-collapse: collapse;
-  display: table;
+  margin-bottom: 12px;
 }
 
-thead,
-tbody,
-tr {
-  display: table-row-group;
-}
-
-tr {
-  display: table-row;
-}
-
-/* ✅ Cell visibility */
-th,
-td {
+th, td {
   border: 1px solid #ccc;
-  padding: 6px 10px;
-  text-align: left;
-  visibility: visible;
+  padding: 8px;
 }
 
-/* ✅ Empty-state styling */
-.empty {
-  text-align: center;
-  color: #777;
-  padding: 12px;
+th {
+  background: #f5f5f5;
 }
 
-/* ✅ Selected row highlight */
-.selected {
-  background-color: #eef;
-  cursor: pointer;
+button {
+  padding: 6px 12px;
+  margin-right: 6px;
+}
+
+button.primary {
+  background: #1976d2;
+  color: #fff;
+  border: none;
+}
+
+button.secondary {
+  background: #e0e0e0;
+}
+
+button.danger {
+  background: #c62828;
+  color: #fff;
+  border: none;
+}
+
+.status.queued {
+  background: #fff3cd;
+  padding: 4px 8px;
+}
+
+.status.running {
+  background: #c8e6c9;
+  padding: 4px 8px;
 }

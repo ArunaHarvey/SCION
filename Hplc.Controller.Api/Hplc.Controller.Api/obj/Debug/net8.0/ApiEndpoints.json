@@ -59,6 +59,26 @@
   },
   {
     "ContainingType": "Hplc.Controller.Api.Controllers.BatchRunController",
+    "Method": "Clear",
+    "RelativePath": "api/batch/run/clear",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Hplc.Controller.Api.Controllers.BatchRunController",
+    "Method": "Execution",
+    "RelativePath": "api/batch/run/execution",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Hplc.Controller.Api.Controllers.BatchRunController",
     "Method": "GetQueue",
     "RelativePath": "api/batch/run/queue",
     "HttpMethod": "GET",
@@ -69,8 +89,40 @@
   },
   {
     "ContainingType": "Hplc.Controller.Api.Controllers.BatchRunController",
-    "Method": "AddToQueue",
+    "Method": "Enqueue",
     "RelativePath": "api/batch/run/queue/{batchName}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "batchName",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Hplc.Controller.Api.Controllers.BatchRunController",
+    "Method": "Delete",
+    "RelativePath": "api/batch/run/queue/{batchName}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "batchName",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Hplc.Controller.Api.Controllers.BatchRunController",
+    "Method": "Start",
+    "RelativePath": "api/batch/run/start/{batchName}",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -87,6 +139,26 @@
     "ContainingType": "Hplc.Controller.Api.Controllers.MethodController",
     "Method": "GetMethods",
     "RelativePath": "api/methods",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Hplc.Controller.Api.Controllers.InstrumentStatusController",
+    "Method": "GetLcStatus",
+    "RelativePath": "api/status/lcs",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Hplc.Controller.Api.Controllers.InstrumentStatusController",
+    "Method": "GetMsStatus",
+    "RelativePath": "api/status/ms",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

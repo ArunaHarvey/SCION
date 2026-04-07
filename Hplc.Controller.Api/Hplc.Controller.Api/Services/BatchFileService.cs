@@ -10,17 +10,8 @@ public class BatchFileService
 
     public BatchFileService(IWebHostEnvironment env)
     {
-        _batchDirectory = Path.Combine(
-            env.ContentRootPath,
-            "Data",
-            "Batches"
-        );
-
-        _runQueueFile = Path.Combine(
-            _batchDirectory,
-            "run-queue.json"
-        );
-
+        _batchDirectory = Path.Combine(env.ContentRootPath, "Data", "Batches");
+        _runQueueFile = Path.Combine(_batchDirectory, "run-queue.json");
         Directory.CreateDirectory(_batchDirectory);
     }
 
@@ -29,50 +20,37 @@ public class BatchFileService
        ========================= */
 
     public List<string> GetAllBatches()
-    {
-        return Directory.GetFiles(_batchDirectory, "*.json")
+        => Directory.GetFiles(_batchDirectory, "*.json")
             .Select(Path.GetFileNameWithoutExtension)
-            .Where(n => !string.IsNullOrWhiteSpace(n) && n != "run-queue")
-            .Cast<string>()
+            .Where(n => n != "run-queue")
             .ToList();
-    }
 
     public Batch GetBatch(string batchName)
     {
         var path = GetBatchPath(batchName);
-
         if (!File.Exists(path))
-            throw new FileNotFoundException($"Batch '{batchName}' not found");
+            throw new FileNotFoundException(batchName);
 
-        var json = File.ReadAllText(path);
-
-        // ✅ CRITICAL FIX: Case‑insensitive deserialization
         return JsonSerializer.Deserialize<Batch>(
-            json,
-            new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            }
-        ) ?? new Batch();
+            File.ReadAllText(path),
+            new JsonSerializerOptions { PropertyNameCaseInsensitive = true }
+        )!;
     }
 
     public List<Sample> GetSamples(string batchName)
-    {
-        return GetBatch(batchName).Samples;
-    }
+        => GetBatch(batchName).Samples;
 
     public void SaveBatch(Batch batch)
     {
-        var json = JsonSerializer.Serialize(
-            batch,
-            new JsonSerializerOptions { WriteIndented = true }
+        File.WriteAllText(
+            GetBatchPath(batch.BatchName),
+            JsonSerializer.Serialize(batch,
+                new JsonSerializerOptions { WriteIndented = true })
         );
-
-        File.WriteAllText(GetBatchPath(batch.BatchName), json);
     }
 
     /* =========================
-       Batch Run Queue
+       Run Queue
        ========================= */
 
     public List<BatchRunInfo> GetBatchRunQueue()
@@ -80,45 +58,93 @@ public class BatchFileService
         if (!File.Exists(_runQueueFile))
             return new();
 
-        var json = File.ReadAllText(_runQueueFile);
-
         return JsonSerializer.Deserialize<List<BatchRunInfo>>(
-            json,
-            new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            }
-        ) ?? new();
+            File.ReadAllText(_runQueueFile),
+            new JsonSerializerOptions { PropertyNameCaseInsensitive = true }
+        )!;
     }
 
     public void EnqueueBatch(string batchName)
     {
-        GetBatch(batchName); // ensure batch exists
-
-        var queue = GetBatchRunQueue();
-
-        if (queue.Any(q => q.BatchName == batchName))
+        var runs = GetBatchRunQueue();
+        if (runs.Any(r => r.BatchName == batchName))
             return;
 
-        queue.Add(new BatchRunInfo
+        runs.Add(new BatchRunInfo
         {
             BatchName = batchName,
-            Status = "Queued",
-            QueuePosition = queue.Count + 1
+            Status = BatchRunStatus.Queued,
+            QueuedAt = DateTime.UtcNow
         });
 
-        File.WriteAllText(
-            _runQueueFile,
-            JsonSerializer.Serialize(
-                queue,
-                new JsonSerializerOptions { WriteIndented = true }
-            )
-        );
+        SaveRunQueue(runs);
+    }
+
+    public void RemoveFromQueue(string batchName)
+    {
+        var runs = GetBatchRunQueue();
+        var target = runs.SingleOrDefault(r => r.BatchName == batchName);
+        if (target == null)
+            return;
+
+        // Safety: do not delete running batch
+        if (target.Status == BatchRunStatus.Running ||
+            target.Status == BatchRunStatus.Acquiring)
+            return;
+
+        runs.Remove(target);
+        SaveRunQueue(runs);
     }
 
     /* =========================
-       Helpers
+       Manual Run
        ========================= */
+
+    public void StartBatch(string batchName)
+    {
+        var runs = GetBatchRunQueue();
+
+        if (runs.Any(r => r.Status == BatchRunStatus.Running))
+            return;
+
+        var run = runs.Single(r => r.BatchName == batchName);
+        run.Status = BatchRunStatus.Running;
+        run.InjectionStartTime = DateTime.UtcNow;
+
+        BatchExecutionStore.Clear();
+
+        var samples = GetSamples(batchName);
+        var lcs = new[] { "HPLC1", "HPLC2", "HPLC3", "HPLC4" };
+
+        for (int i = 0; i < samples.Count && i < lcs.Length; i++)
+        {
+            BatchExecutionStore.Executions.Add(new SampleExecutionInfo
+            {
+                BatchName = batchName,
+                SampleName = samples[i].SampleName,
+                LcId = lcs[i],
+                UsesMS = i == 0
+            });
+        }
+
+        SaveRunQueue(runs);
+    }
+
+    public void ClearRunQueue()
+    {
+        SaveRunQueue(new List<BatchRunInfo>());
+        BatchExecutionStore.Clear();
+    }
+
+    private void SaveRunQueue(List<BatchRunInfo> runs)
+    {
+        File.WriteAllText(
+            _runQueueFile,
+            JsonSerializer.Serialize(
+                runs,
+                new JsonSerializerOptions { WriteIndented = true })
+        );
+    }
 
     private string GetBatchPath(string batchName)
         => Path.Combine(_batchDirectory, $"{batchName}.json");

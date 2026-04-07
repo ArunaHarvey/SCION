@@ -2,14 +2,13 @@
 
 public class BatchRunInfo
 {
-    public string BatchName { get; set; } = string.Empty;
+    public string BatchName { get; set; } = "";
 
-    // ✅ Expose status as STRING for Angular
-    public string Status { get; set; } = "Queued";
+    // ✅ REMOVE JsonIgnore — UI MUST see this
+    public BatchRunStatus Status { get; set; } = BatchRunStatus.Queued;
 
-    public int QueuePosition { get; set; }
+    public DateTime QueuedAt { get; set; } = DateTime.UtcNow;
 
-    public DateTime? BatchStarted { get; set; }
-
-    public DateTime? BatchCompleted { get; set; }
+    // Optional runtime info
+    public DateTime? InjectionStartTime { get; set; }
 }

@@ -1,16 +1,20 @@
 [
   {
     "BatchName": "3gfgwefw",
-    "Status": "Queued",
-    "QueuePosition": 1,
-    "BatchStarted": null,
-    "BatchCompleted": null
+    "Status": 2,
+    "QueuedAt": "2026-04-07T12:11:34.415988Z",
+    "InjectionStartTime": "2026-04-07T13:32:57.689895Z"
   },
   {
-    "BatchName": "Batch_Assay_Run",
-    "Status": "Queued",
-    "QueuePosition": 2,
-    "BatchStarted": null,
-    "BatchCompleted": null
+    "BatchName": "Batch_Impurity_Run",
+    "Status": 0,
+    "QueuedAt": "2026-04-07T12:11:40.6899984Z",
+    "InjectionStartTime": null
+  },
+  {
+    "BatchName": "eee",
+    "Status": 0,
+    "QueuedAt": "2026-04-07T12:14:57.557141Z",
+    "InjectionStartTime": null
   }
 ]

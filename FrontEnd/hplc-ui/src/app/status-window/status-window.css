@@ -1,0 +1,17 @@
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+td, th {
+  border: 1px solid #ccc;
+  padding: 6px;
+  text-align: center;
+}
+.ms {
+  background-color: #e6ffe6;
+  font-weight: bold;
+}
+.saved {
+  color: darkgreen;
+  font-weight: bold;
+}

@@ -15,7 +15,99 @@
             "description": "OK"
           }
         }
-      },
+      }
+    },
+    "/api/batch/queue": {
+      "get": {
+        "tags": [
+          "Batch"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/batch/enqueue/{batchName}": {
+      "post": {
+        "tags": [
+          "Batch"
+        ],
+        "parameters": [
+          {
+            "name": "batchName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/batch/start/{batchName}": {
+      "post": {
+        "tags": [
+          "Batch"
+        ],
+        "parameters": [
+          {
+            "name": "batchName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/batch/{batchName}": {
+      "delete": {
+        "tags": [
+          "Batch"
+        ],
+        "parameters": [
+          {
+            "name": "batchName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/batch/clear": {
+      "post": {
+        "tags": [
+          "Batch"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/batch/save": {
       "post": {
         "tags": [
           "Batch"
@@ -46,7 +138,7 @@
         }
       }
     },
-    "/api/batch/{batchName}": {
+    "/api/batch/{batchName}/samples": {
       "get": {
         "tags": [
           "Batch"
@@ -68,20 +160,10 @@
         }
       }
     },
-    "/api/batch/{batchName}/samples": {
+    "/api/batch-definitions": {
       "get": {
         "tags": [
-          "Batch"
-        ],
-        "parameters": [
-          {
-            "name": "batchName",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
+          "BatchDefinitions"
         ],
         "responses": {
           "200": {

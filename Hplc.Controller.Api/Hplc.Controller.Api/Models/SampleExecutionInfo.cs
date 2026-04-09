@@ -6,5 +6,7 @@ public class SampleExecutionInfo
     public string SampleName { get; set; } = "";
     public string LcId { get; set; } = "";
     public bool UsesMS { get; set; }
-    public string State { get; set; } = "Running";
+
+    // ✅ ENUM (not string)
+    public SampleExecutionState State { get; set; } = SampleExecutionState.Queued;
 }

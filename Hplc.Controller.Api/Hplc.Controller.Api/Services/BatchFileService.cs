@@ -1,151 +1,168 @@
-﻿using System.Text.Json;
+﻿using System.Collections.Concurrent;
 using Hplc.Controller.Api.Models;
 
 namespace Hplc.Controller.Api.Services;
 
 public class BatchFileService
 {
-    private readonly string _batchDirectory;
-    private readonly string _runQueueFile;
+    private static readonly ConcurrentDictionary<string, BatchRunInfo> Batches = new();
 
-    public BatchFileService(IWebHostEnvironment env)
-    {
-        _batchDirectory = Path.Combine(env.ContentRootPath, "Data", "Batches");
-        _runQueueFile = Path.Combine(_batchDirectory, "run-queue.json");
-        Directory.CreateDirectory(_batchDirectory);
-    }
-
-    /* =========================
-       Batch APIs
-       ========================= */
-
-    public List<string> GetAllBatches()
-        => Directory.GetFiles(_batchDirectory, "*.json")
-            .Select(Path.GetFileNameWithoutExtension)
-            .Where(n => n != "run-queue")
-            .ToList();
-
-    public Batch GetBatch(string batchName)
-    {
-        var path = GetBatchPath(batchName);
-        if (!File.Exists(path))
-            throw new FileNotFoundException(batchName);
-
-        return JsonSerializer.Deserialize<Batch>(
-            File.ReadAllText(path),
-            new JsonSerializerOptions { PropertyNameCaseInsensitive = true }
-        )!;
-    }
-
-    public List<Sample> GetSamples(string batchName)
-        => GetBatch(batchName).Samples;
-
-    public void SaveBatch(Batch batch)
-    {
-        File.WriteAllText(
-            GetBatchPath(batch.BatchName),
-            JsonSerializer.Serialize(batch,
-                new JsonSerializerOptions { WriteIndented = true })
-        );
-    }
-
-    /* =========================
-       Run Queue
-       ========================= */
+    /* ======================================================
+     * PUBLIC API – USED BY CONTROLLERS
+     * ====================================================== */
 
     public List<BatchRunInfo> GetBatchRunQueue()
-    {
-        if (!File.Exists(_runQueueFile))
-            return new();
-
-        return JsonSerializer.Deserialize<List<BatchRunInfo>>(
-            File.ReadAllText(_runQueueFile),
-            new JsonSerializerOptions { PropertyNameCaseInsensitive = true }
-        )!;
-    }
+        => Batches.Values
+                  .OrderBy(b => b.QueuePosition ?? int.MaxValue)
+                  .ToList();
 
     public void EnqueueBatch(string batchName)
     {
-        var runs = GetBatchRunQueue();
-        if (runs.Any(r => r.BatchName == batchName))
+        if (Batches.ContainsKey(batchName))
             return;
 
-        runs.Add(new BatchRunInfo
+        var batch = new BatchRunInfo
         {
             BatchName = batchName,
             Status = BatchRunStatus.Queued,
-            QueuedAt = DateTime.UtcNow
-        });
+            QueuePosition = Batches.Count + 1,
+            OwnsMS = false,
+            Samples = LoadSamples(batchName)
+        };
 
-        SaveRunQueue(runs);
+        Batches.TryAdd(batchName, batch);
     }
-
-    public void RemoveFromQueue(string batchName)
-    {
-        var runs = GetBatchRunQueue();
-        var target = runs.SingleOrDefault(r => r.BatchName == batchName);
-        if (target == null)
-            return;
-
-        // Safety: do not delete running batch
-        if (target.Status == BatchRunStatus.Running ||
-            target.Status == BatchRunStatus.Acquiring)
-            return;
-
-        runs.Remove(target);
-        SaveRunQueue(runs);
-    }
-
-    /* =========================
-       Manual Run
-       ========================= */
 
     public void StartBatch(string batchName)
     {
-        var runs = GetBatchRunQueue();
-
-        if (runs.Any(r => r.Status == BatchRunStatus.Running))
+        if (!Batches.TryGetValue(batchName, out var batch))
             return;
 
-        var run = runs.Single(r => r.BatchName == batchName);
-        run.Status = BatchRunStatus.Running;
-        run.InjectionStartTime = DateTime.UtcNow;
+        // Only queued batches can be started
+        if (batch.Status != BatchRunStatus.Queued)
+            return;
 
-        BatchExecutionStore.Clear();
+        // Only one batch may run at a time
+        if (Batches.Values.Any(IsBatchActive))
+            return;
 
-        var samples = GetSamples(batchName);
-        var lcs = new[] { "HPLC1", "HPLC2", "HPLC3", "HPLC4" };
-
-        for (int i = 0; i < samples.Count && i < lcs.Length; i++)
-        {
-            BatchExecutionStore.Executions.Add(new SampleExecutionInfo
-            {
-                BatchName = batchName,
-                SampleName = samples[i].SampleName,
-                LcId = lcs[i],
-                UsesMS = i == 0
-            });
-        }
-
-        SaveRunQueue(runs);
+        ExecuteBatch(batch);
     }
+
+    public void RemoveFromQueue(string batchName)
+        => Batches.TryRemove(batchName, out _);
 
     public void ClearRunQueue()
+        => Batches.Clear();
+
+    public void SaveBatch(BatchRunInfo batch)
+        => Batches[batch.BatchName] = batch;
+
+    public List<SampleExecutionInfo> GetSamples(string batchName)
+        => Batches.TryGetValue(batchName, out var batch)
+           ? batch.Samples
+           : new();
+
+    /* ======================================================
+     * CORE EXECUTION LOGIC – FIXED DESIGN
+     * ====================================================== */
+
+    private void ExecuteBatch(BatchRunInfo batch)
     {
-        SaveRunQueue(new List<BatchRunInfo>());
-        BatchExecutionStore.Clear();
+        // ✅ CORRECT: Batch starts RUNNING, not Injecting
+        batch.Status = BatchRunStatus.Running;
+        batch.InjectionStartTime = DateTime.UtcNow;
+
+        _ = Task.Run(async () =>
+        {
+            foreach (var sample in batch.Samples)
+            {
+                // --- Sample Injection ---
+                sample.State = SampleExecutionState.Injecting;
+                batch.Status = BatchRunStatus.Injecting;
+                await Task.Delay(1000);
+
+                // --- Sample Running ---
+                sample.State = SampleExecutionState.Running;
+                batch.Status = BatchRunStatus.Running;
+                await Task.Delay(2000);
+
+                // --- Sample Acquisition (MS) ---
+                if (sample.UsesMS)
+                {
+                    sample.State = SampleExecutionState.Acquiring;
+                    batch.Status = BatchRunStatus.Acquiring;
+                    await Task.Delay(2000);
+                }
+
+                // --- Sample Completed ---
+                sample.State = SampleExecutionState.Completed;
+            }
+
+            // ✅ Batch completes ONLY after ALL samples complete
+            if (batch.Samples.All(s => s.State == SampleExecutionState.Completed))
+            {
+                batch.Status = BatchRunStatus.Completed;
+                batch.CompletionTime = DateTime.UtcNow;
+
+                batch.ActualDuration =
+                    (batch.CompletionTime.Value - batch.InjectionStartTime!.Value)
+                    .ToString(@"mm\:ss");
+            }
+
+            TryStartNextBatch();
+        });
     }
 
-    private void SaveRunQueue(List<BatchRunInfo> runs)
+    /* ======================================================
+     * QUEUE MANAGEMENT
+     * ====================================================== */
+
+    private void TryStartNextBatch()
     {
-        File.WriteAllText(
-            _runQueueFile,
-            JsonSerializer.Serialize(
-                runs,
-                new JsonSerializerOptions { WriteIndented = true })
-        );
+        if (Batches.Values.Any(IsBatchActive))
+            return;
+
+        var next = Batches.Values
+            .OrderBy(b => b.QueuePosition)
+            .FirstOrDefault(b => b.Status == BatchRunStatus.Queued);
+
+        if (next != null)
+            ExecuteBatch(next);
     }
 
-    private string GetBatchPath(string batchName)
-        => Path.Combine(_batchDirectory, $"{batchName}.json");
+    private static bool IsBatchActive(BatchRunInfo b)
+        => b.Status is BatchRunStatus.Injecting
+                     or BatchRunStatus.Running
+                     or BatchRunStatus.Acquiring;
+
+    /* ======================================================
+     * SAMPLE LOADER – STUB (SAFE TO REPLACE LATER)
+     * ====================================================== */
+
+    private static List<SampleExecutionInfo> LoadSamples(string batchName)
+        => new()
+        {
+            new()
+            {
+                BatchName = batchName,
+                SampleName = "Sample-1",
+                UsesMS = true,
+                State = SampleExecutionState.Queued
+            },
+            new()
+            {
+                BatchName = batchName,
+                SampleName = "Sample-2",
+                UsesMS = false,
+                State = SampleExecutionState.Queued
+            },
+            new()
+            {
+                BatchName = batchName,
+                SampleName = "Sample-3",
+                UsesMS = true,
+                State = SampleExecutionState.Queued
+            }
+        };
 }

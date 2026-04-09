@@ -7,29 +7,30 @@ import { SampleExecutionInfo } from '../models/sample-execution.model';
 @Injectable({ providedIn: 'root' })
 export class BatchRunService {
 
-  private api = 'https://localhost:7260/api/batch/run';
+  // ✅ BASE URL MATCHES BatchController ROUTES
+  private api = 'https://localhost:7260/api/batch';
 
   private queueSubject = new BehaviorSubject<BatchRunInfo[]>([]);
   queue$ = this.queueSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
+  // =========================
+  // QUEUE
+  // =========================
+
   loadQueue() {
     this.http.get<BatchRunInfo[]>(`${this.api}/queue`)
       .subscribe(q => this.queueSubject.next(q));
   }
 
-  getAllBatches() {
-    return this.http.get<string[]>('https://localhost:7260/api/batch');
-  }
-
   enqueue(batchName: string) {
-    return this.http.post(`${this.api}/queue/${batchName}`, {})
+    return this.http.post(`${this.api}/enqueue/${batchName}`, {})
       .pipe(tap(() => this.loadQueue()));
   }
 
   remove(batchName: string) {
-    return this.http.delete(`${this.api}/queue/${batchName}`)
+    return this.http.delete(`${this.api}/${batchName}`)
       .pipe(tap(() => this.loadQueue()));
   }
 
@@ -43,9 +44,24 @@ export class BatchRunService {
       .pipe(tap(() => this.loadQueue()));
   }
 
-  getExecution() {
+  // =========================
+  // AVAILABLE BATCHES
+  // =========================
+
+  // ✅ SEPARATE ENDPOINT FOR DEFINITIONS
+  getAllBatches() {
+    return this.http.get<string[]>(
+      'https://localhost:7260/api/batch-definitions'
+    );
+  }
+
+  // =========================
+  // SAMPLE EXECUTION
+  // =========================
+
+  getExecution(batchName: string) {
     return this.http.get<SampleExecutionInfo[]>(
-      `${this.api}/execution`
+      `${this.api}/${batchName}/samples`
     );
   }
 }

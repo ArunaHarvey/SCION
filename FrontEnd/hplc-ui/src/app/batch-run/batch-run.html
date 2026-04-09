@@ -1,82 +1,112 @@
-<h2 class="page-title">Batch Run</h2>
+<div class="batch-container">
 
-<!-- Batch Library -->
-<div class="panel">
-  <h3>Batch Library</h3>
-  <table>
-    <tr>
-      <th>Batch</th>
-      <th>Action</th>
-    </tr>
-    <tr *ngFor="let b of (availableBatches$ | async)">
-      <td>{{ b }}</td>
-      <td>
-        <button class="secondary"
-                (click)="addToQueue(b)">
-          Add to Queue
-        </button>
-      </td>
-    </tr>
+  <!-- ========================= -->
+  <!-- AVAILABLE BATCHES -->
+  <!-- ========================= -->
+  <h3>Available Batches</h3>
+
+  <table class="batch-table">
+    <thead>
+      <tr>
+        <th class="col-name">Batch</th>
+        <th class="col-actions">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let batchName of (availableBatches$ | async)">
+        <td>{{ batchName }}</td>
+        <td>
+          <button class="btn" (click)="addToQueue(batchName)">
+            Add
+          </button>
+        </td>
+      </tr>
+    </tbody>
   </table>
-</div>
 
-<!-- Run Queue -->
-<div class="panel">
+  <hr />
+
+  <!-- ========================= -->
+  <!-- RUN QUEUE -->
+  <!-- ========================= -->
   <h3>Run Queue</h3>
-  <table>
-    <tr>
-      <th>Batch</th>
-      <th>Status</th>
-      <th>Actions</th>
-    </tr>
 
-    <tr *ngFor="let q of (queue$ | async)">
-      <td>{{ q.batchName }}</td>
-      <td>
-        <span class="status"
-              [class.queued]="q.status === 'Queued'"
-              [class.running]="q.status === 'Running'">
-          {{ q.status }}
-        </span>
-      </td>
-      <td>
-        <!-- ✅ RUN BUTTON -->
-        <button class="primary"
-                *ngIf="q.status === 'Queued'"
-                (click)="run(q.batchName)">
-          Run
-        </button>
+  <ng-container *ngIf="queue$ | async as queue">
 
-        <!-- ✅ DELETE BUTTON -->
-        <button class="danger"
-                *ngIf="q.status === 'Queued'"
-                (click)="delete(q.batchName)">
-          Delete
-        </button>
-      </td>
-    </tr>
+    <table class="batch-table" *ngIf="queue.length > 0">
+      <thead>
+        <tr>
+          <th class="col-name">Batch</th>
+          <th class="col-status">Status</th>
+          <th class="col-queue">Queue Position</th>
+          <th class="col-actions">Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let batch of queue">
+          <td>{{ batch.batchName }}</td>
+          <td>{{ batch.status }}</td>
+          <td>{{ batch.queuePosition }}</td>
+
+          <td>
+            <div class="action-group">
+              <button
+                class="btn"
+                (click)="run(batch.batchName)"
+                [disabled]="batch.status !== 'Queued'">
+                Run
+              </button>
+
+              <button
+                class="btn btn-danger"
+                (click)="delete(batch.batchName)"
+                [disabled]="batch.status !== 'Queued'">
+                Delete
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p *ngIf="queue.length === 0" class="empty-text">
+      No batches in queue.
+    </p>
+
+  </ng-container>
+
+  <hr />
+
+  <!-- ========================= -->
+  <!-- SAMPLE EXECUTION -->
+  <!-- ========================= -->
+  <h3 *ngIf="execution$">Sample Execution</h3>
+
+  <table class="batch-table" *ngIf="execution$ | async as execution">
+    <thead>
+      <tr>
+        <th>Sample</th>
+        <th>State</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let sample of execution">
+        <td>{{ sample.sampleName }}</td>
+        <td>{{ sample.state }}</td>
+      </tr>
+    </tbody>
   </table>
 
-  <button class="danger" (click)="clear()">
-    Clear Batch / Queue
-  </button>
-</div>
+  <hr />
 
-<!-- Live Execution -->
-<div class="panel" *ngIf="execution$ | async as exec">
-  <h3>Live Execution</h3>
-  <table>
-    <tr>
-      <th>Sample</th>
-      <th>LC</th>
-      <th>MS</th>
-      <th>Status</th>
-    </tr>
-    <tr *ngFor="let e of exec">
-      <td>{{ e.sampleName }}</td>
-      <td>{{ e.lcId }}</td>
-      <td>{{ e.usesMS ? '⭐ MS' : '—' }}</td>
-      <td>{{ e.state }}</td>
-    </tr>
-  </table>
+  <!-- ========================= -->
+  <!-- CLEAR QUEUE -->
+  <!-- ========================= -->
+  <div class="footer-actions">
+    <button class="btn btn-clear" (click)="clear()">
+      Clear Queue
+    </button>
+  </div>
+
 </div>

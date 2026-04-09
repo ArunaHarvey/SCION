@@ -1,252 +1,253 @@
 {
-  "batchName": "Batch_Impurity_Run",
-  "samples": [
+  "BatchName": "Batch_Impurity_Run",
+  "Samples": [
     {
-      "serialNo": 1,
-      "sampleName": "Imp_S01",
-      "injectionLocation": "Vial_01",
-      "injectionVolume": 5,
-      "methodId": "M002",
-      "assignedLC": 1
+      "SerialNo": 0,
+      "SampleName": "Imp_S01",
+      "InjectionLocation": "",
+      "InjectionVolume": 5,
+      "MethodId": "M002",
+      "AssignedLC": 0
     },
     {
-      "serialNo": 2,
-      "sampleName": "Imp_S02",
-      "injectionLocation": "Vial_02",
-      "injectionVolume": 5,
-      "methodId": "M002",
-      "assignedLC": 1
+      "SerialNo": 0,
+      "SampleName": "Imp_S02",
+      "InjectionLocation": "",
+      "InjectionVolume": 5,
+      "MethodId": "M002",
+      "AssignedLC": 0
     },
     {
-      "serialNo": 3,
-      "sampleName": "Imp_S03",
-      "injectionLocation": "Vial_03",
-      "injectionVolume": 5,
-      "methodId": "M002",
-      "assignedLC": 2
+      "SerialNo": 0,
+      "SampleName": "Imp_S03",
+      "InjectionLocation": "",
+      "InjectionVolume": 5,
+      "MethodId": "M002",
+      "AssignedLC": 0
     },
     {
-      "serialNo": 4,
-      "sampleName": "Imp_S04",
-      "injectionLocation": "Vial_04",
-      "injectionVolume": 5,
-      "methodId": "M002",
-      "assignedLC": 2
+      "SerialNo": 0,
+      "SampleName": "Imp_S04",
+      "InjectionLocation": "",
+      "InjectionVolume": 5,
+      "MethodId": "M002",
+      "AssignedLC": 0
     },
     {
-      "serialNo": 5,
-      "sampleName": "Imp_S05",
-      "injectionLocation": "Vial_05",
-      "injectionVolume": 5,
-      "methodId": "M002",
-      "assignedLC": 2
-    },
-
-    {
-      "serialNo": 6,
-      "sampleName": "Imp_S06",
-      "injectionLocation": "Vial_06",
-      "injectionVolume": 5,
-      "methodId": "M002",
-      "assignedLC": 3
+      "SerialNo": 0,
+      "SampleName": "Imp_S05",
+      "InjectionLocation": "",
+      "InjectionVolume": 5,
+      "MethodId": "M002",
+      "AssignedLC": 0
     },
     {
-      "serialNo": 7,
-      "sampleName": "Imp_S07",
-      "injectionLocation": "Vial_07",
-      "injectionVolume": 5,
-      "methodId": "M002",
-      "assignedLC": 3
+      "SerialNo": 0,
+      "SampleName": "Imp_S06",
+      "InjectionLocation": "",
+      "InjectionVolume": 5,
+      "MethodId": "M002",
+      "AssignedLC": 0
     },
     {
-      "serialNo": 8,
-      "sampleName": "Imp_S08",
-      "injectionLocation": "Vial_08",
-      "injectionVolume": 5,
-      "methodId": "M002",
-      "assignedLC": 3
+      "SerialNo": 0,
+      "SampleName": "Imp_S07",
+      "InjectionLocation": "",
+      "InjectionVolume": 5,
+      "MethodId": "M002",
+      "AssignedLC": 0
     },
     {
-      "serialNo": 9,
-      "sampleName": "Imp_S09",
-      "injectionLocation": "Vial_09",
-      "injectionVolume": 5,
-      "methodId": "M002",
-      "assignedLC": 3
-    },
-
-    {
-      "serialNo": 10,
-      "sampleName": "Imp_S10",
-      "injectionLocation": "Vial_10",
-      "injectionVolume": 5,
-      "methodId": "M002",
-      "assignedLC": 4
+      "SerialNo": 0,
+      "SampleName": "Imp_S08",
+      "InjectionLocation": "",
+      "InjectionVolume": 5,
+      "MethodId": "M002",
+      "AssignedLC": 0
     },
     {
-      "serialNo": 11,
-      "sampleName": "Imp_S11",
-      "injectionLocation": "Vial_11",
-      "injectionVolume": 5,
-      "methodId": "M002",
-      "assignedLC": 4
+      "SerialNo": 0,
+      "SampleName": "Imp_S09",
+      "InjectionLocation": "",
+      "InjectionVolume": 5,
+      "MethodId": "M002",
+      "AssignedLC": 0
     },
     {
-      "serialNo": 12,
-      "sampleName": "Imp_S12",
-      "injectionLocation": "Vial_12",
-      "injectionVolume": 5,
-      "methodId": "M002",
-      "assignedLC": 4
-    },
-
-    {
-      "serialNo": 13,
-      "sampleName": "Imp_S13",
-      "injectionLocation": "Vial_13",
-      "injectionVolume": 5,
-      "methodId": "M002",
-      "assignedLC": 1
+      "SerialNo": 0,
+      "SampleName": "Imp_S10",
+      "InjectionLocation": "",
+      "InjectionVolume": 5,
+      "MethodId": "M002",
+      "AssignedLC": 0
     },
     {
-      "serialNo": 14,
-      "sampleName": "Imp_S14",
-      "injectionLocation": "Vial_14",
-      "injectionVolume": 5,
-      "methodId": "M002",
-      "assignedLC": 1
+      "SerialNo": 0,
+      "SampleName": "Imp_S11",
+      "InjectionLocation": "",
+      "InjectionVolume": 5,
+      "MethodId": "M002",
+      "AssignedLC": 0
     },
     {
-      "serialNo": 15,
-      "sampleName": "Imp_S15",
-      "injectionLocation": "Vial_15",
-      "injectionVolume": 5,
-      "methodId": "M002",
-      "assignedLC": 1
-    },
-
-    {
-      "serialNo": 16,
-      "sampleName": "Imp_S16",
-      "injectionLocation": "Vial_16",
-      "injectionVolume": 5,
-      "methodId": "M002",
-      "assignedLC": 2
+      "SerialNo": 0,
+      "SampleName": "Imp_S12",
+      "InjectionLocation": "",
+      "InjectionVolume": 5,
+      "MethodId": "M002",
+      "AssignedLC": 0
     },
     {
-      "serialNo": 17,
-      "sampleName": "Imp_S17",
-      "injectionLocation": "Vial_17",
-      "injectionVolume": 5,
-      "methodId": "M002",
-      "assignedLC": 2
+      "SerialNo": 0,
+      "SampleName": "Imp_S13",
+      "InjectionLocation": "",
+      "InjectionVolume": 5,
+      "MethodId": "M002",
+      "AssignedLC": 0
     },
     {
-      "serialNo": 18,
-      "sampleName": "Imp_S18",
-      "injectionLocation": "Vial_18",
-      "injectionVolume": 5,
-      "methodId": "M002",
-      "assignedLC": 2
-    },
-
-    {
-      "serialNo": 19,
-      "sampleName": "Imp_S19",
-      "injectionLocation": "Vial_19",
-      "injectionVolume": 5,
-      "methodId": "M002",
-      "assignedLC": 3
+      "SerialNo": 0,
+      "SampleName": "Imp_S14",
+      "InjectionLocation": "",
+      "InjectionVolume": 5,
+      "MethodId": "M002",
+      "AssignedLC": 0
     },
     {
-      "serialNo": 20,
-      "sampleName": "Imp_S20",
-      "injectionLocation": "Vial_20",
-      "injectionVolume": 5,
-      "methodId": "M002",
-      "assignedLC": 3
-    },
-
-    {
-      "serialNo": 21,
-      "sampleName": "Imp_S21",
-      "injectionLocation": "Vial_21",
-      "injectionVolume": 5,
-      "methodId": "M002",
-      "assignedLC": 4
+      "SerialNo": 0,
+      "SampleName": "Imp_S15",
+      "InjectionLocation": "",
+      "InjectionVolume": 5,
+      "MethodId": "M002",
+      "AssignedLC": 0
     },
     {
-      "serialNo": 22,
-      "sampleName": "Imp_S22",
-      "injectionLocation": "Vial_22",
-      "injectionVolume": 5,
-      "methodId": "M002",
-      "assignedLC": 4
+      "SerialNo": 0,
+      "SampleName": "Imp_S16",
+      "InjectionLocation": "",
+      "InjectionVolume": 5,
+      "MethodId": "M002",
+      "AssignedLC": 0
     },
     {
-      "serialNo": 23,
-      "sampleName": "Imp_S23",
-      "injectionLocation": "Vial_23",
-      "injectionVolume": 5,
-      "methodId": "M002",
-      "assignedLC": 4
-    },
-
-    {
-      "serialNo": 24,
-      "sampleName": "Imp_S24",
-      "injectionLocation": "Vial_24",
-      "injectionVolume": 5,
-      "methodId": "M002",
-      "assignedLC": 1
+      "SerialNo": 0,
+      "SampleName": "Imp_S17",
+      "InjectionLocation": "",
+      "InjectionVolume": 5,
+      "MethodId": "M002",
+      "AssignedLC": 0
     },
     {
-      "serialNo": 25,
-      "sampleName": "Imp_S25",
-      "injectionLocation": "Vial_25",
-      "injectionVolume": 5,
-      "methodId": "M002",
-      "assignedLC": 1
+      "SerialNo": 0,
+      "SampleName": "Imp_S18",
+      "InjectionLocation": "",
+      "InjectionVolume": 5,
+      "MethodId": "M002",
+      "AssignedLC": 0
     },
     {
-      "serialNo": 26,
-      "sampleName": "Imp_S26",
-      "injectionLocation": "Vial_26",
-      "injectionVolume": 5,
-      "methodId": "M002",
-      "assignedLC": 1
+      "SerialNo": 0,
+      "SampleName": "Imp_S19",
+      "InjectionLocation": "",
+      "InjectionVolume": 5,
+      "MethodId": "M002",
+      "AssignedLC": 0
     },
     {
-      "serialNo": 27,
-      "sampleName": "Imp_S27",
-      "injectionLocation": "Vial_27",
-      "injectionVolume": 5,
-      "methodId": "M002",
-      "assignedLC": 2
+      "SerialNo": 0,
+      "SampleName": "Imp_S20",
+      "InjectionLocation": "",
+      "InjectionVolume": 5,
+      "MethodId": "M002",
+      "AssignedLC": 0
     },
     {
-      "serialNo": 28,
-      "sampleName": "Imp_S28",
-      "injectionLocation": "Vial_28",
-      "injectionVolume": 5,
-      "methodId": "M002",
-      "assignedLC": 2
+      "SerialNo": 0,
+      "SampleName": "Imp_S21",
+      "InjectionLocation": "",
+      "InjectionVolume": 5,
+      "MethodId": "M002",
+      "AssignedLC": 0
     },
     {
-      "serialNo": 29,
-      "sampleName": "Imp_S29",
-      "injectionLocation": "Vial_29",
-      "injectionVolume": 5,
-      "methodId": "M002",
-      "assignedLC": 3
+      "SerialNo": 0,
+      "SampleName": "Imp_S22",
+      "InjectionLocation": "",
+      "InjectionVolume": 5,
+      "MethodId": "M002",
+      "AssignedLC": 0
     },
     {
-      "serialNo": 30,
-      "sampleName": "Imp_S30",
-      "injectionLocation": "Vial_30",
-      "injectionVolume": 5,
-      "methodId": "M002",
-      "assignedLC": 4
+      "SerialNo": 0,
+      "SampleName": "Imp_S23",
+      "InjectionLocation": "",
+      "InjectionVolume": 5,
+      "MethodId": "M002",
+      "AssignedLC": 0
+    },
+    {
+      "SerialNo": 0,
+      "SampleName": "Imp_S24",
+      "InjectionLocation": "",
+      "InjectionVolume": 5,
+      "MethodId": "M002",
+      "AssignedLC": 0
+    },
+    {
+      "SerialNo": 0,
+      "SampleName": "Imp_S25",
+      "InjectionLocation": "",
+      "InjectionVolume": 5,
+      "MethodId": "M002",
+      "AssignedLC": 0
+    },
+    {
+      "SerialNo": 0,
+      "SampleName": "Imp_S26",
+      "InjectionLocation": "",
+      "InjectionVolume": 5,
+      "MethodId": "M002",
+      "AssignedLC": 0
+    },
+    {
+      "SerialNo": 0,
+      "SampleName": "Imp_S27",
+      "InjectionLocation": "",
+      "InjectionVolume": 5,
+      "MethodId": "M002",
+      "AssignedLC": 0
+    },
+    {
+      "SerialNo": 0,
+      "SampleName": "Imp_S28",
+      "InjectionLocation": "",
+      "InjectionVolume": 5,
+      "MethodId": "M002",
+      "AssignedLC": 0
+    },
+    {
+      "SerialNo": 0,
+      "SampleName": "Imp_S29",
+      "InjectionLocation": "",
+      "InjectionVolume": 5,
+      "MethodId": "M002",
+      "AssignedLC": 0
+    },
+    {
+      "SerialNo": 0,
+      "SampleName": "Imp_S30",
+      "InjectionLocation": "",
+      "InjectionVolume": 5,
+      "MethodId": "M002",
+      "AssignedLC": 0
+    },
+    {
+      "SerialNo": 0,
+      "SampleName": "imp_S31",
+      "InjectionLocation": "",
+      "InjectionVolume": 10,
+      "MethodId": "M002",
+      "AssignedLC": 0
     }
   ]
 }

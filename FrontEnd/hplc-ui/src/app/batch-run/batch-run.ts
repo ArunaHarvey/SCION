@@ -19,6 +19,9 @@ export class BatchRunComponent implements OnInit {
   queue$!: Observable<BatchRunInfo[]>;
   execution$?: Observable<SampleExecutionInfo[]>;
 
+  // ✅ Track currently selected/running batch
+  private runningBatchName?: string;
+
   constructor(private service: BatchRunService) {}
 
   ngOnInit(): void {
@@ -32,8 +35,11 @@ export class BatchRunComponent implements OnInit {
   }
 
   run(batchName: string): void {
+    this.runningBatchName = batchName;
+
     this.service.start(batchName).subscribe(() => {
-      this.execution$ = this.service.getExecution();
+      // ✅ FIX: always pass batchName
+      this.execution$ = this.service.getExecution(batchName);
     });
   }
 
@@ -44,6 +50,7 @@ export class BatchRunComponent implements OnInit {
   clear(): void {
     this.service.clear().subscribe(() => {
       this.execution$ = undefined;
+      this.runningBatchName = undefined;
     });
   }
 }

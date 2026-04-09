@@ -3,12 +3,17 @@
 public class BatchRunInfo
 {
     public string BatchName { get; set; } = "";
+    public string LcId { get; set; } = "";
 
-    // ✅ REMOVE JsonIgnore — UI MUST see this
     public BatchRunStatus Status { get; set; } = BatchRunStatus.Queued;
 
-    public DateTime QueuedAt { get; set; } = DateTime.UtcNow;
+    public bool OwnsMS { get; set; }
+    public int? QueuePosition { get; set; }
 
-    // Optional runtime info
     public DateTime? InjectionStartTime { get; set; }
+    public DateTime? CompletionTime { get; set; }
+    public string? ActualDuration { get; set; }
+
+    // ✅ INTERNAL – UI does NOT need to render this
+    public List<SampleExecutionInfo> Samples { get; set; } = new();
 }

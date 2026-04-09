@@ -1,6 +1,6 @@
-﻿using Hplc.Controller.Api.Services;
+﻿using Microsoft.AspNetCore.Mvc;
 using Hplc.Controller.Api.Models;
-using Microsoft.AspNetCore.Mvc;
+using Hplc.Controller.Api.Services;
 
 namespace Hplc.Controller.Api.Controllers;
 
@@ -8,39 +8,115 @@ namespace Hplc.Controller.Api.Controllers;
 [Route("api/batch")]
 public class BatchController : ControllerBase
 {
-    private readonly BatchFileService _service;
+    private readonly BatchFileService _batchFileService;
 
-    public BatchController(BatchFileService service)
+    public BatchController(BatchFileService batchFileService)
     {
-        _service = service;
+        _batchFileService = batchFileService;
     }
 
-    // ✅ REQUIRED: GET /api/batch
+    // =====================================================
+    // ✅ AVAILABLE BATCH DEFINITIONS (NEW & PERMANENT)
+    // =====================================================
+
+    // This is what Angular should call:
+    // GET /api/batch
     [HttpGet]
-    public IActionResult GetAllBatches()
+    public IActionResult GetAvailableBatches()
     {
-        return Ok(_service.GetAllBatches());
+        // For now, static list.
+        // Later this can come from DB, batch files, LMS, etc.
+        return Ok(new[]
+        {
+            "Batch_Impurity_Run",
+            "Batch_Mixed_Run",
+            "d",
+            "eee"
+        });
     }
 
-    // GET /api/batch/{batchName}
-    [HttpGet("{batchName}")]
-    public IActionResult GetBatch(string batchName)
+    // =====================================================
+    // RUN QUEUE APIs (EXISTING – UNCHANGED)
+    // =====================================================
+
+    [HttpGet("queue")]
+    public IActionResult GetBatchRunQueue()
     {
-        return Ok(_service.GetBatch(batchName));
+        return Ok(_batchFileService.GetBatchRunQueue());
     }
 
-    // GET /api/batch/{batchName}/samples
+    [HttpPost("enqueue/{batchName}")]
+    public IActionResult EnqueueBatch(string batchName)
+    {
+        _batchFileService.EnqueueBatch(batchName);
+        return Ok();
+    }
+
+    [HttpPost("start/{batchName}")]
+    public IActionResult StartBatch(string batchName)
+    {
+        _batchFileService.StartBatch(batchName);
+        return Ok();
+    }
+
+    [HttpDelete("{batchName}")]
+    public IActionResult RemoveFromQueue(string batchName)
+    {
+        _batchFileService.RemoveFromQueue(batchName);
+        return Ok();
+    }
+
+    [HttpPost("clear")]
+    public IActionResult ClearRunQueue()
+    {
+        _batchFileService.ClearRunQueue();
+        return Ok();
+    }
+
+    // =====================================================
+    // SAVE BATCH DEFINITION → EXECUTION RUN
+    // =====================================================
+
+    [HttpPost("save")]
+    public IActionResult SaveBatch([FromBody] Batch batch)
+    {
+        if (batch == null || string.IsNullOrWhiteSpace(batch.BatchName))
+            return BadRequest("Invalid batch");
+
+        var runInfo = MapBatchToBatchRunInfo(batch);
+        _batchFileService.SaveBatch(runInfo);
+
+        return Ok();
+    }
+
+    // =====================================================
+    // SAMPLE EXECUTION
+    // =====================================================
+
     [HttpGet("{batchName}/samples")]
     public IActionResult GetSamples(string batchName)
     {
-        return Ok(_service.GetSamples(batchName));
+        return Ok(_batchFileService.GetSamples(batchName));
     }
 
-    // POST /api/batch
-    [HttpPost]
-    public IActionResult SaveBatch([FromBody] Batch batch)
+    // =====================================================
+    // PRIVATE MAPPER
+    // =====================================================
+
+    private static BatchRunInfo MapBatchToBatchRunInfo(Batch batch)
     {
-        _service.SaveBatch(batch);
-        return Ok();
+        return new BatchRunInfo
+        {
+            BatchName = batch.BatchName,
+            Status = BatchRunStatus.Queued,
+            OwnsMS = false,
+            QueuePosition = null,
+            Samples = batch.Samples.Select(sample => new SampleExecutionInfo
+            {
+                BatchName = batch.BatchName,
+                SampleName = sample.SampleName,
+                State = SampleExecutionState.Queued
+            }).ToList()
+        };
     }
 }

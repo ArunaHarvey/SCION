@@ -76,15 +76,26 @@
         <th>Sample</th>
         <th>Method</th>
         <th>Status</th>
+        <th>LC</th>
       </tr>
     </thead>
-    <tbody>
-      <tr *ngFor="let s of selectedRun.samples">
-        <td>{{ s.sampleName }}</td>
-        <td>{{ s.methodId }}</td>
-        <td>{{ s.state }}</td>
-      </tr>
-    </tbody>
-  </table>
+  
+  <tbody>
+    <tr *ngFor="let s of selectedRun.samples">
+      <td>{{ s.sampleName }}</td>
+      <td>{{ s.methodId }}</td>
+      <td>{{ s.state }}</td>
+      <td>
+        <span *ngIf="s.assignedLC && s.assignedLC > 0">
+          LC-{{ s.assignedLC }}
+        </span>
+        <span *ngIf="!s.assignedLC || s.assignedLC === 0">
+          –
+        </span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
 
 </div>

@@ -1,30 +1,35 @@
-﻿using System.Collections.Concurrent;
+﻿using Hplc.Controller.Api.Models;
+using Hplc.Controller.Api.Models.Instrument;
+using System.Collections.Concurrent;
 using System.Text.Json;
-using Hplc.Controller.Api.Models;
 
 namespace Hplc.Controller.Api.Services;
 
 public class BatchFileService
 {
     private readonly string _batchDir;
-    private readonly string _queueDir;
-    private readonly string _queueFile;
 
-    // In-memory execution store
+    /* =========================
+       Constants
+       ========================= */
+
+    private const int LC_COUNT = 4;
+
+    /* =========================
+       In‑memory batch run queue
+       ========================= */
+
     private static readonly ConcurrentDictionary<string, BatchRunInfo> RunQueue = new();
 
     public BatchFileService()
     {
-        var baseDataDir = Path.Combine(Directory.GetCurrentDirectory(), "Data");
-
-        _batchDir = Path.Combine(baseDataDir, "Batches");
-        _queueDir = Path.Combine(baseDataDir, "RunQueue");
-        _queueFile = Path.Combine(_queueDir, "queue.json");
+        _batchDir = Path.Combine(
+            Directory.GetCurrentDirectory(),
+            "Data",
+            "Batches"
+        );
 
         Directory.CreateDirectory(_batchDir);
-        Directory.CreateDirectory(_queueDir);
-
-        EnsureQueueFileExists();
     }
 
     /* =========================
@@ -37,8 +42,7 @@ public class BatchFileService
             return Enumerable.Empty<string>();
 
         return Directory.GetFiles(_batchDir, "*.json")
-            .Select(Path.GetFileNameWithoutExtension)
-            .Where(n => !string.IsNullOrWhiteSpace(n));
+            .Select(Path.GetFileNameWithoutExtension);
     }
 
     public Batch LoadBatchDefinition(string batchName)
@@ -46,7 +50,7 @@ public class BatchFileService
         var path = Path.Combine(_batchDir, $"{batchName}.json");
 
         if (!File.Exists(path))
-            throw new FileNotFoundException($"Batch '{batchName}' not found", path);
+            throw new FileNotFoundException(path);
 
         return JsonSerializer.Deserialize<Batch>(File.ReadAllText(path))!;
     }
@@ -54,18 +58,29 @@ public class BatchFileService
     public void SaveBatchDefinition(Batch batch)
     {
         var path = Path.Combine(_batchDir, $"{batch.BatchName}.json");
-        File.WriteAllText(path,
+
+        File.WriteAllText(
+            path,
             JsonSerializer.Serialize(batch, new JsonSerializerOptions { WriteIndented = true })
         );
     }
 
     /* =========================
-       Run Queue (SAFE)
+       Run Queue
        ========================= */
+
+    public List<BatchRunInfo> GetBatchRunQueue()
+        => RunQueue.Values
+            .OrderBy(r => r.QueuePosition)
+            .Select(CloneRun)
+            .ToList();
 
     public void EnqueueBatch(Batch batch)
     {
-        RunQueue.TryAdd(batch.BatchName, new BatchRunInfo
+        if (RunQueue.ContainsKey(batch.BatchName))
+            return;
+
+        var run = new BatchRunInfo
         {
             BatchName = batch.BatchName,
             Status = BatchRunStatus.Queued,
@@ -74,67 +89,168 @@ public class BatchFileService
             {
                 SampleName = s.SampleName,
                 MethodId = s.MethodId,
-                State = SampleExecutionState.Queued
+                State = SampleExecutionState.Queued,
+                AssignedLC = 0,
+                OwnsMS = false
             }).ToList()
-        });
+        };
 
-        RecalculateQueuePositions();
-        PersistQueue();
+        RunQueue[batch.BatchName] = run;
     }
 
-    /* ✅ MOST IMPORTANT FIX
-       Return IMMUTABLE SNAPSHOTS — never live objects */
-    public List<BatchRunInfo> GetBatchRunQueue()
-    {
-        return RunQueue.Values
-            .OrderBy(r => r.QueuePosition)
-            .Select(CloneRun)
-            .ToList();
-    }
+    /* =========================
+       Start Batch (CORRECT LOGIC)
+       ========================= */
 
-    /* ✅ Idempotent + thread-safe */
+
     public void StartBatch(string batchName)
     {
         if (!RunQueue.TryGetValue(batchName, out var run))
             return;
 
-        lock (run)
-        {
-            if (run.Status != BatchRunStatus.Queued)
-                return;
+        if (run.Status != BatchRunStatus.Queued)
+            return;
 
-            run.Status = BatchRunStatus.Running;
-            PersistQueue();
+        Console.WriteLine(
+            $"[START-BATCH] Batch={batchName}, Samples={run.Samples.Count}, Time={DateTime.UtcNow:O}"
+        );
+
+        run.Status = BatchRunStatus.Running;
+
+        // ✅ Per-batch pending queue
+        var pending = new ConcurrentQueue<SampleExecutionInfo>();
+        foreach (var s in run.Samples)
+        {
+            pending.Enqueue(s);
+
+            Console.WriteLine(
+                $"[ENQUEUE] Batch={batchName}, Sample={s.SampleName}"
+            );
         }
 
+        // ✅ One MS per batch
+        var msLock = new SemaphoreSlim(1, 1);
+
+        // ✅ Start exactly 4 LC workers for THIS batch
+        for (int lcId = 1; lcId <= LC_COUNT; lcId++)
+        {
+            Console.WriteLine(
+                $"[LC-WORKER-START] Batch={batchName}, LC={lcId}"
+            );
+
+            int capturedLcId = lcId; // ✅ explicit capture for logging clarity
+
+            Task.Run(() => RunLCWorker(
+                capturedLcId,
+                run,
+                pending,
+                msLock
+            ));
+        }
+
+        // ✅ Monitor completion safely
         Task.Run(async () =>
         {
-            foreach (var s in run.Samples)
-            {
-                s.State = SampleExecutionState.Preparing;
-                await Task.Delay(300);
-
-                s.State = SampleExecutionState.WaitingForMS;
-                await Task.Delay(300);
-
-                s.State = SampleExecutionState.Injecting;
-                await Task.Delay(300);
-
-                s.State = SampleExecutionState.Acquiring;
-                await Task.Delay(300);
-
-                s.State = SampleExecutionState.Completed;
-            }
+            while (run.Samples.Any(s => s.State != SampleExecutionState.Completed))
+                await Task.Delay(200);
 
             run.Status = BatchRunStatus.Completed;
-            PersistQueue();
+
+            Console.WriteLine(
+                $"[BATCH-COMPLETE] Batch={batchName}, Time={DateTime.UtcNow:O}"
+            );
         });
+    }
+
+    /* =========================
+       LC Worker (PER BATCH)
+       ========================= */
+
+    private async Task RunLCWorker(
+     int lcId,
+     BatchRunInfo run,
+     ConcurrentQueue<SampleExecutionInfo> pending,
+     SemaphoreSlim msLock)
+    {
+        Console.WriteLine(
+            $"[LC-WORKER-ENTER] Batch={run.BatchName}, WorkerLC={lcId}, Thread={Environment.CurrentManagedThreadId}"
+        );
+
+        while (pending.TryDequeue(out var sample))
+        {
+            Console.WriteLine(
+                $"[LC-DEQUEUE] Batch={run.BatchName}, WorkerLC={lcId}, Sample={sample.SampleName}, Thread={Environment.CurrentManagedThreadId}"
+            );
+
+            // ✅ LC picks sample
+            sample.AssignedLC = lcId;
+
+            Console.WriteLine(
+                $"[LC-ASSIGN] Batch={run.BatchName}, Sample={sample.SampleName}, AssignedLC={sample.AssignedLC}, WorkerLC={lcId}, Thread={Environment.CurrentManagedThreadId}"
+            );
+
+            sample.State = SampleExecutionState.Preparing;
+
+            // LC preparation
+            await Task.Delay(500);
+
+            sample.State = SampleExecutionState.WaitingForMS;
+
+            Console.WriteLine(
+                $"[MS-WAIT] Batch={run.BatchName}, Sample={sample.SampleName}, LC={sample.AssignedLC}"
+            );
+
+            // ✅ Compete for single MS
+            await msLock.WaitAsync();
+            try
+            {
+                sample.OwnsMS = true;
+
+                Console.WriteLine(
+                    $"[MS-ACQUIRED] Batch={run.BatchName}, Sample={sample.SampleName}, LC={sample.AssignedLC}"
+                );
+
+                sample.State = SampleExecutionState.Injecting;
+                await Task.Delay(300);
+
+                sample.State = SampleExecutionState.Acquiring;
+                await Task.Delay(800);
+
+                sample.State = SampleExecutionState.Completed;
+
+                Console.WriteLine(
+                    $"[SAMPLE-COMPLETE] Batch={run.BatchName}, Sample={sample.SampleName}, LC={sample.AssignedLC}"
+                );
+            }
+            finally
+            {
+                sample.OwnsMS = false;
+                msLock.Release();
+
+                Console.WriteLine(
+                    $"[MS-RELEASED] Batch={run.BatchName}, Sample={sample.SampleName}, LC={sample.AssignedLC}"
+                );
+            }
+        }
+
+        Console.WriteLine(
+            $"[LC-WORKER-EXIT] Batch={run.BatchName}, WorkerLC={lcId}, Thread={Environment.CurrentManagedThreadId}"
+        );
+    }
+
+
+    public void RemoveFromQueue(string batchName)
+    {
+        RunQueue.TryRemove(batchName, out _);
+
+        int pos = 1;
+        foreach (var r in RunQueue.Values.OrderBy(r => r.QueuePosition))
+            r.QueuePosition = pos++;
     }
 
     public void ClearRunQueue()
     {
         RunQueue.Clear();
-        PersistQueue();
     }
 
     /* =========================
@@ -142,7 +258,7 @@ public class BatchFileService
        ========================= */
 
     private static BatchRunInfo CloneRun(BatchRunInfo r)
-        => new BatchRunInfo
+        => new()
         {
             BatchName = r.BatchName,
             Status = r.Status,
@@ -151,50 +267,46 @@ public class BatchFileService
             {
                 SampleName = s.SampleName,
                 MethodId = s.MethodId,
-                State = s.State
+                State = s.State,
+                AssignedLC = s.AssignedLC,
+                OwnsMS = s.OwnsMS
             }).ToList()
         };
-
-    private void EnsureQueueFileExists()
+    public MsStatus GetMsStatus()
     {
-        if (!File.Exists(_queueFile))
-            File.WriteAllText(_queueFile, "[]");
-        else
-            LoadQueueFromDisk();
-    }
+        // Find the running batch (only one MS exists)
+        var runningBatch = RunQueue.Values
+            .FirstOrDefault(b => b.Status == BatchRunStatus.Running);
 
-    private void PersistQueue()
-    {
-        File.WriteAllText(_queueFile,
-            JsonSerializer.Serialize(
-                RunQueue.Values.OrderBy(r => r.QueuePosition),
-                new JsonSerializerOptions { WriteIndented = true }
-            ));
-    }
+        if (runningBatch == null)
+        {
+            return new MsStatus
+            {
+                IsAcquiring = false,
+                ActiveLcId = null,
+                BatchName = null
+            };
+        }
 
-    private void LoadQueueFromDisk()
-    {
-        var list = JsonSerializer.Deserialize<List<BatchRunInfo>>(
-            File.ReadAllText(_queueFile)
-        ) ?? new();
+        // Find the sample currently owning the MS
+        var activeSample = runningBatch.Samples
+            .FirstOrDefault(s => s.OwnsMS);
 
-        RunQueue.Clear();
-        foreach (var r in list)
-            RunQueue[r.BatchName] = r;
-    }
+        if (activeSample == null)
+        {
+            return new MsStatus
+            {
+                IsAcquiring = false,
+                ActiveLcId = null,
+                BatchName = runningBatch.BatchName
+            };
+        }
 
-    private void RecalculateQueuePositions()
-    {
-        int pos = 1;
-        foreach (var r in RunQueue.Values.OrderBy(r => r.QueuePosition))
-            r.QueuePosition = pos++;
-    }
-    public void RemoveFromQueue(string batchName)
-    {
-        if (!RunQueue.TryRemove(batchName, out _))
-            return;
-
-        RecalculateQueuePositions();
-        PersistQueue();
+        return new MsStatus
+        {
+            IsAcquiring = true,
+            ActiveLcId = $"LC-{activeSample.AssignedLC}",
+            BatchName = runningBatch.BatchName
+        };
     }
 }

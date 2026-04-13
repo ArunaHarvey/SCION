@@ -21,20 +21,21 @@ public class BatchController : ControllerBase
 
     // GET /api/batch
     [HttpGet]
-    public IActionResult GetBatches()
+    [ProducesResponseType(typeof(IEnumerable<string>), StatusCodes.Status200OK)]
+    public ActionResult<IEnumerable<string>> GetBatches()
     {
-        var batches = _svc.GetAvailableBatchNames().ToList();
-        return Ok(batches);
+        return Ok(_svc.GetAvailableBatchNames().ToList());
     }
 
     // GET /api/batch/definition/{batchName}
     [HttpGet("definition/{batchName}")]
-    public IActionResult GetBatchDefinition(string batchName)
+    [ProducesResponseType(typeof(Batch), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public ActionResult<Batch> GetBatchDefinition(string batchName)
     {
         try
         {
-            var batch = _svc.LoadBatchDefinition(batchName);
-            return Ok(batch);
+            return Ok(_svc.LoadBatchDefinition(batchName));
         }
         catch (FileNotFoundException)
         {
@@ -55,14 +56,17 @@ public class BatchController : ControllerBase
     }
 
     /* =========================
-       Run Queue
+       ✅ RUN QUEUE (FIXED)
        ========================= */
 
     // GET /api/batch/queue
+    // ✅ STRONGLY TYPED RESPONSE SO SAMPLES + ASSIGNEDLC ARE NOT LOST
     [HttpGet("queue")]
-    public IActionResult GetRunQueue()
+    [ProducesResponseType(typeof(List<BatchRunInfo>), StatusCodes.Status200OK)]
+    public ActionResult<List<BatchRunInfo>> GetRunQueue()
     {
-        return Ok(_svc.GetBatchRunQueue());
+        var runs = _svc.GetBatchRunQueue();
+        return Ok(runs);
     }
 
     // POST /api/batch/enqueue

@@ -12,7 +12,7 @@ export interface Sample {
   injectionLocation: string;
   injectionVolume: number;
   methodId: string;
-  assignedLC: number;
+  
 }
 
 export interface Batch {
@@ -28,6 +28,7 @@ export type BatchRunStatus =
 export interface SampleExecutionInfo {
   sampleName: string;
   methodId: string;
+  assignedLC: number;
   state:
     | 'Queued'
     | 'Preparing'

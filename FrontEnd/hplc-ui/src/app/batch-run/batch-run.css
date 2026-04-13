@@ -1,4 +1,6 @@
-/* Container */
+/* =========================
+   Container
+   ========================= */
 .batch-container {
   max-width: 900px;
   margin: 0 auto;
@@ -6,49 +8,70 @@
   font-family: Arial, sans-serif;
 }
 
-/* Tables */
+/* =========================
+   Table base styles
+   ========================= */
 .batch-table {
   width: 100%;
   border-collapse: collapse;
+  table-layout: fixed;          /* ✅ enforce column widths */
   margin-bottom: 1rem;
 }
 
+/* =========================
+   Header + cell styles
+   ========================= */
 .batch-table th,
 .batch-table td {
   border: 1px solid #ccc;
-  padding: 0.5rem 0.75rem;
+  padding: 0.4rem 0.6rem;       /* ✅ tighter spacing */
   text-align: left;
   vertical-align: middle;
+  box-sizing: border-box;
+  white-space: nowrap;
 }
 
-/* Column sizing */
-.col-name {
-  width: 40%;
+/* Header emphasis */
+.batch-table thead th {
+  background-color: #f5f5f5;
+  font-weight: 600;
 }
 
-.col-status {
+/* =========================
+   Column width control
+   Order matters (by position)
+   ========================= */
+
+/* Sample */
+.batch-table th:nth-child(1),
+.batch-table td:nth-child(1) {
+  width: 35%;
+}
+
+/* Method */
+.batch-table th:nth-child(2),
+.batch-table td:nth-child(2) {
   width: 20%;
 }
 
-.col-queue {
-  width: 15%;
-}
-
-.col-actions {
+/* Status */
+.batch-table th:nth-child(3),
+.batch-table td:nth-child(3) {
   width: 25%;
 }
 
-/* Action buttons */
-.action-group {
-  display: flex;
-  gap: 0.5rem;
+/* LC (small but visible) */
+.batch-table th:nth-child(4),
+.batch-table td:nth-child(4) {
+  width: 10%;
+  min-width: 60px;
+  text-align: center;
+  font-weight: 600;
 }
 
-.footer-actions {
-  text-align: right;
-}
-
-/* Buttons */
+/* =========================
+   Buttons
+   ========================= */
 .btn {
   padding: 0.35rem 0.75rem;
   border: 1px solid #888;
@@ -61,13 +84,13 @@
   background-color: #e0e0e0;
 }
 
+.btn-clear {
+  border-color: #555;
+}
+
 .btn-danger {
   border-color: #c0392b;
   color: #c0392b;
-}
-
-.btn-clear {
-  border-color: #555;
 }
 
 /* Disabled state */
@@ -76,7 +99,9 @@
   cursor: not-allowed;
 }
 
-/* Empty text */
+/* =========================
+   Utility
+   ========================= */
 .empty-text {
   color: #666;
   font-style: italic;

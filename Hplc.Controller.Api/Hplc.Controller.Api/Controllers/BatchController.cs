@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Hplc.Controller.Api.Models;
+using Hplc.Controller.Api.Models.Instrument;
 using Hplc.Controller.Api.Services;
-using Hplc.Controller.Api.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Hplc.Controller.Api.Controllers;
 
@@ -92,4 +93,12 @@ public class BatchController : ControllerBase
         _svc.ClearRunQueue();
         return Ok();
     }
+    // GET /api/batch/ms-status
+    [HttpGet("ms-status")]
+    public ActionResult<MsStatus> GetMsStatus()
+    {
+        var status = _svc.GetMsStatus();
+        return Ok(status);
+    }
+
 }

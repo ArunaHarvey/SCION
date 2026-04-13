@@ -64,7 +64,20 @@
     [disabled]="runQueue.length === 0">
     Clear Queue
   </button>
+  <!-- ✅ MS STATUS PANEL -->
+<div class="ms-status" *ngIf="msStatus">
+  <h3>MS Status</h3>
 
+  <div *ngIf="!msStatus.isAcquiring">
+    🟢 <strong>MS Idle</strong>
+  </div>
+
+  <div *ngIf="msStatus.isAcquiring">
+    🔴 <strong>MS Busy</strong><br />
+    Batch: {{ msStatus.batchName }}<br />
+    LC: {{ msStatus.activeLcId }}
+  </div>
+</div>
   <!-- ✅ SAMPLE EXECUTION STATUS -->
   <h3 *ngIf="selectedRun">
     Sample Execution – {{ selectedRun.batchName }}

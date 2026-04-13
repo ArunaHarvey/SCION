@@ -7,7 +7,8 @@ import {
   BatchService,
   Batch,
   BatchRunInfo,
-  SampleExecutionInfo
+  SampleExecutionInfo,
+  MsStatus
 } from '../services/batch';
 
 @Component({
@@ -23,7 +24,7 @@ export class BatchRunComponent implements OnInit {
   runQueue: BatchRunInfo[] = [];
 
   selectedRun?: BatchRunInfo;
-
+  msStatus?: MsStatus;
   isEnqueuing = false;
   isStarting = false;
 
@@ -42,9 +43,10 @@ export class BatchRunComponent implements OnInit {
 
     // ✅ Auto-refresh while a batch is running (sample status updates)
     interval(1000).subscribe(() => {
-      if (this.runQueue.some(r => r.status === 'Running')) {
+      // if (this.runQueue.some(r => r.status === 'Running')) {
         this.loadRunQueue();
-      }
+        this.loadMsStatus(); 
+      //}
     });
   }
 
@@ -61,7 +63,12 @@ export class BatchRunComponent implements OnInit {
       error: err => console.error(err)
     });
   }
-
+  loadMsStatus(): void {
+  this.batchService.getMsStatus().subscribe(status => {
+    this.msStatus = status;
+    this.cdr.detectChanges();
+  });
+  }
   addToQueue(batchName: string): void {
     if (this.isEnqueuing) return;
     this.isEnqueuing = true;

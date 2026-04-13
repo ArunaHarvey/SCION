@@ -20,6 +20,12 @@ export interface Batch {
   samples: Sample[];
 }
 
+export interface MsStatus {
+  isAcquiring: boolean;
+  activeLcId?: string;
+  batchName?: string;
+}
+
 export type BatchRunStatus =
   | 'Queued'
   | 'Running'
@@ -116,8 +122,14 @@ export class BatchService {
       `${this.api}/batch/queue`
     );
   }
-
+  
   getBatchRunSummary(): Observable<any | null> {
     return of(null);
   }
+  getMsStatus(): Observable<MsStatus> {
+  return this.http.get<MsStatus>(
+    `${this.api}/batch/ms-status`
+  );
+}
+
 }

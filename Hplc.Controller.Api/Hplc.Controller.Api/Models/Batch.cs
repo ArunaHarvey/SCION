@@ -3,5 +3,5 @@
 public class Batch
 {
     public string BatchName { get; set; } = "";
-    public List<Sample> Samples { get; set; } = new();
+    public List<BatchSample> Samples { get; set; } = new();
 }

@@ -7,46 +7,31 @@ namespace Hplc.Controller.Api.Controllers;
 [Route("api/batch/run")]
 public class BatchRunController : ControllerBase
 {
-    private readonly BatchFileService _service;
-
-    public BatchRunController(BatchFileService service)
-    {
-        _service = service;
-    }
+    private readonly BatchFileService _svc;
+    public BatchRunController(BatchFileService svc) => _svc = svc;
 
     [HttpGet("queue")]
-    public IActionResult GetQueue()
-        => Ok(_service.GetBatchRunQueue());
+    public IActionResult Queue()
+        => Ok(_svc.GetBatchRunQueue());
 
-    [HttpPost("queue/{batchName}")]
-    public IActionResult Enqueue(string batchName)
+    [HttpPost("start/{name}")]
+    public IActionResult Start(string name)
     {
-        _service.EnqueueBatch(batchName);
+        _svc.StartBatch(name);
         return Ok();
     }
 
-    [HttpDelete("queue/{batchName}")]
-    public IActionResult Delete(string batchName)
+    [HttpDelete("queue/{name}")]
+    public IActionResult Remove(string name)
     {
-        _service.RemoveFromQueue(batchName);
-        return Ok();
-    }
-
-    [HttpPost("start/{batchName}")]
-    public IActionResult Start(string batchName)
-    {
-        _service.StartBatch(batchName);
+        _svc.RemoveFromQueue(name);
         return Ok();
     }
 
     [HttpPost("clear")]
     public IActionResult Clear()
     {
-        _service.ClearRunQueue();
+        _svc.ClearRunQueue();
         return Ok();
     }
-
-    [HttpGet("execution")]
-    public IActionResult Execution()
-        => Ok(BatchExecutionStore.Executions);
 }

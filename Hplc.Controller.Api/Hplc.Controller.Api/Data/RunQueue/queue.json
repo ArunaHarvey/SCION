@@ -1,0 +1,195 @@
+[
+  {
+    "BatchName": "Batch_Impurity_Run",
+    "Status": 2,
+    "QueuePosition": 1,
+    "Samples": [
+      {
+        "SampleName": "Imp_S01",
+        "MethodId": "M002",
+        "LcId": null,
+        "State": 5
+      },
+      {
+        "SampleName": "Imp_S02",
+        "MethodId": "M002",
+        "LcId": null,
+        "State": 5
+      },
+      {
+        "SampleName": "Imp_S03",
+        "MethodId": "M002",
+        "LcId": null,
+        "State": 5
+      },
+      {
+        "SampleName": "Imp_S04",
+        "MethodId": "M002",
+        "LcId": null,
+        "State": 5
+      },
+      {
+        "SampleName": "Imp_S05",
+        "MethodId": "M002",
+        "LcId": null,
+        "State": 5
+      },
+      {
+        "SampleName": "Imp_S06",
+        "MethodId": "M002",
+        "LcId": null,
+        "State": 5
+      },
+      {
+        "SampleName": "Imp_S07",
+        "MethodId": "M002",
+        "LcId": null,
+        "State": 5
+      },
+      {
+        "SampleName": "Imp_S08",
+        "MethodId": "M002",
+        "LcId": null,
+        "State": 5
+      },
+      {
+        "SampleName": "Imp_S09",
+        "MethodId": "M002",
+        "LcId": null,
+        "State": 5
+      },
+      {
+        "SampleName": "Imp_S10",
+        "MethodId": "M002",
+        "LcId": null,
+        "State": 5
+      },
+      {
+        "SampleName": "Imp_S11",
+        "MethodId": "M002",
+        "LcId": null,
+        "State": 5
+      },
+      {
+        "SampleName": "Imp_S12",
+        "MethodId": "M002",
+        "LcId": null,
+        "State": 5
+      },
+      {
+        "SampleName": "Imp_S13",
+        "MethodId": "M002",
+        "LcId": null,
+        "State": 5
+      },
+      {
+        "SampleName": "Imp_S14",
+        "MethodId": "M002",
+        "LcId": null,
+        "State": 5
+      },
+      {
+        "SampleName": "Imp_S15",
+        "MethodId": "M002",
+        "LcId": null,
+        "State": 5
+      },
+      {
+        "SampleName": "Imp_S16",
+        "MethodId": "M002",
+        "LcId": null,
+        "State": 5
+      },
+      {
+        "SampleName": "Imp_S17",
+        "MethodId": "M002",
+        "LcId": null,
+        "State": 5
+      },
+      {
+        "SampleName": "Imp_S18",
+        "MethodId": "M002",
+        "LcId": null,
+        "State": 5
+      },
+      {
+        "SampleName": "Imp_S19",
+        "MethodId": "M002",
+        "LcId": null,
+        "State": 5
+      },
+      {
+        "SampleName": "Imp_S20",
+        "MethodId": "M002",
+        "LcId": null,
+        "State": 5
+      },
+      {
+        "SampleName": "Imp_S21",
+        "MethodId": "M002",
+        "LcId": null,
+        "State": 5
+      },
+      {
+        "SampleName": "Imp_S22",
+        "MethodId": "M002",
+        "LcId": null,
+        "State": 5
+      },
+      {
+        "SampleName": "Imp_S23",
+        "MethodId": "M002",
+        "LcId": null,
+        "State": 5
+      },
+      {
+        "SampleName": "Imp_S24",
+        "MethodId": "M002",
+        "LcId": null,
+        "State": 5
+      },
+      {
+        "SampleName": "Imp_S25",
+        "MethodId": "M002",
+        "LcId": null,
+        "State": 5
+      },
+      {
+        "SampleName": "Imp_S26",
+        "MethodId": "M002",
+        "LcId": null,
+        "State": 5
+      },
+      {
+        "SampleName": "Imp_S27",
+        "MethodId": "M002",
+        "LcId": null,
+        "State": 5
+      },
+      {
+        "SampleName": "Imp_S28",
+        "MethodId": "M002",
+        "LcId": null,
+        "State": 5
+      },
+      {
+        "SampleName": "Imp_S29",
+        "MethodId": "M002",
+        "LcId": null,
+        "State": 5
+      },
+      {
+        "SampleName": "Imp_S30",
+        "MethodId": "M002",
+        "LcId": null,
+        "State": 5
+      },
+      {
+        "SampleName": "imp_S31",
+        "MethodId": "M002",
+        "LcId": null,
+        "State": 5
+      }
+    ]
+  }
+]

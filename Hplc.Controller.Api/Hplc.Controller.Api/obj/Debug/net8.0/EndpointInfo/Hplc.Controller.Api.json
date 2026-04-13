@@ -17,23 +17,11 @@
         }
       }
     },
-    "/api/batch/queue": {
+    "/api/batch/definition/{batchName}": {
       "get": {
         "tags": [
           "Batch"
         ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/batch/enqueue/{batchName}": {
-      "post": {
-        "tags": [
-          "Batch"
-        ],
         "parameters": [
           {
             "name": "batchName",
@@ -43,62 +31,6 @@
               "type": "string"
             }
           }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/batch/start/{batchName}": {
-      "post": {
-        "tags": [
-          "Batch"
-        ],
-        "parameters": [
-          {
-            "name": "batchName",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/batch/{batchName}": {
-      "delete": {
-        "tags": [
-          "Batch"
-        ],
-        "parameters": [
-          {
-            "name": "batchName",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/batch/clear": {
-      "post": {
-        "tags": [
-          "Batch"
         ],
         "responses": {
           "200": {
@@ -138,8 +70,61 @@
         }
       }
     },
-    "/api/batch/{batchName}/samples": {
+    "/api/batch/queue": {
       "get": {
+        "tags": [
+          "Batch"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Batch"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/batch/enqueue": {
+      "post": {
+        "tags": [
+          "Batch"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Batch"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Batch"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Batch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/batch/start/{batchName}": {
+      "post": {
         "tags": [
           "Batch"
         ],
@@ -184,34 +169,14 @@
         }
       }
     },
-    "/api/batch/run/queue/{batchName}": {
+    "/api/batch/run/start/{name}": {
       "post": {
         "tags": [
           "BatchRun"
         ],
         "parameters": [
           {
-            "name": "batchName",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "BatchRun"
-        ],
-        "parameters": [
-          {
-            "name": "batchName",
+            "name": "name",
             "in": "path",
             "required": true,
             "schema": {
@@ -226,14 +191,14 @@
         }
       }
     },
-    "/api/batch/run/start/{batchName}": {
-      "post": {
+    "/api/batch/run/queue/{name}": {
+      "delete": {
         "tags": [
           "BatchRun"
         ],
         "parameters": [
           {
-            "name": "batchName",
+            "name": "name",
             "in": "path",
             "required": true,
             "schema": {
@@ -250,18 +215,6 @@
     },
     "/api/batch/run/clear": {
       "post": {
-        "tags": [
-          "BatchRun"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/batch/run/execution": {
-      "get": {
         "tags": [
           "BatchRun"
         ],
@@ -321,14 +274,14 @@
           "samples": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Sample"
+              "$ref": "#/components/schemas/BatchSample"
             },
             "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "Sample": {
+      "BatchSample": {
         "type": "object",
         "properties": {
           "serialNo": {
@@ -339,21 +292,13 @@
             "type": "string",
             "nullable": true
           },
-          "injectionLocation": {
-            "type": "string",
-            "nullable": true
-          },
           "injectionVolume": {
-            "type": "integer",
-            "format": "int32"
+            "type": "number",
+            "format": "double"
           },
           "methodId": {
             "type": "string",
             "nullable": true
-          },
-          "assignedLC": {
-            "type": "integer",
-            "format": "int32"
           }
         },
         "additionalProperties": false

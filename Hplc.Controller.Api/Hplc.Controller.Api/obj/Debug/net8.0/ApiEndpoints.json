@@ -1,7 +1,7 @@
 [
   {
     "ContainingType": "Hplc.Controller.Api.Controllers.BatchController",
-    "Method": "GetAvailableBatches",
+    "Method": "GetBatches",
     "RelativePath": "api/batch",
     "HttpMethod": "GET",
     "IsController": true,
@@ -21,24 +21,8 @@
   },
   {
     "ContainingType": "Hplc.Controller.Api.Controllers.BatchController",
-    "Method": "RemoveFromQueue",
-    "RelativePath": "api/batch/{batchName}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "batchName",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Hplc.Controller.Api.Controllers.BatchController",
-    "Method": "GetSamples",
-    "RelativePath": "api/batch/{batchName}/samples",
+    "Method": "GetBatchDefinition",
+    "RelativePath": "api/batch/definition/{batchName}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -53,9 +37,25 @@
   },
   {
     "ContainingType": "Hplc.Controller.Api.Controllers.BatchController",
-    "Method": "ClearRunQueue",
-    "RelativePath": "api/batch/clear",
+    "Method": "Enqueue",
+    "RelativePath": "api/batch/enqueue",
     "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "batch",
+        "Type": "Hplc.Controller.Api.Models.Batch",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Hplc.Controller.Api.Controllers.BatchController",
+    "Method": "GetRunQueue",
+    "RelativePath": "api/batch/queue",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
@@ -63,25 +63,9 @@
   },
   {
     "ContainingType": "Hplc.Controller.Api.Controllers.BatchController",
-    "Method": "EnqueueBatch",
-    "RelativePath": "api/batch/enqueue/{batchName}",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "batchName",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Hplc.Controller.Api.Controllers.BatchController",
-    "Method": "GetBatchRunQueue",
+    "Method": "ClearQueue",
     "RelativePath": "api/batch/queue",
-    "HttpMethod": "GET",
+    "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
@@ -99,17 +83,7 @@
   },
   {
     "ContainingType": "Hplc.Controller.Api.Controllers.BatchRunController",
-    "Method": "Execution",
-    "RelativePath": "api/batch/run/execution",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Hplc.Controller.Api.Controllers.BatchRunController",
-    "Method": "GetQueue",
+    "Method": "Queue",
     "RelativePath": "api/batch/run/queue",
     "HttpMethod": "GET",
     "IsController": true,
@@ -119,30 +93,14 @@
   },
   {
     "ContainingType": "Hplc.Controller.Api.Controllers.BatchRunController",
-    "Method": "Enqueue",
-    "RelativePath": "api/batch/run/queue/{batchName}",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "batchName",
-        "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Hplc.Controller.Api.Controllers.BatchRunController",
-    "Method": "Delete",
-    "RelativePath": "api/batch/run/queue/{batchName}",
+    "Method": "Remove",
+    "RelativePath": "api/batch/run/queue/{name}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "batchName",
+        "Name": "name",
         "Type": "System.String",
         "IsRequired": true
       }
@@ -152,13 +110,13 @@
   {
     "ContainingType": "Hplc.Controller.Api.Controllers.BatchRunController",
     "Method": "Start",
-    "RelativePath": "api/batch/run/start/{batchName}",
+    "RelativePath": "api/batch/run/start/{name}",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "batchName",
+        "Name": "name",
         "Type": "System.String",
         "IsRequired": true
       }
@@ -167,7 +125,7 @@
   },
   {
     "ContainingType": "Hplc.Controller.Api.Controllers.BatchController",
-    "Method": "SaveBatch",
+    "Method": "Save",
     "RelativePath": "api/batch/save",
     "HttpMethod": "POST",
     "IsController": true,

@@ -3,9 +3,10 @@
 public enum SampleExecutionState
 {
     Queued,
-    Injecting,
-    Running,
+    Preparing,
     WaitingForMS,
+    Injecting,
     Acquiring,
-    Completed
+    Completed,
+    Failed
 }

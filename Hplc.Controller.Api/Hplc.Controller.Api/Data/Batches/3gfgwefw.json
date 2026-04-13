@@ -4,18 +4,14 @@
     {
       "SerialNo": 1,
       "SampleName": "s",
-      "InjectionLocation": "d",
       "InjectionVolume": 10,
-      "MethodId": "M001",
-      "AssignedLC": 1
+      "MethodId": "M001"
     },
     {
       "SerialNo": 2,
       "SampleName": "3",
-      "InjectionLocation": "4",
       "InjectionVolume": 10,
-      "MethodId": "M002",
-      "AssignedLC": 1
+      "MethodId": "M002"
     }
   ]
 }

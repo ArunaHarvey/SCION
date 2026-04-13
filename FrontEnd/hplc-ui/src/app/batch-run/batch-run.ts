@@ -1,10 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Observable } from 'rxjs';
+import { interval } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
-import { BatchRunService } from '../services/batch-run.service';
-import { BatchRunInfo } from '../models/batch-run-info.model';
-import { SampleExecutionInfo } from '../models/sample-execution.model';
+import {
+  BatchService,
+  Batch,
+  BatchRunInfo,
+  SampleExecutionInfo
+} from '../services/batch';
 
 @Component({
   selector: 'app-batch-run',
@@ -15,42 +19,125 @@ import { SampleExecutionInfo } from '../models/sample-execution.model';
 })
 export class BatchRunComponent implements OnInit {
 
-  availableBatches$!: Observable<string[]>;
-  queue$!: Observable<BatchRunInfo[]>;
-  execution$?: Observable<SampleExecutionInfo[]>;
+  availableBatches: string[] = [];
+  runQueue: BatchRunInfo[] = [];
 
-  // ✅ Track currently selected/running batch
-  private runningBatchName?: string;
+  selectedRun?: BatchRunInfo;
 
-  constructor(private service: BatchRunService) {}
+  isEnqueuing = false;
+  isStarting = false;
+
+  constructor(
+    private batchService: BatchService,
+    private cdr: ChangeDetectorRef
+  ) {}
+
+  /* =========================
+     Lifecycle
+     ========================= */
 
   ngOnInit(): void {
-    this.availableBatches$ = this.service.getAllBatches();
-    this.queue$ = this.service.queue$;
-    this.service.loadQueue();
+    this.loadAvailableBatches();
+    this.loadRunQueue();
+
+    // ✅ Auto-refresh while a batch is running (sample status updates)
+    interval(1000).subscribe(() => {
+      if (this.runQueue.some(r => r.status === 'Running')) {
+        this.loadRunQueue();
+      }
+    });
+  }
+
+  /* =========================
+     Available batches
+     ========================= */
+
+  loadAvailableBatches(): void {
+    this.batchService.getAllBatches().subscribe({
+      next: batches => {
+        this.availableBatches = batches ?? [];
+        this.cdr.detectChanges();
+      },
+      error: err => console.error(err)
+    });
   }
 
   addToQueue(batchName: string): void {
-    this.service.enqueue(batchName).subscribe();
-  }
+    if (this.isEnqueuing) return;
+    this.isEnqueuing = true;
 
-  run(batchName: string): void {
-    this.runningBatchName = batchName;
-
-    this.service.start(batchName).subscribe(() => {
-      // ✅ FIX: always pass batchName
-      this.execution$ = this.service.getExecution(batchName);
+    this.batchService.getBatch(batchName).pipe(
+      switchMap((batch: Batch) => this.batchService.enqueueBatch(batch)),
+      switchMap(() => this.batchService.getBatchRunQueue())
+    ).subscribe({
+      next: queue => {
+        this.runQueue = queue ?? [];
+        this.selectedRun = this.runQueue[0];
+        this.isEnqueuing = false;
+        this.cdr.detectChanges();
+      },
+      error: err => {
+        this.isEnqueuing = false;
+        console.error(err);
+      }
     });
   }
 
-  delete(batchName: string): void {
-    this.service.remove(batchName).subscribe();
+  /* =========================
+     Run Queue
+     ========================= */
+
+  loadRunQueue(): void {
+    this.batchService.getBatchRunQueue().subscribe({
+      next: queue => {
+        this.runQueue = queue ?? [];
+
+        // ✅ Select running batch or first batch
+        this.selectedRun =
+          this.runQueue.find(r => r.status === 'Running')
+          ?? this.runQueue[0];
+
+        this.cdr.detectChanges();
+      },
+      error: err => console.error(err)
+    });
   }
 
-  clear(): void {
-    this.service.clear().subscribe(() => {
-      this.execution$ = undefined;
-      this.runningBatchName = undefined;
+  startBatch(batchName: string): void {
+    if (this.isStarting) return;
+    this.isStarting = true;
+
+    this.batchService.startBatch(batchName).subscribe({
+      next: () => {
+        this.isStarting = false;
+        this.loadRunQueue();
+      },
+      error: err => {
+        this.isStarting = false;
+        console.error(err);
+      }
     });
+  }
+
+  clearQueue(): void {
+    this.batchService.clearRunQueue().pipe(
+      switchMap(() => this.batchService.getBatchRunQueue())
+    ).subscribe(queue => {
+      this.runQueue = queue ?? [];
+      this.selectedRun = undefined;
+      this.cdr.detectChanges();
+    });
+  }
+
+  /* =========================
+     UI helpers
+     ========================= */
+
+  canRun(run: BatchRunInfo): boolean {
+    return run.status === 'Queued' && !this.isStarting;
+  }
+
+  trackBatch(_: number, run: BatchRunInfo) {
+    return run.batchName;
   }
 }

@@ -1,52 +1,55 @@
-﻿using Hplc.Controller.Api.Services;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
+using Hplc.Controller.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ✅ Add controllers + JSON enum as string (IMPORTANT FIX)
+/* =========================
+   Services
+   ========================= */
+
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
+        // ✅ CRITICAL FIX:
+        // Serialize enums as strings instead of numbers
         options.JsonSerializerOptions.Converters.Add(
             new JsonStringEnumConverter()
         );
     });
 
-// ✅ Add Swagger services
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// ✅ Register application services
-builder.Services.AddScoped<BatchFileService>();
+// ✅ Your services
+builder.Services.AddSingleton<BatchFileService>();
 
-// ✅ CORS (for Angular)
+// CORS (if you already had this, keep rules as-is)
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAngular",
-        policy => policy
+    options.AddDefaultPolicy(policy =>
+        policy
             .AllowAnyOrigin()
+            .AllowAnyHeader()
             .AllowAnyMethod()
-            .AllowAnyHeader());
+    );
 });
 
 var app = builder.Build();
 
-// ✅ Enable Swagger ONLY in Development
+/* =========================
+   Middleware
+   ========================= */
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "HPLC Controller API v1");
-        c.RoutePrefix = "swagger";
-    });
+    app.UseSwaggerUI();
 }
 
-// ✅ Middleware pipeline
-app.UseCors("AllowAngular");
+app.UseHttpsRedirection();
+app.UseCors();
 
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();

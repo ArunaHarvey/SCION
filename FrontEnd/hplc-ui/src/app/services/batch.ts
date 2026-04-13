@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 /* =========================
    Models
@@ -20,47 +20,28 @@ export interface Batch {
   samples: Sample[];
 }
 
-/**
- * Backend-aligned batch run status
- */
 export type BatchRunStatus =
   | 'Queued'
-  | 'Injecting'
   | 'Running'
-  | 'WaitingForMS'
-  | 'Acquiring'
   | 'Completed';
 
-/**
- * Scheduler truth object
- */
-export interface BatchRunInfo {
-  batchName: string;
-  lcId: string;
-
-  status: BatchRunStatus;
-
-  ownsMS: boolean;
-  queuePosition: number | null;
-
-  // Timing (set by backend)
-  injectionStartTime?: string;
-  completionTime?: string;
-  actualDuration?: string;
+export interface SampleExecutionInfo {
+  sampleName: string;
+  methodId: string;
+  state:
+    | 'Queued'
+    | 'Preparing'
+    | 'WaitingForMS'
+    | 'Injecting'
+    | 'Acquiring'
+    | 'Completed';
 }
 
-/**
- * Aggregate run comparison (multiplex vs sequential)
- */
-export interface BatchRunSummary {
-  startTime: string;
-  endTime: string;
-
-  multiplexedDuration: string;
-  sequentialDuration: string;
-
-  timeSaved: string;
-  percentImprovement: number;
+export interface BatchRunInfo {
+  batchName: string;
+  status: BatchRunStatus;
+  queuePosition: number;
+  samples: SampleExecutionInfo[];
 }
 
 /* =========================
@@ -68,7 +49,7 @@ export interface BatchRunSummary {
    ========================= */
 
 @Injectable({
-  providedIn: 'root'    // ✅ SINGLE SOURCE OF TRUTH
+  providedIn: 'root'
 })
 export class BatchService {
 
@@ -77,7 +58,7 @@ export class BatchService {
   constructor(private http: HttpClient) {}
 
   /* =========================
-     Batch definition APIs
+     Batch definitions
      ========================= */
 
   getAllBatches(): Observable<string[]> {
@@ -86,15 +67,16 @@ export class BatchService {
     );
   }
 
-  getBatch(name: string): Observable<Batch> {
+  getBatch(batchName: string): Observable<Batch> {
     return this.http.get<Batch>(
-      `${this.api}/batch/${name}`
+      `${this.api}/batch/definition/${batchName}`
     );
   }
 
-  saveBatch(payload: Batch): Observable<void> {
+  saveBatch(batch: Batch): Observable<void> {
     return this.http.post<void>(
-      `${this.api}/batch`, payload
+      `${this.api}/batch/save`,
+      batch
     );
   }
 
@@ -105,36 +87,36 @@ export class BatchService {
   }
 
   /* =========================
-     Batch run / scheduler APIs
+     Run Queue
      ========================= */
 
-  /**
-   * Returns LIVE scheduler truth:
-   * Queued / Injecting / Running / MS owning / Completed
-   */
   getBatchRunQueue(): Observable<BatchRunInfo[]> {
     return this.http.get<BatchRunInfo[]>(
-      `${this.api}/batch/run/queue`
+      `${this.api}/batch/queue`
     );
   }
 
-  /**
-   * Queue batch for execution.
-   * NOTE: This does NOT directly start the run.
-   * Scheduler decides when injection starts.
-   */
-  addBatchToRunQueue(batchName: string): Observable<void> {
+  enqueueBatch(batch: Batch): Observable<void> {
     return this.http.post<void>(
-      `${this.api}/batch/run/queue/${batchName}`, {}
+      `${this.api}/batch/enqueue`,
+      batch
     );
   }
 
-  /**
-   * Multiplex vs Sequential run summary
-   */
-  getBatchRunSummary(): Observable<BatchRunSummary | null> {
-    return this.http.get<BatchRunSummary | null>(
-      `${this.api}/batch/run/summary`
+  startBatch(batchName: string): Observable<void> {
+    return this.http.post<void>(
+      `${this.api}/batch/start/${batchName}`,
+      {}
     );
+  }
+
+  clearRunQueue(): Observable<void> {
+    return this.http.delete<void>(
+      `${this.api}/batch/queue`
+    );
+  }
+
+  getBatchRunSummary(): Observable<any | null> {
+    return of(null);
   }
 }

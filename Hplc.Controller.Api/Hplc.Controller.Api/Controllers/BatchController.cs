@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Hplc.Controller.Api.Models;
 using Hplc.Controller.Api.Services;
+using Hplc.Controller.Api.Models;
 
 namespace Hplc.Controller.Api.Controllers;
 
@@ -8,115 +8,84 @@ namespace Hplc.Controller.Api.Controllers;
 [Route("api/batch")]
 public class BatchController : ControllerBase
 {
-    private readonly BatchFileService _batchFileService;
+    private readonly BatchFileService _svc;
 
-    public BatchController(BatchFileService batchFileService)
+    public BatchController(BatchFileService svc)
     {
-        _batchFileService = batchFileService;
+        _svc = svc;
     }
 
-    // =====================================================
-    // ✅ AVAILABLE BATCH DEFINITIONS (NEW & PERMANENT)
-    // =====================================================
+    /* =========================
+       Batch Definitions (READ ONLY)
+       ========================= */
 
-    // This is what Angular should call:
     // GET /api/batch
     [HttpGet]
-    public IActionResult GetAvailableBatches()
+    public IActionResult GetBatches()
     {
-        // For now, static list.
-        // Later this can come from DB, batch files, LMS, etc.
-        return Ok(new[]
+        var batches = _svc.GetAvailableBatchNames().ToList();
+        return Ok(batches);
+    }
+
+    // GET /api/batch/definition/{batchName}
+    [HttpGet("definition/{batchName}")]
+    public IActionResult GetBatchDefinition(string batchName)
+    {
+        try
         {
-            "Batch_Impurity_Run",
-            "Batch_Mixed_Run",
-            "d",
-            "eee"
-        });
+            var batch = _svc.LoadBatchDefinition(batchName);
+            return Ok(batch);
+        }
+        catch (FileNotFoundException)
+        {
+            return NotFound($"Batch definition '{batchName}' not found");
+        }
     }
 
-    // =====================================================
-    // RUN QUEUE APIs (EXISTING – UNCHANGED)
-    // =====================================================
+    /* =========================
+       Batch Save (NO ENQUEUE)
+       ========================= */
 
-    [HttpGet("queue")]
-    public IActionResult GetBatchRunQueue()
+    // POST /api/batch/save
+    [HttpPost("save")]
+    public IActionResult Save([FromBody] Batch batch)
     {
-        return Ok(_batchFileService.GetBatchRunQueue());
-    }
-
-    [HttpPost("enqueue/{batchName}")]
-    public IActionResult EnqueueBatch(string batchName)
-    {
-        _batchFileService.EnqueueBatch(batchName);
+        _svc.SaveBatchDefinition(batch);
         return Ok();
     }
 
+    /* =========================
+       Run Queue
+       ========================= */
+
+    // GET /api/batch/queue
+    [HttpGet("queue")]
+    public IActionResult GetRunQueue()
+    {
+        return Ok(_svc.GetBatchRunQueue());
+    }
+
+    // POST /api/batch/enqueue
+    [HttpPost("enqueue")]
+    public IActionResult Enqueue([FromBody] Batch batch)
+    {
+        _svc.EnqueueBatch(batch);
+        return Ok();
+    }
+
+    // POST /api/batch/start/{batchName}
     [HttpPost("start/{batchName}")]
     public IActionResult StartBatch(string batchName)
     {
-        _batchFileService.StartBatch(batchName);
+        _svc.StartBatch(batchName);
         return Ok();
     }
 
-    [HttpDelete("{batchName}")]
-    public IActionResult RemoveFromQueue(string batchName)
+    // DELETE /api/batch/queue
+    [HttpDelete("queue")]
+    public IActionResult ClearQueue()
     {
-        _batchFileService.RemoveFromQueue(batchName);
+        _svc.ClearRunQueue();
         return Ok();
-    }
-
-    [HttpPost("clear")]
-    public IActionResult ClearRunQueue()
-    {
-        _batchFileService.ClearRunQueue();
-        return Ok();
-    }
-
-    // =====================================================
-    // SAVE BATCH DEFINITION → EXECUTION RUN
-    // =====================================================
-
-    [HttpPost("save")]
-    public IActionResult SaveBatch([FromBody] Batch batch)
-    {
-        if (batch == null || string.IsNullOrWhiteSpace(batch.BatchName))
-            return BadRequest("Invalid batch");
-
-        var runInfo = MapBatchToBatchRunInfo(batch);
-        _batchFileService.SaveBatch(runInfo);
-
-        return Ok();
-    }
-
-    // =====================================================
-    // SAMPLE EXECUTION
-    // =====================================================
-
-    [HttpGet("{batchName}/samples")]
-    public IActionResult GetSamples(string batchName)
-    {
-        return Ok(_batchFileService.GetSamples(batchName));
-    }
-
-    // =====================================================
-    // PRIVATE MAPPER
-    // =====================================================
-
-    private static BatchRunInfo MapBatchToBatchRunInfo(Batch batch)
-    {
-        return new BatchRunInfo
-        {
-            BatchName = batch.BatchName,
-            Status = BatchRunStatus.Queued,
-            OwnsMS = false,
-            QueuePosition = null,
-            Samples = batch.Samples.Select(sample => new SampleExecutionInfo
-            {
-                BatchName = batch.BatchName,
-                SampleName = sample.SampleName,
-                State = SampleExecutionState.Queued
-            }).ToList()
-        };
     }
 }

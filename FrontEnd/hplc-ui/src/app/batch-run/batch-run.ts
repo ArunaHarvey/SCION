@@ -5,10 +5,10 @@ import { switchMap } from 'rxjs/operators';
 
 import {
   BatchService,
-  Batch,
   BatchRunInfo,
-  SampleExecutionInfo,
-  MsStatus
+  MsStatus,
+  ChromStatus,
+  ChromPoint
 } from '../services/batch';
 
 @Component({
@@ -20,11 +20,34 @@ import {
 })
 export class BatchRunComponent implements OnInit {
 
+  /* =========================
+     Available batches
+     ========================= */
   availableBatches: string[] = [];
-  runQueue: BatchRunInfo[] = [];
+  activeMsSample: any | null = null;
 
+  /* =========================
+     Run queue
+     ========================= */
+  runQueue: BatchRunInfo[] = [];
   selectedRun?: BatchRunInfo;
+
+  /* =========================
+     Instrument status
+     ========================= */
   msStatus?: MsStatus;
+  chromMeta?: ChromStatus;
+
+  /* =========================
+     Chromatogram rendering
+     ========================= */
+  chromPoints: ChromPoint[] = [];
+  svgWidth = 600;
+  svgHeight = 300;
+
+  /* =========================
+     UI state
+     ========================= */
   isEnqueuing = false;
   isStarting = false;
 
@@ -41,12 +64,11 @@ export class BatchRunComponent implements OnInit {
     this.loadAvailableBatches();
     this.loadRunQueue();
 
-    // ✅ Auto-refresh while a batch is running (sample status updates)
+    // Poll runtime status
     interval(1000).subscribe(() => {
-      // if (this.runQueue.some(r => r.status === 'Running')) {
-        this.loadRunQueue();
-        this.loadMsStatus(); 
-      //}
+      this.loadRunQueue();
+      this.loadMsStatus();
+      this.loadChromatograph();
     });
   }
 
@@ -60,21 +82,17 @@ export class BatchRunComponent implements OnInit {
         this.availableBatches = batches ?? [];
         this.cdr.detectChanges();
       },
-      error: err => console.error(err)
+      error: err => console.error('Failed to load batches', err)
     });
   }
-  loadMsStatus(): void {
-  this.batchService.getMsStatus().subscribe(status => {
-    this.msStatus = status;
-    this.cdr.detectChanges();
-  });
-  }
+
+  /** ✅ FIX: call enqueueBatchByName, NOT enqueueBatch */
   addToQueue(batchName: string): void {
     if (this.isEnqueuing) return;
+
     this.isEnqueuing = true;
 
-    this.batchService.getBatch(batchName).pipe(
-      switchMap((batch: Batch) => this.batchService.enqueueBatch(batch)),
+    this.batchService.enqueueBatchByName(batchName).pipe(
       switchMap(() => this.batchService.getBatchRunQueue())
     ).subscribe({
       next: queue => {
@@ -85,33 +103,45 @@ export class BatchRunComponent implements OnInit {
       },
       error: err => {
         this.isEnqueuing = false;
-        console.error(err);
+        console.error('Failed to enqueue batch', err);
       }
     });
   }
 
   /* =========================
-     Run Queue
+     Run queue
      ========================= */
 
-  loadRunQueue(): void {
-    this.batchService.getBatchRunQueue().subscribe({
-      next: queue => {
-        this.runQueue = queue ?? [];
+loadRunQueue(): void {
+  this.batchService.getBatchRunQueue().subscribe(queue => {
 
-        // ✅ Select running batch or first batch
-        this.selectedRun =
-          this.runQueue.find(r => r.status === 'Running')
-          ?? this.runQueue[0];
+    const normalizedQueue =
+      (queue ?? []).sort((a, b) => a.queuePosition - b.queuePosition);
 
-        this.cdr.detectChanges();
-      },
-      error: err => console.error(err)
-    });
-  }
+    this.runQueue = normalizedQueue;
+
+    const runningBatch =
+      normalizedQueue.find(r => r.status === 'Running') ?? null;
+
+    this.selectedRun =
+      runningBatch
+      ?? normalizedQueue[0]
+      ?? null;
+
+    this.activeMsSample =
+      this.selectedRun?.samples.find(s => s.state === 'Acquiring') ?? null;
+
+    // ✅ notify Angular that new data arrived
+    this.cdr.markForCheck();
+  });
+}
+
+
+
 
   startBatch(batchName: string): void {
     if (this.isStarting) return;
+
     this.isStarting = true;
 
     this.batchService.startBatch(batchName).subscribe({
@@ -121,7 +151,7 @@ export class BatchRunComponent implements OnInit {
       },
       error: err => {
         this.isStarting = false;
-        console.error(err);
+        console.error('Failed to start batch', err);
       }
     });
   }
@@ -136,15 +166,72 @@ export class BatchRunComponent implements OnInit {
     });
   }
 
-  /* =========================
-     UI helpers
-     ========================= */
-
   canRun(run: BatchRunInfo): boolean {
     return run.status === 'Queued' && !this.isStarting;
   }
 
-  trackBatch(_: number, run: BatchRunInfo) {
+  trackBatch(_: number, run: BatchRunInfo): string {
     return run.batchName;
+  }
+
+  /* =========================
+     MS status
+     ========================= */
+
+  loadMsStatus(): void {
+    this.batchService.getMsStatus().subscribe(
+      status => this.msStatus = status
+    );
+  }
+
+  /* =========================
+     Chromatograph
+     ========================= */
+
+  loadChromatograph(): void {
+    this.batchService.getChromatographStatus()
+      .subscribe((meta: ChromStatus) => {
+        this.chromMeta = meta;
+
+        if (meta.state === 'Running' && meta.batch && meta.sample) {
+          this.batchService
+            .getChromData(meta.batch, meta.sample)
+            .subscribe((points: ChromPoint[]) => {
+              this.chromPoints = points ?? [];
+            });
+        } else {
+          this.chromPoints = [];
+        }
+      });
+  }
+  
+  getSampleForLc(lc: number) {
+  return this.selectedRun?.samples.find(s => s.assignedLC === lc);
+}
+
+getSampleNameForLc(lc: number): string {
+  return this.getSampleForLc(lc)?.sampleName ?? 'Idle';
+}
+
+getSampleStateForLc(lc: number): string {
+  return this.getSampleForLc(lc)?.state ?? 'Idle';
+}
+  
+
+  /* =========================
+     SVG helper
+     ========================= */
+
+  polyline(): string {
+    if (!this.chromPoints.length) return '';
+
+    const maxX = Math.max(...this.chromPoints.map(p => p.time));
+    const maxY = Math.max(...this.chromPoints.map(p => p.intensity));
+
+    return this.chromPoints.map(p => {
+      const x = (p.time / maxX) * this.svgWidth;
+      const y = this.svgHeight - (p.intensity / maxY) * this.svgHeight;
+      return `${x},${y}`;
+    }).join(' ');
   }
 }

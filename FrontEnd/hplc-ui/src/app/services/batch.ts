@@ -12,7 +12,6 @@ export interface Sample {
   injectionLocation: string;
   injectionVolume: number;
   methodId: string;
-  
 }
 
 export interface Batch {
@@ -52,6 +51,22 @@ export interface BatchRunInfo {
 }
 
 /* =========================
+   Chromatograph models
+   ========================= */
+
+export interface ChromStatus {
+  state: 'Idle' | 'Running';
+  batch?: string;
+  sample?: string;
+  startTime?: string;
+}
+
+export interface ChromPoint {
+  time: number;
+  intensity: number;
+}
+
+/* =========================
    Service
    ========================= */
 
@@ -68,18 +83,21 @@ export class BatchService {
      Batch definitions
      ========================= */
 
+  /** GET /api/batch */
   getAllBatches(): Observable<string[]> {
     return this.http.get<string[]>(
       `${this.api}/batch`
     );
   }
 
+  /** GET /api/batch/{batchName} */
   getBatch(batchName: string): Observable<Batch> {
     return this.http.get<Batch>(
-      `${this.api}/batch/definition/${batchName}`
+      `${this.api}/batch/${batchName}`
     );
   }
 
+  /** POST /api/batch/save */
   saveBatch(batch: Batch): Observable<void> {
     return this.http.post<void>(
       `${this.api}/batch/save`,
@@ -87,6 +105,7 @@ export class BatchService {
     );
   }
 
+  /** GET /api/methods */
   getMethods(): Observable<any[]> {
     return this.http.get<any[]>(
       `${this.api}/methods`
@@ -97,19 +116,25 @@ export class BatchService {
      Run Queue
      ========================= */
 
+  /** GET /api/batch/queue */
   getBatchRunQueue(): Observable<BatchRunInfo[]> {
     return this.http.get<BatchRunInfo[]>(
       `${this.api}/batch/queue`
     );
   }
 
-  enqueueBatch(batch: Batch): Observable<void> {
+  /**
+   * ✅ CORRECT enqueue call (Swagger-backed)
+   * POST /api/batch/enqueue/{batchName}
+   */
+  enqueueBatchByName(batchName: string): Observable<void> {
     return this.http.post<void>(
-      `${this.api}/batch/enqueue`,
-      batch
+      `${this.api}/batch/enqueue/${batchName}`,
+      {}
     );
   }
 
+  /** POST /api/batch/start/{batchName} */
   startBatch(batchName: string): Observable<void> {
     return this.http.post<void>(
       `${this.api}/batch/start/${batchName}`,
@@ -117,19 +142,50 @@ export class BatchService {
     );
   }
 
+  /** DELETE /api/batch/queue */
   clearRunQueue(): Observable<void> {
     return this.http.delete<void>(
       `${this.api}/batch/queue`
     );
   }
-  
+
+  /* =========================
+     MS Status
+     ========================= */
+
+  /** GET /api/status/ms */
+  getMsStatus(): Observable<MsStatus> {
+    return this.http.get<MsStatus>(
+      `${this.api}/status/ms`
+    );
+  }
+
+  /* =========================
+     Live Chromatograph
+     ========================= */
+
+  /** GET /api/status/chromatogram-meta */
+  getChromatographStatus(): Observable<ChromStatus> {
+    return this.http.get<ChromStatus>(
+      `${this.api}/status/chromatogram-meta`
+    );
+  }
+
+  /** GET /api/status/chromatogram/{batch}/{sample} */
+  getChromData(
+    batch: string,
+    sample: string
+  ): Observable<ChromPoint[]> {
+    return this.http.get<ChromPoint[]>(
+      `${this.api}/status/chromatogram/${batch}/${sample}`
+    );
+  }
+
+  /* =========================
+     Optional / Legacy
+     ========================= */
+
   getBatchRunSummary(): Observable<any | null> {
     return of(null);
   }
-  getMsStatus(): Observable<MsStatus> {
-  return this.http.get<MsStatus>(
-    `${this.api}/batch/ms-status`
-  );
-}
-
 }

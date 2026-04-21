@@ -1,69 +1,100 @@
 /* =========================
-   Container
+   Two‑Column Full‑Screen Layout
    ========================= */
-.batch-container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 1rem;
-  font-family: Arial, sans-serif;
+.dashboard-2col {
+  display: grid;
+  grid-template-columns: 2fr 1fr;   /* ✅ Left wider, Right narrower */
+  grid-template-rows: auto 1fr;
+  gap: 12px;
+  height: 100vh;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+/* Column containers */
+.left-col,
+.right-col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 /* =========================
-   Table base styles
+   Panels
+   ========================= */
+.panel {
+  border: 1px solid #ccc;
+  padding: 8px;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+.scroll {
+  overflow-y: auto;
+}
+
+/* Limit height for top lists */
+.panel.small {
+  max-height: 220px;
+}
+
+/* =========================
+   ✅ Sample Execution Panel
+   ✅ Now aligned ONLY to LEFT column
+   ========================= */
+.sample-panel {
+  grid-column: 1;          /* ✅ Left column only */
+  width: 100%;             /* ✅ Full width of left column */
+}
+
+.sample-table-scroll {
+  max-height: 300px;       /* ✅ ~8 rows visible */
+  overflow-y: auto;
+}
+
+/* =========================
+   Tables
    ========================= */
 .batch-table {
   width: 100%;
   border-collapse: collapse;
-  table-layout: fixed;          /* ✅ enforce column widths */
-  margin-bottom: 1rem;
+  table-layout: fixed;
+  margin-bottom: 6px;
 }
 
-/* =========================
-   Header + cell styles
-   ========================= */
 .batch-table th,
 .batch-table td {
   border: 1px solid #ccc;
-  padding: 0.4rem 0.6rem;       /* ✅ tighter spacing */
+  padding: 0.4rem 0.6rem;
   text-align: left;
   vertical-align: middle;
-  box-sizing: border-box;
   white-space: nowrap;
 }
 
-/* Header emphasis */
 .batch-table thead th {
   background-color: #f5f5f5;
   font-weight: 600;
 }
 
-/* =========================
-   Column width control
-   Order matters (by position)
-   ========================= */
-
-/* Sample */
+/* Column widths */
 .batch-table th:nth-child(1),
 .batch-table td:nth-child(1) {
-  width: 35%;
+  width: 40%;
 }
 
-/* Method */
 .batch-table th:nth-child(2),
 .batch-table td:nth-child(2) {
   width: 20%;
 }
 
-/* Status */
 .batch-table th:nth-child(3),
 .batch-table td:nth-child(3) {
   width: 25%;
 }
 
-/* LC (small but visible) */
 .batch-table th:nth-child(4),
 .batch-table td:nth-child(4) {
-  width: 10%;
+  width: 8%;
   min-width: 60px;
   text-align: center;
   font-weight: 600;
@@ -88,15 +119,39 @@
   border-color: #555;
 }
 
-.btn-danger {
-  border-color: #c0392b;
-  color: #c0392b;
-}
-
-/* Disabled state */
 .btn[disabled] {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+/* =========================
+   Status Colors
+   ========================= */
+.status-queued {
+  color: #6b6b6b;
+}
+
+.status-waiting {
+  color: #e67e22;
+  font-weight: 600;
+}
+
+.status-acquiring {
+  color: #0078d4;
+  font-weight: 700;
+}
+
+.status-done {
+  color: #2e7d32;
+}
+
+/* =========================
+   Chromatogram
+   ========================= */
+.chrom-svg {
+  width: 100%;
+  background-color: #fafafa;
+  border: 1px solid #ccc;
 }
 
 /* =========================

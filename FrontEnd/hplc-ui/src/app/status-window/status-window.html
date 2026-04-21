@@ -1,36 +1,28 @@
-<h3>Batch Run Status</h3>
+<div class="status-bar">
 
-<table *ngIf="runs$ | async as runs">
-  <thead>
-    <tr>
-      <th>LC</th>
-      <th>Batch</th>
-      <th>Status</th>
-      <th>MS</th>
-      <th>Queue</th>
-      <th>Duration</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let r of runs" [class.ms]="r.ownsMS">
-      <td>{{ r.lcId }}</td>
-      <td>{{ r.batchName }}</td>
-      <td>{{ r.status }}</td>
-      <td>{{ r.ownsMS ? 'Acquiring' : '—' }}</td>
-      <td>{{ r.queuePosition ?? '—' }}</td>
-      <td>{{ r.actualDuration ?? '—' }}</td>
-    </tr>
-  </tbody>
-</table>
+  <div class="device">
+    <b>MS</b>
+    <div class="light" [class.green]="ms?.busy"></div>
+    <div>{{ ms?.busy ? 'Busy' : 'Idle' }}</div>
+  </div>
 
-<hr />
+  <div class="device" *ngFor="let lc of lcs">
+    <b>HPLC {{ lc.lcId }}</b>
+    <div class="light" [ngClass]="lcColor(lc.state)"></div>
+    <div>{{ lc.state }}</div>
+  </div>
 
-<div *ngIf="summary$ | async as s">
-  <h4>Multiplex vs Sequential</h4>
-  <p><b>Multiplexed:</b> {{ s.multiplexedDuration }}</p>
-  <p><b>Sequential:</b> {{ s.sequentialDuration }}</p>
-  <p class="saved">
-    <b>Time Saved:</b> {{ s.timeSaved }}
-    ({{ s.percentImprovement | number:'1.0-2' }}%)
-  </p>
 </div>
+
+<!-- Live Chromatogram -->
+<svg *ngIf="chromKey > 0"
+     width="600"
+     height="200"
+     class="chrom">
+  <polyline
+    [attr.points]="chrom.map((p,i)=> i*2 + ',' + (180 - p.intensity)).join(' ')"
+    fill="none"
+    stroke="#00c853"
+    stroke-width="1">
+  </polyline>
+</svg>

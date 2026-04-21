@@ -1,3 +1,12 @@
+C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\obj\Debug\net8.0\Hplc.Controller.Api.csproj.AssemblyReference.cache
+C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\obj\Debug\net8.0\rpswa.dswa.cache.json
+C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\obj\Debug\net8.0\Hplc.Controller.Api.GeneratedMSBuildEditorConfig.editorconfig
+C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\obj\Debug\net8.0\Hplc.Controller.Api.AssemblyInfoInputs.cache
+C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\obj\Debug\net8.0\Hplc.Controller.Api.AssemblyInfo.cs
+C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\obj\Debug\net8.0\Hplc.Controller.Api.csproj.CoreCompileInputs.cache
+C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\obj\Debug\net8.0\Hplc.Controller.Api.MvcApplicationPartsAssemblyInfo.cs
+C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\obj\Debug\net8.0\Hplc.Controller.Api.MvcApplicationPartsAssemblyInfo.cache
+C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\obj\Debug\net8.0\Hplc.Controller.Api.sourcelink.json
 C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\bin\Debug\net8.0\appsettings.Development.json
 C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\bin\Debug\net8.0\appsettings.json
 C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\bin\Debug\net8.0\Config\methods.json
@@ -9,6 +18,7 @@ C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\bin\Debug\net8.0\Data\Ba
 C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\bin\Debug\net8.0\Data\Batches\d.json
 C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\bin\Debug\net8.0\Data\Batches\eee.json
 C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\bin\Debug\net8.0\Data\Batches\run-queue.json
+C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\bin\Debug\net8.0\Data\Chromatograph\sample-batch.json
 C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\bin\Debug\net8.0\Data\run-queue.json
 C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\bin\Debug\net8.0\Data\RunQueue\queue.json
 C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\bin\Debug\net8.0\Hplc.Controller.Api.staticwebassets.endpoints.json
@@ -21,15 +31,6 @@ C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\bin\Debug\net8.0\Microso
 C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
-C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\obj\Debug\net8.0\Hplc.Controller.Api.csproj.AssemblyReference.cache
-C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\obj\Debug\net8.0\rpswa.dswa.cache.json
-C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\obj\Debug\net8.0\Hplc.Controller.Api.GeneratedMSBuildEditorConfig.editorconfig
-C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\obj\Debug\net8.0\Hplc.Controller.Api.AssemblyInfoInputs.cache
-C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\obj\Debug\net8.0\Hplc.Controller.Api.AssemblyInfo.cs
-C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\obj\Debug\net8.0\Hplc.Controller.Api.csproj.CoreCompileInputs.cache
-C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\obj\Debug\net8.0\Hplc.Controller.Api.MvcApplicationPartsAssemblyInfo.cs
-C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\obj\Debug\net8.0\Hplc.Controller.Api.MvcApplicationPartsAssemblyInfo.cache
-C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\obj\Debug\net8.0\Hplc.Controller.Api.sourcelink.json
 C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\obj\Debug\net8.0\rjimswa.dswa.cache.json
 C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
 C:\Source\SCION\Hplc.Controller.Api\Hplc.Controller.Api\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json

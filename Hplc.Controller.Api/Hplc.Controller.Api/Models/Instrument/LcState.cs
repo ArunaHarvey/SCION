@@ -2,8 +2,9 @@
 
 public enum LcState
 {
+
     Idle,
-    Injecting,
-    Running,
-    WaitingForMS
+    WaitingForMS,
+    Running
+
 }

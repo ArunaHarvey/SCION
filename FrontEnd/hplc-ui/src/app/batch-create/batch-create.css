@@ -1,49 +1,63 @@
-.batch-container {
-  max-width: 1200px;
-  margin: auto;
-}
-
-.header-grid {
+/* GRID LAYOUT */
+.grid {
   display: grid;
-  grid-template-columns: 320px 1fr;
-  gap: 24px;
-  margin-bottom: 32px;
+  grid-template-columns: 2.5fr 1fr;
+  grid-gap: 16px;
+  align-items: start;
 }
 
-.samples-table {
-  width: 100%;
-  border-collapse: collapse;
+.left-column {
+  min-width: 0;
 }
 
-.samples-table th,
-.samples-table td {
-  padding: 8px;
-  border-bottom: 1px solid #e0e0e0;
-}
-
-.samples-table input,
-.samples-table select {
-  width: 100%;
-  padding: 6px;
-  box-sizing: border-box;
-}
-
-/* ✅ CRITICAL: Native select visibility fix */
-.samples-table select,
-.samples-table select option {
-  color: #000 !important;
-  background-color: #fff !important;
-  font-size: 14px !important;
-  line-height: normal !important;
-  opacity: 1 !important;
-  appearance: auto !important;
-  -webkit-appearance: menulist !important;
-  -moz-appearance: menulist !important;
-}
-
-.actions {
-  margin-top: 24px;
+/* RIGHT STATUS COLUMN */
+.right-column {
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
   gap: 12px;
+}
+
+/* TABLE WRAPPERS */
+.table-wrapper {
+  max-height: 240px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.table-wrapper.large {
+  max-height: 220px;
+}
+
+.table-wrapper.xl {
+  max-height: 300px;
+}
+
+/* STICKY HEADERS */
+.batch-table thead th {
+  position: sticky;
+  top: 0;
+  background: #f7f7f7;
+  z-index: 2;
+}
+
+/* STATUS CARDS */
+.status-card {
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  background: #fafafa;
+}
+
+.ms-status {
+  border-left: 5px solid #0078d4;
+}
+
+.hplc-status {
+  border-left: 5px solid #28a745;
+}
+
+/* BUTTONS */
+.btn {
+  cursor: pointer;
 }

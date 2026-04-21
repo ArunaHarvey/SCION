@@ -7,17 +7,7 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
     "ContainingType": "Hplc.Controller.Api.Controllers.BatchDefinitionsController",
@@ -31,8 +21,8 @@
   },
   {
     "ContainingType": "Hplc.Controller.Api.Controllers.BatchController",
-    "Method": "GetBatchDefinition",
-    "RelativePath": "api/batch/definition/{batchName}",
+    "Method": "GetBatch",
+    "RelativePath": "api/batch/{batchName}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -43,62 +33,23 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": [
-      {
-        "Type": "Hplc.Controller.Api.Models.Batch",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      },
-      {
-        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 404
-      }
-    ]
+    "ReturnTypes": []
   },
   {
     "ContainingType": "Hplc.Controller.Api.Controllers.BatchController",
     "Method": "Enqueue",
-    "RelativePath": "api/batch/enqueue",
+    "RelativePath": "api/batch/enqueue/{batchName}",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "batch",
-        "Type": "Hplc.Controller.Api.Models.Batch",
+        "Name": "batchName",
+        "Type": "System.String",
         "IsRequired": true
       }
     ],
     "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Hplc.Controller.Api.Controllers.BatchController",
-    "Method": "GetMsStatus",
-    "RelativePath": "api/batch/ms-status",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "Hplc.Controller.Api.Models.Instrument.MsStatus",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
   },
   {
     "ContainingType": "Hplc.Controller.Api.Controllers.BatchController",
@@ -108,21 +59,11 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.List\u00601[[Hplc.Controller.Api.Models.BatchRunInfo, Hplc.Controller.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
     "ContainingType": "Hplc.Controller.Api.Controllers.BatchController",
-    "Method": "ClearQueue",
+    "Method": "ClearRunQueue",
     "RelativePath": "api/batch/queue",
     "HttpMethod": "DELETE",
     "IsController": true,
@@ -184,22 +125,6 @@
   },
   {
     "ContainingType": "Hplc.Controller.Api.Controllers.BatchController",
-    "Method": "Save",
-    "RelativePath": "api/batch/save",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "batch",
-        "Type": "Hplc.Controller.Api.Models.Batch",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Hplc.Controller.Api.Controllers.BatchController",
     "Method": "StartBatch",
     "RelativePath": "api/batch/start/{batchName}",
     "HttpMethod": "POST",
@@ -226,7 +151,38 @@
   },
   {
     "ContainingType": "Hplc.Controller.Api.Controllers.InstrumentStatusController",
-    "Method": "GetLcStatus",
+    "Method": "ChromMeta",
+    "RelativePath": "api/status/chromatogram-meta",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Hplc.Controller.Api.Controllers.InstrumentStatusController",
+    "Method": "Chromatogram",
+    "RelativePath": "api/status/chromatogram/{batch}/{sample}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "batch",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "sample",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Hplc.Controller.Api.Controllers.InstrumentStatusController",
+    "Method": "Lcs",
     "RelativePath": "api/status/lcs",
     "HttpMethod": "GET",
     "IsController": true,
@@ -236,7 +192,7 @@
   },
   {
     "ContainingType": "Hplc.Controller.Api.Controllers.InstrumentStatusController",
-    "Method": "GetMsStatus",
+    "Method": "Ms",
     "RelativePath": "api/status/ms",
     "HttpMethod": "GET",
     "IsController": true,

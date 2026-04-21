@@ -1,7 +1,6 @@
-﻿using Hplc.Controller.Api.Models;
-using Hplc.Controller.Api.Models.Instrument;
+﻿using Microsoft.AspNetCore.Mvc;
 using Hplc.Controller.Api.Services;
-using Microsoft.AspNetCore.Mvc;
+using Hplc.Controller.Api.Models;
 
 namespace Hplc.Controller.Api.Controllers;
 
@@ -9,96 +8,125 @@ namespace Hplc.Controller.Api.Controllers;
 [Route("api/batch")]
 public class BatchController : ControllerBase
 {
-    private readonly BatchFileService _svc;
+    private readonly BatchFileService _batchService;
 
-    public BatchController(BatchFileService svc)
+    public BatchController(BatchFileService batchService)
     {
-        _svc = svc;
+        _batchService = batchService;
     }
 
-    /* =========================
-       Batch Definitions (READ ONLY)
-       ========================= */
-
-    // GET /api/batch
+    // ✅ GET /api/batch
     [HttpGet]
-    [ProducesResponseType(typeof(IEnumerable<string>), StatusCodes.Status200OK)]
-    public ActionResult<IEnumerable<string>> GetBatches()
-    {
-        return Ok(_svc.GetAvailableBatchNames().ToList());
-    }
-
-    // GET /api/batch/definition/{batchName}
-    [HttpGet("definition/{batchName}")]
-    [ProducesResponseType(typeof(Batch), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public ActionResult<Batch> GetBatchDefinition(string batchName)
+    public IActionResult GetBatches()
     {
         try
         {
-            return Ok(_svc.LoadBatchDefinition(batchName));
+            var batches = _batchService.GetAvailableBatchNames();
+            return Ok(batches);
+        }
+        catch (Exception ex)
+        {
+            return Problem(
+                title: "Failed to load batches",
+                detail: ex.Message
+            );
+        }
+    }
+
+    // ✅ POST /api/batch/enqueue/{batchName}
+    [HttpPost("enqueue/{batchName}")]
+    public IActionResult Enqueue(string batchName)
+    {
+        try
+        {
+            var batch = _batchService.LoadBatchDefinition(batchName);
+            batch.BatchName = batchName;
+            _batchService.EnqueueBatch(batch);
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return Problem(
+                title: "Enqueue failed",
+                detail: ex.Message
+            );
+        }
+    }
+
+    // ✅ GET /api/batch/queue
+    [HttpGet("queue")]
+    public IActionResult GetRunQueue()
+    {
+        try
+        {
+            var queue = _batchService.GetBatchRunQueue();
+            return Ok(queue);
+        }
+        catch (Exception ex)
+        {
+            return Problem(
+                title: "Failed to load run queue",
+                detail: ex.Message
+            );
+        }
+    }
+
+    [HttpDelete("queue")]
+    public IActionResult ClearRunQueue()
+    {
+        try
+        {
+            _batchService.ClearRunQueue();
+            return NoContent(); // ✅ Best REST practice
+        }
+        catch (Exception ex)
+        {
+            return Problem(
+                title: "Failed to clear run queue",
+                detail: ex.Message
+            );
+        }
+    }
+
+    // ✅ GET /api/batch/{batchName}
+    [HttpGet("{batchName}")]
+    public IActionResult GetBatch(string batchName)
+    {
+        try
+        {
+            var batch = _batchService.LoadBatchDefinition(batchName);
+            batch.BatchName = batchName;
+            return Ok(batch);
         }
         catch (FileNotFoundException)
         {
-            return NotFound($"Batch definition '{batchName}' not found");
+            return NotFound($"Batch '{batchName}' not found");
+        }
+        catch (Exception ex)
+        {
+            return Problem(
+                title: "Failed to load batch definition",
+                detail: ex.Message
+            );
         }
     }
 
-    /* =========================
-       Batch Save (NO ENQUEUE)
-       ========================= */
 
-    // POST /api/batch/save
-    [HttpPost("save")]
-    public IActionResult Save([FromBody] Batch batch)
-    {
-        _svc.SaveBatchDefinition(batch);
-        return Ok();
-    }
-
-    /* =========================
-       ✅ RUN QUEUE (FIXED)
-       ========================= */
-
-    // GET /api/batch/queue
-    // ✅ STRONGLY TYPED RESPONSE SO SAMPLES + ASSIGNEDLC ARE NOT LOST
-    [HttpGet("queue")]
-    [ProducesResponseType(typeof(List<BatchRunInfo>), StatusCodes.Status200OK)]
-    public ActionResult<List<BatchRunInfo>> GetRunQueue()
-    {
-        var runs = _svc.GetBatchRunQueue();
-        return Ok(runs);
-    }
-
-    // POST /api/batch/enqueue
-    [HttpPost("enqueue")]
-    public IActionResult Enqueue([FromBody] Batch batch)
-    {
-        _svc.EnqueueBatch(batch);
-        return Ok();
-    }
-
-    // POST /api/batch/start/{batchName}
+    // ✅ POST /api/batch/start/{batchName}  ← THIS FIXES YOUR ERROR
     [HttpPost("start/{batchName}")]
     public IActionResult StartBatch(string batchName)
     {
-        _svc.StartBatch(batchName);
-        return Ok();
+        try
+        {
+            _batchService.StartBatch(batchName);
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return Problem(
+                title: "Failed to start batch",
+                detail: ex.Message
+            );
+        }
     }
-
-    // DELETE /api/batch/queue
-    [HttpDelete("queue")]
-    public IActionResult ClearQueue()
-    {
-        _svc.ClearRunQueue();
-        return Ok();
-    }
-    // GET /api/batch/ms-status
-    [HttpGet("ms-status")]
-    public ActionResult<MsStatus> GetMsStatus()
-    {
-        var status = _svc.GetMsStatus();
-        return Ok(status);
-    }
-
 }

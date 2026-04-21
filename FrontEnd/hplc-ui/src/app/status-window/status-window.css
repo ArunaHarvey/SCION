@@ -1,17 +1,31 @@
-table {
-  border-collapse: collapse;
-  width: 100%;
+.status-bar {
+  display: flex;
+  gap: 12px;
+  padding: 10px;
+  background: #e0e0e0;
 }
-td, th {
-  border: 1px solid #ccc;
-  padding: 6px;
+
+.device {
+  width: 110px;
+  background: #1565c0;
+  color: #fff;
   text-align: center;
+  padding: 6px;
 }
-.ms {
-  background-color: #e6ffe6;
-  font-weight: bold;
+
+.light {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: black;
+  margin: 6px auto;
 }
-.saved {
-  color: darkgreen;
-  font-weight: bold;
+
+.light.green { background: #00c853; }
+.light.yellow { background: #ffca28; }
+
+.chrom {
+  margin-top: 8px;
+  background: black;
+  border: 1px solid #444;
 }

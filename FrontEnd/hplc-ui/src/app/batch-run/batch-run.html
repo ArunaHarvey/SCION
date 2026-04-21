@@ -1,114 +1,180 @@
-<div class="panel">
+<div class="dashboard-2col">
 
-  <h3>Available Batches</h3>
+  <!-- =========================
+       LEFT COLUMN
+       ========================= -->
+  <div class="left-col">
 
-  <table class="batch-table">
-    <thead>
-      <tr>
-        <th>Batch</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let batch of availableBatches">
-        <td>{{ batch }}</td>
-        <td>
-          <button
-            class="btn"
-            (click)="addToQueue(batch)"
-            [disabled]="isEnqueuing">
-            Add
-          </button>
-        </td>
-      </tr>
-      <tr *ngIf="availableBatches.length === 0">
-        <td colspan="2">No batches available</td>
-      </tr>
-    </tbody>
-  </table>
+    <!-- Available Batches -->
+    <div class="panel scroll small">
+      <h3>Available Batches</h3>
 
-  <h3>Run Queue</h3>
+      <table class="batch-table">
+        <thead>
+          <tr>
+            <th>Batch</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let batch of availableBatches">
+            <td>{{ batch }}</td>
+            <td>
+              <button
+                class="btn"
+                (click)="addToQueue(batch)"
+                [disabled]="isEnqueuing">
+                Add
+              </button>
+            </td>
+          </tr>
 
-  <table class="batch-table">
-    <thead>
-      <tr>
-        <th>Batch</th>
-        <th>Status</th>
-        <th>Position</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let run of runQueue; trackBy: trackBatch">
-        <td>{{ run.batchName }}</td>
-        <td>{{ run.status }}</td>
-        <td>{{ run.queuePosition }}</td>
-        <td>
-          <button
-            class="btn"
-            (click)="startBatch(run.batchName)"
-            [disabled]="!canRun(run)">
-            Run
-          </button>
-        </td>
-      </tr>
-      <tr *ngIf="runQueue.length === 0">
-        <td colspan="4">Queue is empty</td>
-      </tr>
-    </tbody>
-  </table>
+          <tr *ngIf="availableBatches.length === 0">
+            <td colspan="2" class="empty-text">No batches available</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-  <button
-    class="btn btn-clear"
-    (click)="clearQueue()"
-    [disabled]="runQueue.length === 0">
-    Clear Queue
-  </button>
-  <!-- ✅ MS STATUS PANEL -->
-<div class="ms-status" *ngIf="msStatus">
-  <h3>MS Status</h3>
+    <!-- Run Queue -->
+    <div class="panel scroll">
+      <h3>Run Queue</h3>
 
-  <div *ngIf="!msStatus.isAcquiring">
-    🟢 <strong>MS Idle</strong>
+      <table class="batch-table">
+        <thead>
+          <tr>
+            <th>Batch</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let run of runQueue; trackBy: trackBatch">
+            <td>{{ run.batchName }}</td>
+            <td>{{ run.status }}</td>
+            <td>
+              <button
+                class="btn"
+                (click)="startBatch(run.batchName)"
+                [disabled]="!canRun(run)">
+                Start
+              </button>
+            </td>
+          </tr>
+
+          <tr *ngIf="runQueue.length === 0">
+            <td colspan="3" class="empty-text">Queue is empty</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <button
+        class="btn btn-clear"
+        (click)="clearQueue()"
+        [disabled]="runQueue.length === 0">
+        Clear Queue
+      </button>
+    </div>
+
+    <!-- ✅ Sample Execution (NOW IMMEDIATELY AFTER RUN QUEUE) -->
+    <div class="panel sample-panel">
+
+      <h3>
+        Sample Execution
+        <span *ngIf="selectedRun">– {{ selectedRun.batchName }}</span>
+      </h3>
+
+      <div class="sample-table-scroll">
+        <table class="batch-table">
+          <thead>
+            <tr>
+              <th>Sample</th>
+              <th>Method</th>
+              <th>Status</th>
+              <th>LC</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let s of selectedRun?.samples ?? []">
+              <td>{{ s.sampleName }}</td>
+              <td>{{ s.methodId }}</td>
+              <td>
+                <span
+                  class="status"
+                  [ngClass]="{
+                    'status-queued': s.state === 'Queued',
+                    'status-waiting': s.state === 'WaitingForMS',
+                    'status-acquiring': s.state === 'Acquiring',
+                    'status-done': s.state === 'Completed'
+                  }">
+                  {{ s.state }}
+                </span>
+              </td>
+              <td>
+                <span *ngIf="s.assignedLC > 0">LC‑{{ s.assignedLC }}</span>
+                <span *ngIf="!s.assignedLC">–</span>
+              </td>
+            </tr>
+
+            <tr *ngIf="!selectedRun || selectedRun.samples.length === 0">
+              <td colspan="4" class="empty-text">
+                No samples to display
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
   </div>
 
-  <div *ngIf="msStatus.isAcquiring">
-    🔴 <strong>MS Busy</strong><br />
-    Batch: {{ msStatus.batchName }}<br />
-    LC: {{ msStatus.activeLcId }}
-  </div>
+  <!-- =========================
+       RIGHT COLUMN
+       ========================= -->
+  <div class="right-col">
+
+    <!-- MS Status -->
+    <div class="panel status-panel">
+      <h3>MS Status</h3>
+
+     
+<div *ngIf="activeMsSample">
+  🔴 MS Acquiring<br />
+  Sample: <strong>{{ activeMsSample.sampleName }}</strong><br />
+  LC: <strong>LC‑{{ activeMsSample.assignedLC }}</strong>
 </div>
-  <!-- ✅ SAMPLE EXECUTION STATUS -->
-  <h3 *ngIf="selectedRun">
-    Sample Execution – {{ selectedRun.batchName }}
-  </h3>
 
-  <table class="batch-table" *ngIf="selectedRun">
-    <thead>
-      <tr>
-        <th>Sample</th>
-        <th>Method</th>
-        <th>Status</th>
-        <th>LC</th>
-      </tr>
-    </thead>
-  
-  <tbody>
-    <tr *ngFor="let s of selectedRun.samples">
-      <td>{{ s.sampleName }}</td>
-      <td>{{ s.methodId }}</td>
-      <td>{{ s.state }}</td>
-      <td>
-        <span *ngIf="s.assignedLC && s.assignedLC > 0">
-          LC-{{ s.assignedLC }}
-        </span>
-        <span *ngIf="!s.assignedLC || s.assignedLC === 0">
-          –
-        </span>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div *ngIf="!activeMsSample">
+  🟢 MS Idle
+</div>
 
+
+      <h3>Chromatograph</h3>
+      <div *ngIf="chromMeta?.state === 'Running'">
+        {{ chromMeta?.batch }} / {{ chromMeta?.sample }}
+      </div>
+      <div *ngIf="chromMeta?.state !== 'Running'">
+        Idle
+      </div>
+    </div>
+
+    <!-- Chromatogram -->
+    <div class="panel">
+      <h3>Live Chromatogram</h3>
+
+      <svg
+        [attr.width]="svgWidth"
+        [attr.height]="svgHeight"
+        class="chrom-svg">
+        <polyline
+          [attr.points]="polyline()"
+          fill="none"
+          stroke="#0078d4"
+          stroke-width="2" />
+      </svg>
+    </div>
+
+  </div>
 
 </div>

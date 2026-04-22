@@ -20,10 +20,7 @@
           <tr *ngFor="let batch of availableBatches">
             <td>{{ batch }}</td>
             <td>
-              <button
-                class="btn"
-                (click)="addToQueue(batch)"
-                [disabled]="isEnqueuing">
+              <button class="btn" (click)="addToQueue(batch)" [disabled]="isEnqueuing">
                 Add
               </button>
             </td>
@@ -53,10 +50,7 @@
             <td>{{ run.batchName }}</td>
             <td>{{ run.status }}</td>
             <td>
-              <button
-                class="btn"
-                (click)="startBatch(run.batchName)"
-                [disabled]="!canRun(run)">
+              <button class="btn" (click)="startBatch(run.batchName)" [disabled]="!canRun(run)">
                 Start
               </button>
             </td>
@@ -68,10 +62,7 @@
         </tbody>
       </table>
 
-      <button
-        class="btn btn-clear"
-        (click)="clearQueue()"
-        [disabled]="runQueue.length === 0">
+      <button class="btn btn-clear" (click)="clearQueue()" [disabled]="runQueue.length === 0">
         Clear Queue
       </button>
     </div>
@@ -99,9 +90,7 @@
               <td>{{ s.sampleName }}</td>
               <td>{{ s.methodId }}</td>
               <td>
-                <span
-                  class="status"
-                  [ngClass]="{
+                <span class="status" [ngClass]="{
                     'status-queued': s.state === 'Queued',
                     'status-waiting': s.state === 'WaitingForMS',
                     'status-acquiring': s.state === 'Acquiring',
@@ -138,17 +127,49 @@
     <div class="panel status-panel">
       <h3>MS Status</h3>
 
-     
-<div *ngIf="activeMsSample">
-  🔴 MS Acquiring<br />
-  Sample: <strong>{{ activeMsSample.sampleName }}</strong><br />
-  LC: <strong>LC‑{{ activeMsSample.assignedLC }}</strong>
-</div>
 
-<div *ngIf="!activeMsSample">
-  🟢 MS Idle
-</div>
+      <div *ngIf="activeMsSample">
+        🔴 MS Acquiring<br />
+        Sample: <strong>{{ activeMsSample.sampleName }}</strong><br />
+        LC: <strong>LC‑{{ activeMsSample.assignedLC }}</strong>
+      </div>
 
+      <div *ngIf="!activeMsSample">
+        🟢 MS Idle
+      </div>
+      <div *ngIf="batchSummary" class="panel summary-panel">
+
+      <h3>Batch Run Summary</h3>
+
+      <div><b>Batch:</b> {{ selectedRun?.batchName }}</div>
+
+      <div><b>Start:</b>
+        {{ batchSummary.startTime | date:'short' }}
+      </div>
+
+      <div><b>End:</b>
+        {{ batchSummary.endTime | date:'short' }}
+      </div>
+
+      <hr />
+
+      <div><b>Sequential Time:</b>
+        {{ batchSummary.sequentialDuration }}
+      </div>
+
+      <div><b>Parallel Time:</b>
+        {{ batchSummary.multiplexedDuration }}
+      </div>
+
+      <div><b>Time Saved:</b>
+        {{ batchSummary.timeSaved }}
+      </div>
+
+      <div><b>Improvement:</b>
+        {{ batchSummary.percentImprovement | number:'1.0-2' }}%
+      </div>
+
+    </div>
 
       <h3>Chromatograph</h3>
       <div *ngIf="chromMeta?.state === 'Running'">
@@ -163,51 +184,12 @@
     <div class="panel">
       <h3>Live Chromatogram</h3>
 
-      <svg
-        [attr.width]="svgWidth"
-        [attr.height]="svgHeight"
-        class="chrom-svg">
-        <polyline
-          [attr.points]="polyline()"
-          fill="none"
-          stroke="#0078d4"
-          stroke-width="2" />
+      <svg [attr.width]="svgWidth" [attr.height]="svgHeight" class="chrom-svg">
+        <polyline [attr.points]="polyline()" fill="none" stroke="#0078d4" stroke-width="2" />
       </svg>
     </div>
 
-    <div *ngIf="batchSummary" class="panel summary-panel">
-
-  <h3>Batch Run Summary</h3>
-
-  <div><b>Batch:</b> {{ selectedRun?.batchName }}</div>
-
-  <div><b>Start:</b>
-    {{ batchSummary.startTime | date:'short' }}
-  </div>
-
-  <div><b>End:</b>
-    {{ batchSummary.endTime | date:'short' }}
-  </div>
-
-  <hr />
-
-  <div><b>Sequential Time:</b>
-    {{ batchSummary.sequentialDuration }}
-  </div>
-
-  <div><b>Parallel Time:</b>
-    {{ batchSummary.multiplexedDuration }}
-  </div>
-
-  <div><b>Time Saved:</b>
-    {{ batchSummary.timeSaved }}
-  </div>
-
-  <div><b>Improvement:</b>
-    {{ batchSummary.percentImprovement | number:'1.0-2' }}%
-  </div>
-
-</div>
+    
 
 
   </div>

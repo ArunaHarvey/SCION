@@ -140,6 +140,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Hplc.Controller.Api.Controllers.BatchController",
+    "Method": "GetBatchRunSummary",
+    "RelativePath": "api/batch/summary",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Hplc.Controller.Api.Controllers.MethodController",
     "Method": "GetMethods",
     "RelativePath": "api/methods",

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Hplc.Controller.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+666cbc8f7ec55690c7841ad3367a6e40d434726f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bb8deea6654adc81ba428d930c6630f9957394c7")]
 [assembly: System.Reflection.AssemblyProductAttribute("Hplc.Controller.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Hplc.Controller.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

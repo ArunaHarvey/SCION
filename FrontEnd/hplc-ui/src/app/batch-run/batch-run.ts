@@ -29,6 +29,7 @@ export class BatchRunComponent implements OnInit, OnDestroy {
      Available batches
      ========================= */
   availableBatches: string[] = [];
+  
 
   /* =========================
      Run queue
@@ -62,6 +63,11 @@ export class BatchRunComponent implements OnInit, OnDestroy {
      ========================= */
   isEnqueuing = false;
   isStarting = false;
+  
+/* =========================
+   Batch summary
+   ========================= */
+  batchSummary: any | null = null;
 
   /* =========================
      Polling subscriptions
@@ -108,6 +114,16 @@ export class BatchRunComponent implements OnInit, OnDestroy {
     this.batchService.getAllBatches().subscribe({
       next: batches => {
         this.availableBatches = batches ?? [];
+        
+        // ✅ Load summary once batch is completed
+        if (
+          this.selectedRun &&
+          this.selectedRun.status === 'Completed' &&
+          !this.batchSummary
+        ) {
+          this.loadBatchSummary();
+        }
+
         this.cdr.markForCheck();
       },
       error: err => console.error('Failed to load batches', err)
@@ -165,7 +181,11 @@ export class BatchRunComponent implements OnInit, OnDestroy {
         this.chromPoints = [];
         this.chromTime = 0;
       }
-
+      
+              // ⭐⭐⭐ Load summary when batch finishes ⭐⭐⭐
+        if (this.selectedRun?.status === 'Completed' && !this.batchSummary) {
+          this.loadBatchSummary();
+        }
       this.cdr.markForCheck();
     });
   }
@@ -292,5 +312,14 @@ export class BatchRunComponent implements OnInit, OnDestroy {
 getMaxIntensity(): number {
   return Math.max(1, ...this.chromPoints.map(p => p.intensity));
 }
-
+loadBatchSummary(): void {
+  this.batchService.getBatchRunSummary().subscribe({
+    next: summary => {
+      this.batchSummary = summary;
+      this.cdr.markForCheck();
+    },
+    error: err =>
+      console.error('Failed to load batch summary', err)
+  });
+}
 }

@@ -25,6 +25,15 @@ export interface MsStatus {
   batchName?: string;
 }
 
+export interface BatchRunSummary {
+  startTime: string;
+  endTime: string;
+  multiplexedDuration: string;
+  sequentialDuration: string;
+  timeSaved: string;
+  percentImprovement: number;
+}
+
 export type BatchRunStatus =
   | 'Queued'
   | 'Running'
@@ -185,7 +194,12 @@ export class BatchService {
      Optional / Legacy
      ========================= */
 
-  getBatchRunSummary(): Observable<any | null> {
-    return of(null);
-  }
+ 
+getBatchRunSummary() {
+  return this.http.get<BatchRunSummary>(
+    `${this.api}/batch/summary`
+  );
+}
+
+  
 }

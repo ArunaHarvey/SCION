@@ -105,6 +105,18 @@
         }
       }
     },
+    "/api/batch/summary": {
+      "get": {
+        "tags": [
+          "Batch"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/batch-definitions": {
       "get": {
         "tags": [

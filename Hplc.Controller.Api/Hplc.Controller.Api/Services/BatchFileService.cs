@@ -17,6 +17,11 @@ public class BatchFileService
     private readonly ChromatogramService _chromService;
     private readonly InstrumentStatusStore _status;
 
+    // LC-only phases (parallelizable)
+    private const int LC_PREP_SECONDS = 60;   // equilibration, injection
+    private const int LC_POST_SECONDS = 30;  // wash, re-equilibration
+
+
     public BatchFileService(
         ChromatogramService chromService,
         InstrumentStatusStore status)
@@ -90,6 +95,7 @@ public class BatchFileService
         if (string.IsNullOrWhiteSpace(batch.BatchName))
             throw new ArgumentException("BatchName cannot be empty");
 
+
         if (RunQueue.ContainsKey(batch.BatchName))
             return;
 
@@ -128,7 +134,6 @@ public class BatchFileService
     /* =========================
        Start Batch
        ========================= */
-
     public void StartBatch(string batchName)
     {
         if (!RunQueue.TryGetValue(batchName, out var run))
@@ -137,7 +142,9 @@ public class BatchFileService
         if (run.Status != BatchRunStatus.Queued)
             return;
 
+        // ✅ DESIGN ADDITION: batch start time
         run.Status = BatchRunStatus.Running;
+        run.StartTime = DateTime.UtcNow;
 
         var pending = new ConcurrentQueue<SampleExecutionInfo>(
             run.Samples
@@ -166,6 +173,8 @@ public class BatchFileService
                 await Task.Delay(200);
             }
 
+            // ✅ DESIGN ADDITION: batch end time
+            run.EndTime = DateTime.UtcNow;
             run.Status = BatchRunStatus.Completed;
 
             // ✅ Release chromatogram metadata only after batch fully ends
@@ -178,31 +187,35 @@ public class BatchFileService
        ========================= */
 
     private async Task RunLcWorker(
-        int lcId,
-        BatchRunInfo run,
-        ConcurrentQueue<SampleExecutionInfo> pending,
-        SemaphoreSlim msLock)
+    int lcId,
+    BatchRunInfo run,
+    ConcurrentQueue<SampleExecutionInfo> pending,
+    SemaphoreSlim msLock)
     {
         while (pending.TryDequeue(out var sample))
         {
             sample.AssignedLC = lcId;
-            sample.State = SampleExecutionState.WaitingForMS;
 
+            // ✅ LC PRE-PHASE (parallelizable)
+            sample.LcStartTime = DateTime.UtcNow;
+            sample.State = SampleExecutionState.LcPreparing;
             UpdateLcStatus(sample);
 
-            await msLock.WaitAsync();
+            await Task.Delay(TimeSpan.FromSeconds(LC_PREP_SECONDS));
 
+            // ✅ MS PHASE (serialized)
+            await msLock.WaitAsync();
             try
             {
-                sample.OwnsMS = true;
                 sample.State = SampleExecutionState.Acquiring;
+                sample.MsStartTime = DateTime.UtcNow;
 
                 _status.SetMsBusy(true, lcId);
                 _status.SetCurrentChrom(new ChromatogramStatus
                 {
                     BatchName = run.BatchName,
                     SampleName = sample.SampleName,
-                    StartTime = DateTime.UtcNow
+                    StartTime = sample.MsStartTime.Value
                 });
 
                 var chromatogram = _chromService.Load();
@@ -223,19 +236,23 @@ public class BatchFileService
                     );
                 }
 
-                sample.State = SampleExecutionState.Completed;
+                sample.MsEndTime = DateTime.UtcNow;
             }
             finally
             {
-                sample.OwnsMS = false;
                 _status.SetMsBusy(false, null);
-                UpdateLcStatus(sample);
-
-                // ❗ DO NOT clear CurrentChrom here
-                // UI still needs it during last points
-
                 msLock.Release();
             }
+
+            // ✅ LC POST-PHASE (parallelizable)
+            sample.State = SampleExecutionState.LcFinishing;
+            UpdateLcStatus(sample);
+
+            await Task.Delay(TimeSpan.FromSeconds(LC_POST_SECONDS));
+
+            sample.LcEndTime = DateTime.UtcNow;
+            sample.State = SampleExecutionState.Completed;
+            UpdateLcStatus(sample);
         }
     }
 
@@ -284,5 +301,47 @@ public class BatchFileService
             .Where(r => r.Status == BatchRunStatus.Running)
             .SelectMany(r => r.Samples)
             .FirstOrDefault(s => s.OwnsMS);
+    }
+
+    public BatchRunSummary? GetLatestBatchRunSummary()
+    {
+        var batch = RunQueue.Values
+            .Where(b => b.Status == BatchRunStatus.Completed)
+            .OrderByDescending(b => b.EndTime)
+            .FirstOrDefault();
+
+        if (batch == null)
+            return null;
+
+        // ✅ Actual wall-clock time with multiplexing
+        var multiplexedDuration = batch.EndTime - batch.StartTime;
+
+        // ✅ Sequential baseline (single LC, no overlap)
+        var sequentialDuration = TimeSpan.FromSeconds(
+            batch.Samples.Sum(s =>
+            {
+                var lcPrep = LC_PREP_SECONDS;
+                var lcPost = LC_POST_SECONDS;
+
+                var msTime =
+                    (s.MsStartTime.HasValue && s.MsEndTime.HasValue)
+                        ? (s.MsEndTime.Value - s.MsStartTime.Value).TotalSeconds
+                        : 0;
+
+                return lcPrep + msTime + lcPost;
+            })
+        );
+
+        return new BatchRunSummary
+        {
+            StartTime = batch.StartTime,
+            EndTime = batch.EndTime,
+            TotalSamples = batch.Samples.Count,
+            CompletedSamples = batch.Samples.Count(s => s.State == SampleExecutionState.Completed),
+            MultiplexedDuration = multiplexedDuration,
+            SequentialDuration = sequentialDuration,
+            ParallelChannelsUsed = batch.Samples.Select(s => s.AssignedLC).Distinct().Count(),
+            ExecutionMode = "Multiplex LC–MS"
+        };
     }
 }

@@ -129,4 +129,25 @@ public class BatchController : ControllerBase
             );
         }
     }
+    // ✅ GET /api/batch/summary
+    [HttpGet("summary")]
+    public IActionResult GetBatchRunSummary()
+    {
+        try
+        {
+            var summary = _batchService.GetLatestBatchRunSummary();
+
+            if (summary == null)
+                return NotFound("No completed batch run found.");
+
+            return Ok(summary);
+        }
+        catch (Exception ex)
+        {
+            return Problem(
+                title: "Failed to compute batch run summary",
+                detail: ex.Message
+            );
+        }
+    }
 }

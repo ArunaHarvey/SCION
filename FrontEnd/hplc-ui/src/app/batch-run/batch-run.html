@@ -175,6 +175,41 @@
       </svg>
     </div>
 
+    <div *ngIf="batchSummary" class="panel summary-panel">
+
+  <h3>Batch Run Summary</h3>
+
+  <div><b>Batch:</b> {{ selectedRun?.batchName }}</div>
+
+  <div><b>Start:</b>
+    {{ batchSummary.startTime | date:'short' }}
+  </div>
+
+  <div><b>End:</b>
+    {{ batchSummary.endTime | date:'short' }}
+  </div>
+
+  <hr />
+
+  <div><b>Sequential Time:</b>
+    {{ batchSummary.sequentialDuration }}
+  </div>
+
+  <div><b>Parallel Time:</b>
+    {{ batchSummary.multiplexedDuration }}
+  </div>
+
+  <div><b>Time Saved:</b>
+    {{ batchSummary.timeSaved }}
+  </div>
+
+  <div><b>Improvement:</b>
+    {{ batchSummary.percentImprovement | number:'1.0-2' }}%
+  </div>
+
+</div>
+
+
   </div>
 
 </div>

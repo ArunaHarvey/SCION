@@ -5,6 +5,13 @@ public class SampleExecutionInfo
     public string SampleName { get; set; } = "";
     public string MethodId { get; set; } = "";
 
+    public DateTime? StartTime { get; set; }
+    public DateTime? EndTime { get; set; }
+    public DateTime? LcStartTime { get; set; }
+    public DateTime? MsStartTime { get; set; }
+    public DateTime? MsEndTime { get; set; }
+    public DateTime? LcEndTime { get; set; }
+
     // Execution state
     public SampleExecutionState State { get; set; } = SampleExecutionState.Queued;
 

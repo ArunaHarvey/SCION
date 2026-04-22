@@ -1,12 +1,18 @@
-﻿namespace Hplc.Controller.Api.Models;
-
-public enum SampleExecutionState
+﻿public enum SampleExecutionState
 {
+    // Initial state
     Queued,
-    Preparing,
-    WaitingForMS,
-    Injecting,
-    Acquiring,
-    Completed,
-    Failed
+
+    // LC-only phases (parallelizable)
+    LcPreparing,     // equilibration, injection, gradient setup
+    WaitingForMS,    // LC ready, waiting to acquire MS
+
+    // MS phase (serialized)
+    Acquiring,       // MS acquisition in progress
+
+    // LC-only post phase
+    LcFinishing,     // column wash, re-equilibration
+
+    // Final state
+    Completed
 }
